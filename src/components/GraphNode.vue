@@ -16,15 +16,25 @@
       @click='selectNode'
       id="unactive"
       :indexval='indexNo'
+      ref='node'
     />
+
+    <foreignObject :x='centreX/2' :y='centreY/1.5' :width='radiusX' :height='radiusY'>
+      <div xmlns="http://www.w3.org/1999/xhtml">
+      <input>
+          </div>
+  </foreignObject>
+    <!-- <input type='text'> -->
     <text
+    contenteditable='true'
       class='c-graph-node__label'
       :x='textX'
       :y='textY'
       dominant-baseline='middle'
       text-anchor='middle'
+      @click='drawEdge'
     >
-      <tspan>{{ label }}</tspan>
+      <!-- {{ label}} -->
     </text>
   </g>
 </template>
@@ -147,7 +157,7 @@ export default {
 
       const { x, y } = event.page
 
-      // difference of start vs end?
+      // difference of start vs end
       this.displacement = {
         x: x - x0,
         y: y - y0
@@ -171,6 +181,11 @@ export default {
     selectNode (event) {
       // emit select event and pass the selected node
       this.$emit('select-node', event)
+    },
+
+    drawEdge (event) {
+      var node = this.$refs.node
+      this.$emit('draw-edge', event, node)
     }
   }
 }
@@ -186,8 +201,7 @@ export default {
   /* stroke: #336; */
 }
 
-.c-graph-node__label {
-  fill: black;
-  stroke: black;
-}
+/* .c-graph-node__label {
+
+} */
 </style>
