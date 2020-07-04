@@ -18,22 +18,29 @@
       >
         <!-- <bin-rect @delete-node='deleteNodeHandler'></bin-rect> -->
         <!--key bindings are for v-for, they are random and unique-->
+        <g
+        ref='nodeAndEdgeGroup'
+        >
         <graph-node
           class="node"
           v-for='node in nodes'
           :nodeData='node'
           :key='node.id'
-          @move='onMove'
+          @move='onNodeMove'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
           :indexNo='node.id'
+          ref='node'
         />
+        <!-- the edge location moves with the fromNode and toNode bindings -->
         <graph-edge
           v-for='edge in edges'
           :fromNode='edge.fromNode'
           :toNode='edge.toNode'
           :key='`edge-${edge.fromNode.id}-${edge.toNode.id}`'
+          :deleteEdgeBool='edge.delete'
         />
+        </g>
       </svg>
     </main>
     <footer>
@@ -43,13 +50,16 @@
 </template>
 
 <script>
+// import util from 'util'
+
 // smart node that handles all of the data and event handlers
+
+// import interact from 'interactjs'
 
 // import svg elements as vue components
 import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
-// import binRect from './binRect'
 
 export default {
   name: 'graph-container',
@@ -57,7 +67,6 @@ export default {
     GraphNode,
     GraphEdge,
     buttonPal
-    // binRect
   },
 
   // this is the info put into the g group of each node for the x and y position of the whole
@@ -80,11 +89,16 @@ export default {
     // but an easier way would be to put the two nodes into one object or array and access them using
     // it as a namespace
     // this way edges will be more accessible as singular entities
-    edges: [], // fill with {fromNode and toNodes} objects
+    edges: [
+
+    ], // fill with {fromNode and toNodes} objects
+
     message: 'no action',
-    selectedNodes: [],
-    edgeSelectNodes: [],
-    idCount: 0
+    idCount: 0,
+    dragDisplacement: {
+      x: 0,
+      y: 0
+    }
   }),
 
   computed: {
@@ -101,26 +115,28 @@ export default {
 
     this.idCount = this.nodes.length
 
+    this.edges.push(
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false },
+      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false }
+    )
+
     // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
     // and each object has its name depending on what it is. fromNode. toNode.
-
-    this.nodes[0].toNodes = [1]
-    this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1] },
-      { fromNode: this.nodes[0], toNode: this.nodes[2] }
-    )
   },
 
   methods: {
+
     // triggered on graph-node move
-    onMove ({ x, y, id }) {
+    onNodeMove ({ x, y, id }) {
       // this is getting a node by the index
       // meaning the index has to be the same as the id
       // const node = this.nodes[id]
       console.log('move ' + id + ' to ' + x + ' ' + y)
 
+      // assign end position of node after drag
       this.nodes[id].x = x
       this.nodes[id].y = y
+
       // adds updatedNode var to data()
       // const updatedNode = Object.assign({}, node, { x, y })
       // const updateNode = Object.assign({}, node, { x: x, y: y })
@@ -135,20 +151,20 @@ export default {
       // }
     },
 
-    updateAffectedEdges (node) {
-      // this is to move the edge around with nodes
-      // when one of the paired nodes is dragged then
-      // the edge will move too and reconnect to it
-      for (const edge of this.edges) {
-        if (edge.fromNode.id === node.id) {
-          // sets edge.fromNode in edges to node
-          // adds this value to node since node doesn't come with a 'fromNode' property
-          this.$set(edge, 'fromNode', node)
-        } else if (edge.toNode.id === node.id) {
-          this.$set(edge, 'toNode', node)
-        }
-      }
-    },
+    // updateAffectedEdges (node) {
+    //   // this is to move the edge around with nodes
+    //   // when one of the paired nodes is dragged then
+    //   // the edge will move too and reconnect to it
+    //   for (const edge of this.edges) {
+    //     if (edge.fromNode.id === node.id) {
+    //       // sets edge.fromNode in edges to node
+    //       // adds this value to node since node doesn't come with a 'fromNode' property
+    //       this.$set(edge, 'fromNode', node)
+    //     } else if (edge.toNode.id === node.id) {
+    //       this.$set(edge, 'toNode', node)
+    //     }
+    //   }
+    // },
 
     addNodeHandler () {
     // make a new node
@@ -175,6 +191,27 @@ export default {
       // recompute ids to match indexes
       // this.idCompute(target.id)
       // need to check what the ids have changed to?
+
+      this.deleteAttachedEdges(result)
+    },
+
+    deleteAttachedEdges (deletedNodes) {
+      // delete edges attached to deleted nodes
+      var x = 0
+      var a = 0
+      for (x in this.edges) {
+        for (a in deletedNodes) {
+          if (this.edges[x].fromNode === deletedNodes[a] || this.edges[x].toNode === deletedNodes[a]) {
+            this.edges[x].delete = true
+          }
+        }
+      }
+
+      var newEdges = this.edges.filter(function (edge) {
+        return edge.delete === false
+      })
+
+      this.edges = newEdges
     },
 
     idCompute (removedNodes) {
@@ -228,7 +265,7 @@ export default {
       // not working
       // console.log(event.currentTarget)
       // connect an edge from this node to the next node... use selected array?
-      this.edgeSelectNodes.push(node)
+      // this.edgeSelectNodes.push(node)
     }
 
   }

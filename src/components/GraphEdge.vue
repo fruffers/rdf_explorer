@@ -35,25 +35,17 @@
 </template>
 
 <script>
+// import interact from 'interactjs'
 export default {
   name: 'graph-edge',
 
   // fromnode and tonode are props which are passed down to the child from the parent
   // these props are both node objects
-
-  // currently we seem to be only able to draw 1 line?
   props: {
-    // fromNode: {
-    //   type: Object,
-    //   required: true
-    // },
-
-    // toNode: {
-    //   type: Object,
-    //   required: true
-    // }
     fromNode: Object,
-    toNode: Object
+    toNode: Object,
+    dragNode: Object,
+    deleteEdgeBool: Boolean
     // label: Text
 
   },
@@ -72,25 +64,56 @@ export default {
   // need to return multiple edges fromnode to all the tonodes
   // could just draw multiple edges? there's no need for a toNodes only a tonode
   computed: {
-    startX () {
-      return this.fromNode.x + this.fromNode.w
+    startX: {
+      get: function () {
+        return this.fromNode.x + this.fromNode.w
       // return this.closestHandlePair.closestPair.fromHandle.x
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
-    startY () {
-      return this.fromNode.y + this.fromNode.h
+    startY: {
+      get: function () {
+        return this.fromNode.y + this.fromNode.h
       // return this.closestHandlePair.closestPair.fromHandle.y
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
-    endX () {
-      return this.toNode.x + this.toNode.w
+    endX: {
+      get: function () {
+        return this.toNode.x + this.toNode.w
       // return this.closestHandlePair.closestPair.toHandle.x
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
-    endY () {
-      return this.toNode.y + this.toNode.h
+    endY: {
+      get: function () {
+        return this.toNode.y + this.toNode.h
       // return this.closestHandlePair.closestPair.toHandle.y
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     }
+
+    // location () {
+    // }
 
   },
 
@@ -141,6 +164,14 @@ export default {
   // fire the functions when these variables change
   watch: {
 
+    deleteEdgeBool: {
+      handler: function (value) {
+        if (value === true) {
+          this.deleteEdge()
+        }
+      }
+    },
+
     // these are the functions that automatically fill fromNodePoints etc.
     // fromNodePoints is filled with handle details of the node passed in as param
 
@@ -152,9 +183,9 @@ export default {
       handler: function (node) {
         // nodePoints determines the handle the line is attached to
         // this.fromNodePoints = this.nodePoints(node)
+
         this.distance(node.x, node.x, node.y, node.y)
       },
-      // ?
       immediate: true
     },
 
@@ -164,10 +195,60 @@ export default {
         // this.toNodePoints = this.nodePoints(node)
       },
       immediate: true
+    },
+
+    dragDisplacement: {
+      computeDrag: function (displacement) {
+        // d = distance
+
+        // displacement of start point
+        var startdx = displacement.x - this.startX
+        var startdy = displacement.y - this.startY
+        var startd = Math.sqrt(startdx * startdx + startdy * startdy)
+
+        // displacement of end point
+        var enddx = displacement.x - this.endX
+        var enddy = displacement.y - this.endY
+        var endd = Math.sqrt(enddx * enddx + enddy * enddy)
+
+        // add the distances to the current values
+
+        // emit the distances data to the parent container
+        // so it can reactively add distances to the current location values through props
+        this.edgeDragDisplacementHandler(startd, endd)
+        // this.$emit('edgeDragDisplacementComputed', startd, endd)
+      }
     }
   },
 
   methods: {
+
+    deleteEdge () {
+      console.log('delete edge')
+      this.startX = 0
+      this.startY = 0
+      this.endX = 0
+      this.endY = 0
+    },
+
+    edgeDragDisplacementHandler (startDistance, endDistance) {
+      // add changes to current x y
+      this.startX += startDistance
+      this.startY += startDistance
+      this.endX += endDistance
+      this.endY += endDistance
+
+      // reset the displacement
+      this.resetDisplacement()
+    },
+
+    resetDisplacement () {
+      this.displacement = {
+        x: 0,
+        y: 0
+      }
+    },
+
     // here we calculate the handles around the edges of the node so we can attach lines to those
     // handles
     nodePoints (node) {

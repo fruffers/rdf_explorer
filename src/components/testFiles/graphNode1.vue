@@ -61,9 +61,6 @@ export default {
   }),
 
   computed: {
-    // this controls the location for g group
-    // so a transform is applied to the initial node location
-    // moves the node
     svgLocation () {
       // only need x and y since this is moving the location
       const x = this.nodeData.x + this.displacement.x
@@ -78,7 +75,10 @@ export default {
     // cx === rx
     // cy === ry
 
-    // centre values control where centre of node is
+    // values are the same so that the node doesn't change shape when it is being moved
+    // since all that needs to be changed is x and y and not the radius because the shape
+    // will not change, only move
+
     centreX () {
       return this.nodeData.w
     },
@@ -87,7 +87,6 @@ export default {
       return this.nodeData.h
     },
 
-    // radius values control the size of the node (and thus never change)
     radiusX () {
       return this.nodeData.w
     },
@@ -128,6 +127,7 @@ export default {
         // listeners that wait for interactjs
         // event to trigger
         listeners: {
+          // objects
           move: this.onElementMove,
           end: this.onElementMoveEnd
         }
@@ -153,7 +153,7 @@ export default {
 
       // page x and y coordinates of starting event
       const { x0, y0 } = event
-      // end of mouse move
+
       const { x, y } = event.page
 
       // difference of start vs end
