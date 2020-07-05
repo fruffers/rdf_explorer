@@ -7,7 +7,12 @@
     </header>
     <main>
       node id num: {{this.nodes}}
-      <button-pal @add-node='addNodeHandler' @delete-node='deleteNodeHandler' style='z-index: -100'></button-pal>
+      <button-pal
+      @add-node='addNodeHandler'
+      @delete-node='deleteNodeHandler'
+      @clear-canvas='clearCanvasHandler'
+      style='z-index: -100'>
+      </button-pal>
       <!--encase in svg tag-->
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -172,7 +177,6 @@ export default {
       var newnode = { id: this.idCount++, x: 100, y: 100, w: 100, h: 50, label: 'gandalf', active: 'f', toNodes: [] }
       this.nodes.push(newnode)
       console.log(this.nodes)
-      // this.message = 'test'
     },
 
     deleteNodeHandler () {
@@ -189,10 +193,14 @@ export default {
       this.idCompute(activeNodes)
       this.nodes = result
       // recompute ids to match indexes
-      // this.idCompute(target.id)
-      // need to check what the ids have changed to?
 
       this.deleteAttachedEdges(result)
+    },
+
+    clearCanvasHandler () {
+      this.nodes = []
+      this.edges = []
+      this.idCount = 0
     },
 
     deleteAttachedEdges (deletedNodes) {

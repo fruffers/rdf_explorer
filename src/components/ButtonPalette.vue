@@ -1,7 +1,8 @@
 <template>
     <div>
-        <button ref="add" @click='addNodeEmit'>add node</button>
-        <button ref="delete" @click='deleteNodeEmit'>bin nodes</button>
+        <button ref="add" @click='addNodeEmit'>Add node</button>
+        <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
+        <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
 
     </div>
 </template>
@@ -18,6 +19,10 @@ export default {
 
     deleteNodeEmit () {
       this.$emit('delete-node')
+    },
+
+    clearCanvasEmit () {
+      this.$emit('clear-canvas')
     }
 
   }
