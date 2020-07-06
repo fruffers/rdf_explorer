@@ -45,9 +45,7 @@ export default {
     fromNode: Object,
     toNode: Object,
     dragNode: Object,
-    deleteEdgeBool: Boolean,
-    dragDisplacement: Object,
-    dragMoveEdges: Array
+    deleteEdgeBool: Boolean
     // label: Text
 
   },
@@ -68,7 +66,6 @@ export default {
   computed: {
     startX: {
       get: function () {
-        // console.log('test ' + this.fromNode)
         return this.fromNode.x + this.fromNode.w
       // return this.closestHandlePair.closestPair.fromHandle.x
       },
@@ -173,21 +170,7 @@ export default {
           this.deleteEdge()
         }
       }
-    }
-
-    // dragDisplacement: {
-    //   handler: function (value) {
-    //     // add displacement to edge
-    //     this.startX += this.displacement.x
-    //     this.startY += this.displacement.y
-    //   }
-    // }
-
-    // dragMoveEdges: {
-    //   handler: function (value) {
-
-    //   }
-    // }
+    },
 
     // these are the functions that automatically fill fromNodePoints etc.
     // fromNodePoints is filled with handle details of the node passed in as param
@@ -215,28 +198,28 @@ export default {
     //   immediate: true
     // },
 
-    // dragDisplacement: {
-    //   computeDrag: function (displacement) {
-    //     // d = distance
+    dragDisplacement: {
+      computeDrag: function (displacement) {
+        // d = distance
 
-    //     // displacement of start point
-    //     var startdx = displacement.x - this.startX
-    //     var startdy = displacement.y - this.startY
-    //     var startd = Math.sqrt(startdx * startdx + startdy * startdy)
+        // displacement of start point
+        var startdx = displacement.x - this.startX
+        var startdy = displacement.y - this.startY
+        var startd = Math.sqrt(startdx * startdx + startdy * startdy)
 
-    //     // displacement of end point
-    //     var enddx = displacement.x - this.endX
-    //     var enddy = displacement.y - this.endY
-    //     var endd = Math.sqrt(enddx * enddx + enddy * enddy)
+        // displacement of end point
+        var enddx = displacement.x - this.endX
+        var enddy = displacement.y - this.endY
+        var endd = Math.sqrt(enddx * enddx + enddy * enddy)
 
-    //     // add the distances to the current values
+        // add the distances to the current values
 
-    //     // emit the distances data to the parent container
-    //     // so it can reactively add distances to the current location values through props
-    //     this.edgeDragDisplacementHandler(startd, endd)
-    //     // this.$emit('edgeDragDisplacementComputed', startd, endd)
-    //   }
-    // }
+        // emit the distances data to the parent container
+        // so it can reactively add distances to the current location values through props
+        this.edgeDragDisplacementHandler(startd, endd)
+        // this.$emit('edgeDragDisplacementComputed', startd, endd)
+      }
+    }
   },
 
   methods: {
@@ -249,16 +232,16 @@ export default {
       this.endY = 0
     },
 
-    // edgeDragDisplacementHandler (startDistance, endDistance) {
-    //   // add changes to current x y
-    //   this.startX += startDistance
-    //   this.startY += startDistance
-    //   this.endX += endDistance
-    //   this.endY += endDistance
+    edgeDragDisplacementHandler (startDistance, endDistance) {
+      // add changes to current x y
+      this.startX += startDistance
+      this.startY += startDistance
+      this.endX += endDistance
+      this.endY += endDistance
 
-    //   // reset the displacement
-    //   this.resetDisplacement()
-    // },
+      // reset the displacement
+      this.resetDisplacement()
+    },
 
     resetDisplacement () {
       this.displacement = {
@@ -302,17 +285,17 @@ export default {
           // { x: node.x, y: node.y + node.h } // west
         ]
       }
-    }
+    },
 
-    // distance (fromx, fromy, tox, toy) {
-    //   // need to pass in both nodes
-    //   console.log(fromx, fromy, tox, toy)
-    //   var dx = parseFloat(fromx - tox)
-    //   var dy = parseFloat(fromy - toy)
-    //   var distance = Math.sqrt(dx * dx + dy * dy)
-    //   console.log('distance' + fromx)
-    //   return distance
-    // }
+    distance (fromx, fromy, tox, toy) {
+      // need to pass in both nodes
+      console.log(fromx, fromy, tox, toy)
+      var dx = parseFloat(fromx - tox)
+      var dy = parseFloat(fromy - toy)
+      var distance = Math.sqrt(dx * dx + dy * dy)
+      console.log('distance' + fromx)
+      return distance
+    }
 
     // this determines the length of the edge
     /* Pythagorean distance between two points */

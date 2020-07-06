@@ -6,7 +6,7 @@
       </nav>
     </header>
     <main>
-      node id num: {{this.edges}}
+      node id num: {{this.nodes}}
       <button-pal
       @add-node='addNodeHandler'
       @delete-node='deleteNodeHandler'
@@ -34,7 +34,6 @@
           @move='onNodeMove'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
-          @drag-displacement-pass='dragDisplacementHandler'
           :indexNo='node.id'
           ref='node'
         />
@@ -45,8 +44,6 @@
           :toNode='edge.toNode'
           :key='`edge-${edge.fromNode.id}-${edge.toNode.id}`'
           :deleteEdgeBool='edge.delete'
-
-          :dragDisplacement='dragDisplacement'
         />
         </g>
       </svg>
@@ -83,7 +80,7 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 100, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2] },
+      { id: 0, x: 200, y: 100, w: 100, h: 50, label: 'frodo', active: 'f', toNodes: [] },
       { id: 1, x: 450, y: 400, w: 100, h: 50, label: 'sam', active: 'f', toNodes: [] },
       { id: 2, x: 600, y: 600, w: 100, h: 50, label: 'strider', active: 'f', toNodes: [] }
     ],
@@ -106,50 +103,15 @@ export default {
     dragDisplacement: {
       x: 0,
       y: 0
-    },
-
-    drawEdgeFrom: {},
-    stage: '',
-    edgesDragMove: [] // temp store of locations used during drag moving
+    }
   }),
 
   computed: {
-    // compute displacement on drag to be reactive to both nodes and edges
-    // need to pass the affected node and edges..... so that only those update
-    // pass the affected node
-    // work out all the edges attached to that node
-    // pass the affected edges
 
   },
 
   watch: {
     // watch can't detect property addition or deletion, only other changes
-
-    // displacement () {
-    //   // update nodes and edges to add displacement values to select nodes
-
-    // }
-
-    // .................. this produces an error with #2 bin nodes. Return to it later?
-    // nodes: {
-    //   handler: function () {
-    //     // allow new nodes to be connected to by entering their indexes in nodes.toNodes
-    //     var newEdges = this.edges || []
-    //     var x = 0
-    //     var b = 0
-    //     for (x in this.nodes) {
-    //       if (this.nodes[x].toNodes) {
-    //         for (b in this.nodes[x].toNodes) {
-    //           newEdges.push({ fromNode: this.nodes[x], toNode: this.nodes[this.nodes[x].toNodes[b]] })
-    //           // newEdges[this.nodes[x].toNodes] = { fromNode: this.nodes[x], toNode: this.nodes[x].toNodes[b], delete: false, dragDisplacement: {} }
-    //         }
-    //       }
-    //     }
-    //     this.edges = newEdges
-    //   },
-    //   immediate: true
-
-    // }
 
   },
 
@@ -159,8 +121,8 @@ export default {
     this.idCount = this.nodes.length
 
     this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, dragDisplacement: {}, dragType: '' },
-      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, dragDisplacemen: {}, dragType: '' }
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false },
+      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false }
     )
 
     // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
@@ -169,29 +131,7 @@ export default {
 
   methods: {
 
-    dragDisplacementHandler (displacement) {
-      this.dragDisplacement = displacement
-
-      // need to move only the edge and not the node attached therefore use a seperate
-      // data storage?
-      // this.edges[0].fromNode.x += 10
-      // this.edges[0].fromNode.x += 10
-      // this.edges[0].fromNodde.y += 10
-      // this.nodes[2].x += 10
-      // this.nodes[2].y += 10
-      // update all displacement dependencies (x,y positions of edge and node)
-
-      // get edges attached to node
-    },
-
-    resetDisplacement () {
-      this.displacement = {
-        x: 0,
-        y: 0
-      }
-    },
-
-    // triggered on graphNode move
+    // triggered on graph-node move
     onNodeMove ({ x, y, id }) {
       // this is getting a node by the index
       // meaning the index has to be the same as the id
@@ -201,8 +141,6 @@ export default {
       // assign end position of node after drag
       this.nodes[id].x = x
       this.nodes[id].y = y
-
-      this.resetDisplacement()
 
       // adds updatedNode var to data()
       // const updatedNode = Object.assign({}, node, { x, y })
@@ -256,7 +194,7 @@ export default {
       this.nodes = result
       // recompute ids to match indexes
 
-      this.deleteAttachedEdges(activeNodes)
+      this.deleteAttachedEdges(result)
     },
 
     clearCanvasHandler () {
@@ -329,66 +267,13 @@ export default {
       // nodes at once
     },
 
-    drawEdgeHandler (node, stage) {
-      // problem: there can be duplicate edges which create duplicate key problem
-
-      // if tracker is empty
-      if (Object.keys(this.drawEdgeFrom).length === 0) {
-        console.log('dragEdgefrom is undefiend')
-        this.drawEdgeFrom = node
-      } else if (node !== this.drawEdgeFrom) {
-        // draw an edge to this new node
-        this.edges.push({ fromNode: this.drawEdgeFrom, toNode: node })
-
-        // empty the store to get a new fromNode
-        this.drawEdgeFrom = {}
-      }
-    },
-
-    dragAlongHandler (node, displacement) {
-      // create a store for affected node points
-      var nodePoints = { fromNode: {}, toNodes: [], origin: '', indexes: [] }
-
-      // check if dragged node is attached to any edges
-      var x = 0
-      var b = 0
-      for (x in this.edges) {
-        if (node === this.edges[x].fromNode) {
-          // only one fromNode
-          nodePoints.fromNode = this.edges[x].fromNode
-          nodePoints.origin = 'from'
-          // there may be multiple toNodes
-          for (b in this.edges) {
-            if (this.edges[b].fromNode === node) {
-              // get the toNode attached to each matching fromNode found
-              nodePoints.toNodes += this.edges[b].toNode
-
-              // change the startx and starty of each node
-              this.edges[b].toNode.x += displacement.x
-              this.edges[b].toNode.y += displacement.y
-            }
-          }
-        } else if (node === this.edges[x].toNode) {
-          // there will only be one matching fromNode
-          nodePoints.fromNode = this.edges[x].fromNode
-          nodePoints.origin = 'to'
-
-          this.edges[x].fromNode.x += displacement.x
-          this.edges[x].fromNode.y += displacement.y
-        }
-      }
-
-      // apply displacement to every node in store
-
-      // if origin is 'from' then change startx and starty of every edge attached to a toNode
-
-      // if origin is 'to' then change endx and endy of origin node
-
-      // different if we are dragging a fromNode
-
-      console.log('drag')
-
-      // console.log('fromnode ' + this.edges[0].fromNode)
+    drawEdgeHandler (event, node) {
+      // if node text has been clicked then draw edge to the next one that is cicked
+      console.log('clicked text')
+      // not working
+      // console.log(event.currentTarget)
+      // connect an edge from this node to the next node... use selected array?
+      // this.edgeSelectNodes.push(node)
     }
 
   }

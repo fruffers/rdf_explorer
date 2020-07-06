@@ -5,7 +5,10 @@
     class='c-svg-g'
   >
   <!--drawing an ellipse with binded values-->
-  <!-- <test-child></test-child> -->
+  <graph-edge
+
+  ></graph-edge>
+  <test-child></test-child>
     <ellipse
       :cx='centreX'
       :cy='centreY'
@@ -15,7 +18,6 @@
       stroke-width= '2'
       stroke= 'black'
       @click='selectNode'
-      @dblclick='drawEdge'
       id="unactive"
       :indexval='indexNo'
       ref='node'
@@ -26,7 +28,7 @@
       <input :value='label'>
           </div>
   </foreignObject>
-
+    <!-- <input type='text'> -->
     <text
     contenteditable='true'
       class='c-graph-node__label'
@@ -43,13 +45,16 @@
 
 <script>
 import interact from 'interactjs'
-// import testChild from './testDragChild.vue'
+
+import graphEdge from './GraphEdge'
+import testChild from './testDragChild.vue'
 
 export default {
   name: 'graph-node',
 
   components: {
-    // testChild
+    testChild,
+    graphEdge
   },
 
   props: {
@@ -64,16 +69,17 @@ export default {
     displacement: {
       x: 0,
       y: 0
-    }
+    },
+    linePos: [
+      { x: 0, y: 0 }
+    ]
   }),
 
   computed: {
+
     // this controls the location for g group
     // so a transform is applied to the initial node location
     // moves the node
-
-    // due to being computed this will automatically detect changes in any of the dependencies inside
-    // so when the node is dragged and displacement is updated then this will fire again
     svgLocation () {
       // only need x and y since this is moving the location
       const x = this.nodeData.x + this.displacement.x
@@ -161,46 +167,29 @@ export default {
       // to interactEvent
       // this is picking them out of the event
 
-      // all of this is calculated during the drag
-      // so reactive elements must be attached to these values
-      // otherwise they will only move at the end
-
-      // hook edge up in here to be reactive
-
       // page x and y coordinates of starting event
       const { x0, y0 } = event
       // end of mouse move
       const { x, y } = event.page
 
-      // console.log('checking displacement ' + this.displacement.x)
-
       // difference of start vs end
       // displacement is reactive data
-
-      // local drag changes that are not permament due to no link to parent datastore
       this.displacement = {
         x: x - x0,
         y: y - y0
       }
 
-      this.$emit('drag-displacement-pass', {
-        displacement: {
-          x: x - x0,
-          y: y - y0
-        }
-      })
-
-      // console.log('nodeData x ', this.nodeData.x, 'displacement ', this.displacement)
-
-      // this.$emit('drag-node', this.nodeData, this.displacement)
+      console.log('innerdrag')
+      // emit displacement so the edge component can access it and be alerted on drags
+      this.$emit('drag-along')
+      // this.linex[0].x += 10
+      // console.log('linelocation ', this.linex[0].x)
     },
 
     onElementMoveEnd (event) {
       // emits a new event 'move'
       // event for parent to handle
       // also passes object of xy,id with it
-
-      // place the node on the canvas permamently by changing the parent node's datastore
       this.$emit('move',
         {
           x: this.nodeData.x + this.displacement.x,
@@ -208,10 +197,7 @@ export default {
           id: this.nodeData.id
         })
 
-      console.log('svglocation ' + this.svgLocation)
-      // reset displacement after node has moved into new position
       this.resetDisplacement()
-      console.log('svglocation after reset ' + this.svgLocation)
     },
 
     selectNode (event) {
@@ -220,9 +206,8 @@ export default {
     },
 
     drawEdge (event) {
-      var node = this.nodeData
-      var stage = 'select'
-      this.$emit('draw-edge', node, stage)
+      var node = this.$refs.node
+      this.$emit('draw-edge', event, node)
     }
   }
 }
