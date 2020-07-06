@@ -334,11 +334,20 @@ export default {
 
       // if tracker is empty
       if (Object.keys(this.drawEdgeFrom).length === 0) {
-        console.log('dragEdgefrom is undefiend')
         this.drawEdgeFrom = node
       } else if (node !== this.drawEdgeFrom) {
+        // set up new edge to push
+        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node }
+
+        // check if edge already exists
+        var x = 0
+        for (x in this.edges) {
+          if (this.edges[x] === newEdge) {
+            return
+          }
+        }
         // draw an edge to this new node
-        this.edges.push({ fromNode: this.drawEdgeFrom, toNode: node })
+        this.edges.push(newEdge)
 
         // empty the store to get a new fromNode
         this.drawEdgeFrom = {}
