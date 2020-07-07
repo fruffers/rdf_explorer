@@ -16,7 +16,7 @@
       stroke= 'black'
       @click='selectNode'
       @dblclick='drawEdge'
-      id="unactive"
+      id='unactive'
       :indexval='indexNo'
       ref='node'
     />
@@ -24,6 +24,11 @@
     <rect
     :width='rectActive.w'
     :height='rectActive.h'
+    @click='selectNode'
+    @dblclick='drawEdge'
+    :indexval='indexNo'
+    ref='node'
+    id='unactive'
     style='fill: lightblue; stroke-width: 2px; stroke: black;'
     />
 

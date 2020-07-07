@@ -300,12 +300,9 @@ export default {
     },
 
     selectNodeHandler (event) {
-      // highlight selected node with a cyan outline
-      // give the node an activated class or ref etc. so it can be
-      // identified by special buttons
-      // console.log(event.target)
+      // highlight with cyan outline and give target an active property
 
-      // change indexval to id val since it's not the same as the index
+      console.log('select')
 
       var index = event.target.getAttribute('indexval')
 
