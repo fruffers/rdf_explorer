@@ -83,9 +83,9 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 100, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2] },
-      { id: 1, x: 450, y: 400, w: 100, h: 50, label: 'sam', active: 'f', toNodes: [] },
-      { id: 2, x: 600, y: 600, w: 100, h: 50, label: 'strider', active: 'f', toNodes: [] }
+      { id: 0, x: 200, y: 100, w: 100, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object' },
+      { id: 1, x: 450, y: 400, w: 60, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject' },
+      { id: 2, x: 600, y: 600, w: 60, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject' }
     ],
 
     // idCount: this.idCompute,
@@ -159,8 +159,8 @@ export default {
     this.idCount = this.nodes.length
 
     this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, dragDisplacement: {}, dragType: '' },
-      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, dragDisplacemen: {}, dragType: '' }
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false },
+      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false }
     )
 
     // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
@@ -236,7 +236,7 @@ export default {
     addNodeHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 100, h: 50, label: 'gandalf', active: 'f', toNodes: [] }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 60, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject' }
       this.nodes.push(newnode)
       console.log(this.nodes)
     },
@@ -352,53 +352,55 @@ export default {
         // empty the store to get a new fromNode
         this.drawEdgeFrom = {}
       }
-    },
-
-    dragAlongHandler (node, displacement) {
-      // create a store for affected node points
-      var nodePoints = { fromNode: {}, toNodes: [], origin: '', indexes: [] }
-
-      // check if dragged node is attached to any edges
-      var x = 0
-      var b = 0
-      for (x in this.edges) {
-        if (node === this.edges[x].fromNode) {
-          // only one fromNode
-          nodePoints.fromNode = this.edges[x].fromNode
-          nodePoints.origin = 'from'
-          // there may be multiple toNodes
-          for (b in this.edges) {
-            if (this.edges[b].fromNode === node) {
-              // get the toNode attached to each matching fromNode found
-              nodePoints.toNodes += this.edges[b].toNode
-
-              // change the startx and starty of each node
-              this.edges[b].toNode.x += displacement.x
-              this.edges[b].toNode.y += displacement.y
-            }
-          }
-        } else if (node === this.edges[x].toNode) {
-          // there will only be one matching fromNode
-          nodePoints.fromNode = this.edges[x].fromNode
-          nodePoints.origin = 'to'
-
-          this.edges[x].fromNode.x += displacement.x
-          this.edges[x].fromNode.y += displacement.y
-        }
-      }
-
-      // apply displacement to every node in store
-
-      // if origin is 'from' then change startx and starty of every edge attached to a toNode
-
-      // if origin is 'to' then change endx and endy of origin node
-
-      // different if we are dragging a fromNode
-
-      console.log('drag')
-
-      // console.log('fromnode ' + this.edges[0].fromNode)
     }
+
+    //   dragAlongHandler (node, displacement) {
+    //     // create a store for affected node points
+    //     var nodePoints = { fromNode: {}, toNodes: [], origin: '', indexes: [] }
+
+    //     // check if dragged node is attached to any edges
+    //     var x = 0
+    //     var b = 0
+    //     for (x in this.edges) {
+    //       if (node === this.edges[x].fromNode) {
+    //         // only one fromNode
+    //         nodePoints.fromNode = this.edges[x].fromNode
+    //         nodePoints.origin = 'from'
+    //         // there may be multiple toNodes
+    //         for (b in this.edges) {
+    //           if (this.edges[b].fromNode === node) {
+    //             // get the toNode attached to each matching fromNode found
+    //             nodePoints.toNodes += this.edges[b].toNode
+
+    //             // change the startx and starty of each node
+    //             this.edges[b].toNode.x += displacement.x
+    //             this.edges[b].toNode.y += displacement.y
+    //           }
+    //         }
+    //       } else if (node === this.edges[x].toNode) {
+    //         // there will only be one matching fromNode
+    //         nodePoints.fromNode = this.edges[x].fromNode
+    //         nodePoints.origin = 'to'
+
+    //         this.edges[x].fromNode.x += displacement.x
+    //         this.edges[x].fromNode.y += displacement.y
+    //       }
+    //     }
+
+    //     // apply displacement to every node in store
+
+    //     // if origin is 'from' then change startx and starty of every edge attached to a toNode
+
+    //     // if origin is 'to' then change endx and endy of origin node
+
+    //     // different if we are dragging a fromNode
+
+    //     console.log('drag')
+
+    //     // console.log('fromnode ' + this.edges[0].fromNode)
+    //   }
+
+    // }
 
   }
 

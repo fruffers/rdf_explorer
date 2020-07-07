@@ -21,23 +21,29 @@
       ref='node'
     />
 
-    <foreignObject :x='centreX/2' :y='centreY/1.5' :width='radiusX' :height='radiusY'>
+    <rect
+    :width='rectActive.w'
+    :height='rectActive.h'
+    style='fill: lightblue; stroke-width: 2px; stroke: black;'
+    />
+
+    <foreignObject :x='textX - textX / 2' :y='textY - textY / 2' :width='textX' :height='textY'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
           </div>
   </foreignObject>
 
-    <text
+    <!-- <text
     contenteditable='true'
       class='c-graph-node__label'
       :x='textX'
       :y='textY'
       dominant-baseline='middle'
       text-anchor='middle'
-      @click='drawEdge'
+
     >
-      <!-- {{ label}} -->
-    </text>
+      {{ label}}
+    </text> -->
   </g>
 </template>
 
@@ -68,6 +74,22 @@ export default {
   }),
 
   computed: {
+
+    rectActive () {
+      if (this.nodeData.type === 'object') {
+        var wCopy = this.nodeData.w
+        var hCopy = this.nodeData.h
+        // hide all
+        this.flattenEllipse()
+
+        // show rect
+        return { w: wCopy, h: hCopy }
+      } else {
+        // flatten rect so it doesn't appear
+        return { w: 0, h: 0 }
+      }
+    },
+
     // this controls the location for g group
     // so a transform is applied to the initial node location
     // moves the node
@@ -111,11 +133,19 @@ export default {
     },
 
     textX () {
-      return this.nodeData.w
+      if (this.nodeData.type === 'subject') {
+        return this.nodeData.w
+      } else {
+        return this.rectActive.w / 2
+      }
     },
 
     textY () {
-      return this.nodeData.h
+      if (this.nodeData.type === 'subject') {
+        return this.nodeData.h
+      } else {
+        return this.rectActive.h / 2
+      }
     }
   },
 
@@ -124,6 +154,11 @@ export default {
   },
 
   methods: {
+    flattenEllipse () {
+      this.nodeData.w = 0
+      this.nodeData.h = 0
+    },
+
     initInteractJs () {
       // these are all methods from interactjs
       const interactive = interact(this.$refs.svgG)
