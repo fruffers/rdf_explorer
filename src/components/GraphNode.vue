@@ -223,12 +223,12 @@ export default {
         y: y - y0
       }
 
-      this.$emit('drag-displacement-pass', {
-        displacement: {
-          x: x - x0,
-          y: y - y0
-        }
-      })
+      // this.$emit('drag-displacement-pass', {
+      //   displacement: {
+      //     x: x - x0,
+      //     y: y - y0
+      //   }
+      // })
 
       // console.log('nodeData x ', this.nodeData.x, 'displacement ', this.displacement)
 

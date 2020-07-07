@@ -32,7 +32,7 @@
           v-for='node in nodes'
           :nodeData='node'
           :key='node.id'
-          @move='onNodeMove'
+          @move='onMove'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
           @drag-displacement-pass='dragDisplacementHandler'
@@ -193,46 +193,46 @@ export default {
     },
 
     // triggered on graphNode move
-    onNodeMove ({ x, y, id }) {
-      // this is getting a node by the index
-      // meaning the index has to be the same as the id
-      // const node = this.nodes[id]
-      console.log('move ' + id + ' to ' + x + ' ' + y)
+    // onNodeMove ({ x, y, id }) {
+    //   // this is getting a node by the index
+    //   // meaning the index has to be the same as the id
+    //   // const node = this.nodes[id]
+    //   console.log('move ' + id + ' to ' + x + ' ' + y)
 
-      // assign end position of node after drag
-      this.nodes[id].x = x
-      this.nodes[id].y = y
+    //   // assign end position of node after drag
+    //   this.nodes[id].x = x
+    //   this.nodes[id].y = y
 
-      this.resetDisplacement()
+    //   // this.resetDisplacement()
 
-      // adds updatedNode var to data()
-      // const updatedNode = Object.assign({}, node, { x, y })
-      // const updateNode = Object.assign({}, node, { x: x, y: y })
-      // set this.nodes' id to updatedNode
-      // if (node) {
-      // this is adding a new node that is a duplicate !
-      // this.nodes[id] = updatedNode
-      // this.$set(this.nodes, anode, updateNode)
-      // this.$set(this.nodes, node.id, updatedNode)
-      // run func to update the edge connection
-      // this.updateAffectedEdges(updatedNode)
-      // }
-    },
+    //   const node = this.nodes[id]
+    //   // const updatedNode = Object.assign({}, node, { x, y })
 
-    // updateAffectedEdges (node) {
-    //   // this is to move the edge around with nodes
-    //   // when one of the paired nodes is dragged then
-    //   // the edge will move too and reconnect to it
-    //   for (const edge of this.edges) {
-    //     if (edge.fromNode.id === node.id) {
-    //       // sets edge.fromNode in edges to node
-    //       // adds this value to node since node doesn't come with a 'fromNode' property
-    //       this.$set(edge, 'fromNode', node)
-    //     } else if (edge.toNode.id === node.id) {
-    //       this.$set(edge, 'toNode', node)
-    //     }
+    //   if (node) {
+    //     // this.$set(this.nodes, node.id, updatedNode)
+    //     this.updateAffectedEdges(node)
     //   }
     // },
+
+    onMove ({ x, y, id }) {
+      const node = this.nodes[id]
+      const updatedNode = Object.assign({}, node, { x, y })
+
+      if (node) {
+        this.$set(this.nodes, node.id, updatedNode)
+        this.updateAffectedEdges(updatedNode)
+      }
+    },
+
+    updateAffectedEdges (node) {
+      for (const edge of this.edges) {
+        if (edge.fromNode.id === node.id) {
+          this.$set(edge, 'fromNode', node)
+        } else if (edge.toNode.id === node.id) {
+          this.$set(edge, 'toNode', node)
+        }
+      }
+    },
 
     addSubjectHandler () {
     // make a new node
