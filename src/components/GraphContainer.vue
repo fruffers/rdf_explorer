@@ -8,7 +8,8 @@
     <main>
       node id num: {{this.edges}}
       <button-pal
-      @add-node='addNodeHandler'
+      @add-subject='addSubjectHandler'
+      @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
       @clear-canvas='clearCanvasHandler'
       style='z-index: -100'>
@@ -233,10 +234,16 @@ export default {
     //   }
     // },
 
-    addNodeHandler () {
+    addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
       var newnode = { id: this.idCount++, x: 100, y: 100, w: 60, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject' }
+      this.nodes.push(newnode)
+      console.log(this.nodes)
+    },
+
+    addObjectHandler () {
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 100, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object' }
       this.nodes.push(newnode)
       console.log(this.nodes)
     },

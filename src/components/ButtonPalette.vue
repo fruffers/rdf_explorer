@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button ref="add" @click='addNodeEmit'>Add node</button>
+        <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
+        <button ref="addObj" @click='addNodeObjectEmit'>Add object</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
 
@@ -13,8 +14,12 @@ export default {
   name: 'buttonPal',
 
   methods: {
-    addNodeEmit () {
-      this.$emit('add-node')
+    addNodeSubjectEmit () {
+      this.$emit('add-subject')
+    },
+
+    addNodeObjectEmit () {
+      this.$emit('add-object')
     },
 
     deleteNodeEmit () {
