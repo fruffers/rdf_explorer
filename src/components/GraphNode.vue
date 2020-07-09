@@ -18,16 +18,16 @@
       @dblclick='drawEdge'
       id='unactive'
       :indexval='indexNo'
-      ref='node'
+      ref='subject'
     />
 
     <rect
-    :width='rectActive.w'
-    :height='rectActive.h'
+    :width='rectX'
+    :height='rectY'
     @click='selectNode'
     @dblclick='drawEdge'
     :indexval='indexNo'
-    ref='node'
+    ref='object'
     id='unactive'
     style='fill: lightblue; stroke-width: 2px; stroke: black;'
     />
@@ -75,25 +75,27 @@ export default {
     displacement: {
       x: 0,
       y: 0
-    }
+    },
+    nodeType: ''
   }),
 
   computed: {
 
-    rectActive () {
-      if (this.nodeData.type === 'object') {
-        var wCopy = this.nodeData.w
-        var hCopy = this.nodeData.h
-        // hide all
-        this.flattenEllipse()
+    // rectActive () {
+    //   if (this.nodeData.type === 'object') {
+    //     this.nodeType = 'object'
+    //     // var wCopy = this.nodeData.w
+    //     // var hCopy = this.nodeData.h
+    //     // hide all
+    //     // this.flattenEllipse()
 
-        // show rect
-        return { w: wCopy, h: hCopy }
-      } else {
-        // flatten rect so it doesn't appear
-        return { w: 0, h: 0 }
-      }
-    },
+    //     // show rect
+    //     return { w: this.nodeData.w, h: this.nodeData.h }
+    //   } else {
+    //     // flatten rect so it doesn't appear
+    //     return { w: 0, h: 0 }
+    //   }
+    // },
 
     // this controls the location for g group
     // so a transform is applied to the initial node location
@@ -110,38 +112,86 @@ export default {
       return `translate(${x},${y})`
     },
 
+    rectX () {
+      if (this.nodeData.type === 'object') {
+        return this.nodeData.w
+      } else {
+        return 0
+      }
+    },
+    rectY () {
+      if (this.nodeData.type === 'object') {
+        return this.nodeData.h
+      } else {
+        return 0
+      }
+    },
+
     // these are cx, cy etc. dimensions of ellipse
 
     // cx === rx
     // cy === ry
 
     // centre values control where centre of node is
-    centreX () {
-      return this.nodeData.w
+    centreX: {
+      get: function () {
+        return this.supressObject(this.nodeData.w)
+        // return this.nodeData.w
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
-    centreY () {
-      return this.nodeData.h
+    centreY: {
+      get: function () {
+        // return this.nodeData.h
+        return this.supressObject(this.nodeData.h)
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
     // radius values control the size of the node (and thus never change)
-    radiusX () {
-      return this.nodeData.w
+    radiusX: {
+      get: function () {
+        return this.supressObject(this.nodeData.w)
+        // return this.nodeData.w
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
-    radiusY () {
-      return this.nodeData.h
+    radiusY: {
+      get: function () {
+        return this.supressObject(this.nodeData.h)
+        // return this.nodeData.h
+      },
+
+      set: function (newVal) {
+        return this.newVal
+      }
+
     },
 
     label () {
       return this.nodeData.label || 'A node with no name'
     },
 
+    // bug is here
     textX () {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.w
       } else {
-        return this.rectActive.w / 2
+        return this.nodeData.w / 2
       }
     },
 
@@ -149,7 +199,7 @@ export default {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.h
       } else {
-        return this.rectActive.h / 2
+        return this.nodeData.h / 2
       }
     }
   },
@@ -159,10 +209,24 @@ export default {
   },
 
   methods: {
-    flattenEllipse () {
-      this.nodeData.w = 0
-      this.nodeData.h = 0
+
+    supressObject (changeVal) {
+      if (this.nodeData.type === 'object') {
+        return 0
+      } else {
+        return changeVal
+      }
     },
+
+    // flattenEllipse () {
+    //   this.centreX = 0
+    //   this.centreY = 0
+    //   this.radiusX = 0
+    //   this.radiusY = 0
+
+    //   // this.nodeData.w = 0
+    //   // this.nodeData.h = 0
+    // },
 
     initInteractJs () {
       // these are all methods from interactjs
@@ -196,10 +260,6 @@ export default {
       // if event = {x0:"somex",y0="somey",h0="someh",u0="someu"}
       // then the statement below will only pick out and assign x0 and y0 to
       // seperate variables
-
-      // these are library properties that belong
-      // to interactEvent
-      // this is picking them out of the event
 
       // all of this is calculated during the drag
       // so reactive elements must be attached to these values
@@ -240,13 +300,15 @@ export default {
       // event for parent to handle
       // also passes object of xy,id with it
 
+      var passNodeData
+      passNodeData = {
+        x: this.nodeData.x + this.displacement.x,
+        y: this.nodeData.y + this.displacement.y,
+        id: this.nodeData.id
+      }
+
       // place the node on the canvas permamently by changing the parent node's datastore
-      this.$emit('move',
-        {
-          x: this.nodeData.x + this.displacement.x,
-          y: this.nodeData.y + this.displacement.y,
-          id: this.nodeData.id
-        })
+      this.$emit('move', passNodeData)
 
       console.log('svglocation ' + this.svgLocation)
       // reset displacement after node has moved into new position

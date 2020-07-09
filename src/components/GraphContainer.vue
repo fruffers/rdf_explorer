@@ -2,7 +2,7 @@
   <div class='c-graph-container'>
     <header>
       <nav>
-        the header
+        RDF Explorer
       </nav>
     </header>
     <main>
@@ -20,7 +20,7 @@
         xmlns:xlink='http://www.w3.org/1999/xlink'
         width="1000px"
         height="1000px"
-        style=' background-color:green; '
+        style=' background-color:whitesmoke; '
       >
         <!-- <bin-rect @delete-node='deleteNodeHandler'></bin-rect> -->
         <!--key bindings are for v-for, they are random and unique-->
@@ -428,7 +428,7 @@ body {
   flex-grow: 0;
 }
 
-.c-graph-conta    iner main {
+.c-graph-conta    inner, main {
   flex-grow: 1;
 }
 
