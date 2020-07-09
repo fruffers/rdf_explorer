@@ -20,7 +20,7 @@
       class='c-graph-edge'
       marker-end='url("#arrow")'
     />
-    <text
+    <!-- <text
       class='edge-label'
       :x='Math.sqrt(endX * startX)'
       :y='Math.sqrt(endY * startY)'
@@ -29,7 +29,13 @@
       dominant-baseline='middle'
       >
       {{ startY }}
-    </text>
+    </text> -->
+
+    <foreignObject :x='Math.sqrt(endX * startX)' :y='Math.sqrt(endY * startY)' :width='fromNode.w / 1.3' :height='fromNode.h'>
+      <div xmlns="http://www.w3.org/1999/xhtml">
+      <input :value='label'>
+          </div>
+    </foreignObject>
 
   </g>
 </template>

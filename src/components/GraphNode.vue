@@ -36,7 +36,7 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
           </div>
-  </foreignObject>
+    </foreignObject>
 
     <!-- <text
     contenteditable='true'
