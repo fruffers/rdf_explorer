@@ -20,21 +20,22 @@
       class='c-graph-edge'
       marker-end='url("#arrow")'
     />
-    <!-- <text
+    <text
       class='edge-label'
-      :x='startX'
-      :y='startY + 50'
+      :x='Math.sqrt(endX * startX)'
+      :y='Math.sqrt(endY * startY)'
       fill='black'
       text-anchor='middle'
       dominant-baseline='middle'
       >
       {{ startY }}
-    </text> -->
+    </text>
 
   </g>
 </template>
 
 <script>
+// edit x and y of text label depending on
 // import interact from 'interactjs'
 export default {
   name: 'graph-edge',
