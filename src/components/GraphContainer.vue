@@ -9,8 +9,9 @@
     </header>
     <main>
       <!-- <p v-html='this.instructions'/> -->
-      <!-- Level:{{this.level}}
-      {{this.levels[level]}} -->
+      Level:{{this.level}}
+      <p v-html='this.levels[level].text'/>
+
       <button-pal
       @add-subject='addSubjectHandler'
       @add-object='addObjectHandler'
@@ -21,11 +22,11 @@
       </button-pal>
       <!--encase in svg tag-->
       <svg
+        id='svgContain'
         xmlns='http://www.w3.org/2000/svg'
         xmlns:xlink='http://www.w3.org/1999/xlink'
         width="1000px"
         height="1000px"
-        style=' background-color:whitesmoke; '
       >
         <g
         ref='nodeAndEdgeGroup'
@@ -102,19 +103,26 @@ export default {
     },
     instructions:
     `
-     1. Select nodes by clicking on them.
-     2. Multiple selected nodes can be deleted by pressing 
+     1. Select nodes by clicking on them (they will
+        be given a cyan outline).
+
+     2. Deselect nodes by clicking on them again.
+
+     3. Multiple selected nodes can be deleted by pressing 
         'bin nodes'.
-     3. Double click a node, then double click another node, to 
+
+     4. Double click a node, then double click another node, to 
         draw an edge between them.
-     4. Drag nodes around to rearrange them.`,
+
+     5. Drag nodes around to rearrange them.`,
     level: 0,
     levels: [
       {
         no: 0,
         text:
-        `Introducing RDF 
-        knowledge graphs.`
+        `Introducing RDF knowledge graphs.
+        What is RDF? RDF stands for 'resource description framework'. It 
+        is a syntax framework for describing resources (data) on the web. `
       }
     ]
   }),
@@ -403,5 +411,10 @@ body {
 .c-graph-container main svg {
   height: 100%;
   width: 100%;
+}
+
+#svgContain {
+  /* background-image: url(../assets/grid2.gif); */
+  background-color: whitesmoke;
 }
 </style>
