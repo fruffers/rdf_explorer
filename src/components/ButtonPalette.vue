@@ -4,6 +4,7 @@
         <button ref="addObj" @click='addNodeObjectEmit'>Add object</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
+        <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
 
     </div>
 </template>
@@ -28,6 +29,10 @@ export default {
 
     clearCanvasEmit () {
       this.$emit('clear-canvas')
+    },
+
+    showInstructionsEmit () {
+      this.$emit('instruct-alert')
     }
 
   }

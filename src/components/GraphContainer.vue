@@ -8,12 +8,15 @@
       </nav>
     </header>
     <main>
-      node id num: {{this.edges}}
+      <!-- <p v-html='this.instructions'/> -->
+      <!-- Level:{{this.level}}
+      {{this.levels[level]}} -->
       <button-pal
       @add-subject='addSubjectHandler'
       @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
       @clear-canvas='clearCanvasHandler'
+      @instruct-alert='instructAlertHandler'
       style='z-index: -100'>
       </button-pal>
       <!--encase in svg tag-->
@@ -24,8 +27,6 @@
         height="1000px"
         style=' background-color:whitesmoke; '
       >
-        <!-- <bin-rect @delete-node='deleteNodeHandler'></bin-rect> -->
-        <!--key bindings are for v-for, they are random and unique-->
         <g
         ref='nodeAndEdgeGroup'
         >
@@ -80,8 +81,6 @@ export default {
     buttonPal
   },
 
-  // this is the info put into the g group of each node for the x and y position of the whole
-  // also the dimensions of ellipse are calculated with y= cy and w= cx h=
   data: () => ({
     // array of node objects
     // id must match the index
@@ -91,15 +90,6 @@ export default {
       { id: 2, x: 600, y: 600, w: 90, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject' }
     ],
 
-    // idCount: this.idCompute,
-
-    // nodesStartCount: this.nodes.length(),
-
-    // carries 2 node objects, fromNode and toNode
-    // apparently you can't have more than 2 or we need to know how to identify them using their ids
-    // but an easier way would be to put the two nodes into one object or array and access them using
-    // it as a namespace
-    // this way edges will be more accessible as singular entities
     edges: [
 
     ], // fill with {fromNode and toNodes} objects
@@ -110,18 +100,26 @@ export default {
       x: 0,
       y: 0
     },
-
-    drawEdgeFrom: {},
-    stage: '',
-    edgesDragMove: [] // temp store of locations used during drag moving
+    instructions:
+    `
+     1. Select nodes by clicking on them.
+     2. Multiple selected nodes can be deleted by pressing 
+        'bin nodes'.
+     3. Double click a node, then double click another node, to 
+        draw an edge between them.
+     4. Drag nodes around to rearrange them.`,
+    level: 0,
+    levels: [
+      {
+        no: 0,
+        text:
+        `Introducing RDF 
+        knowledge graphs.`
+      }
+    ]
   }),
 
   computed: {
-    // compute displacement on drag to be reactive to both nodes and edges
-    // need to pass the affected node and edges..... so that only those update
-    // pass the affected node
-    // work out all the edges attached to that node
-    // pass the affected edges
 
   },
 
@@ -172,49 +170,12 @@ export default {
 
   methods: {
 
-    dragDisplacementHandler (displacement) {
-      this.dragDisplacement = displacement
-
-      // need to move only the edge and not the node attached therefore use a seperate
-      // data storage?
-      // this.edges[0].fromNode.x += 10
-      // this.edges[0].fromNode.x += 10
-      // this.edges[0].fromNodde.y += 10
-      // this.nodes[2].x += 10
-      // this.nodes[2].y += 10
-      // update all displacement dependencies (x,y positions of edge and node)
-
-      // get edges attached to node
-    },
-
     resetDisplacement () {
       this.displacement = {
         x: 0,
         y: 0
       }
     },
-
-    // triggered on graphNode move
-    // onNodeMove ({ x, y, id }) {
-    //   // this is getting a node by the index
-    //   // meaning the index has to be the same as the id
-    //   // const node = this.nodes[id]
-    //   console.log('move ' + id + ' to ' + x + ' ' + y)
-
-    //   // assign end position of node after drag
-    //   this.nodes[id].x = x
-    //   this.nodes[id].y = y
-
-    //   // this.resetDisplacement()
-
-    //   const node = this.nodes[id]
-    //   // const updatedNode = Object.assign({}, node, { x, y })
-
-    //   if (node) {
-    //     // this.$set(this.nodes, node.id, updatedNode)
-    //     this.updateAffectedEdges(node)
-    //   }
-    // },
 
     onMove ({ x, y, id }) {
       const node = this.nodes[id]
@@ -353,6 +314,10 @@ export default {
         // empty the store to get a new fromNode
         this.drawEdgeFrom = {}
       }
+    },
+
+    instructAlertHandler () {
+      alert(this.instructions)
     }
 
     //   dragAlongHandler (node, displacement) {

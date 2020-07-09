@@ -31,7 +31,7 @@
       {{ startY }}
     </text> -->
 
-    <foreignObject :x='Math.sqrt(endX * startX)' :y='Math.sqrt(endY * startY)' :width='fromNode.w / 1.3' :height='fromNode.h'>
+    <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='fromNode.w / 1.3' :height='fromNode.h'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
           </div>
@@ -69,8 +69,8 @@ export default {
     // define the handles of the to and from nodes
     // handles are points on the node where the edge can attach to
     fromNodePoints: null,
-    toNodePoints: null
-    // label: 'test'
+    toNodePoints: null,
+    label: 'predicate'
   }),
 
   // computed values automatically update reactively
