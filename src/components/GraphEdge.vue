@@ -220,7 +220,6 @@ export default {
   methods: {
 
     deleteEdge () {
-      console.log('delete edge')
       this.startX = 0
       this.startY = 0
       this.endX = 0

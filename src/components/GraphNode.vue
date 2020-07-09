@@ -32,7 +32,7 @@
     style='fill: lightblue; stroke-width: 2px; stroke: black;'
     />
 
-    <foreignObject :x='textX - textX / 2' :y='textY - textY / 2' :width='textX' :height='textY'>
+    <foreignObject :x='textX' :y='textY' :width='textW' :height='textH'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
           </div>
@@ -189,17 +189,33 @@ export default {
     // bug is here
     textX () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.w
+        return this.nodeData.w / 3.6
       } else {
-        return this.nodeData.w / 2
+        return this.nodeData.w / 14
       }
     },
 
     textY () {
       if (this.nodeData.type === 'subject') {
+        return this.nodeData.h / 2
+      } else {
+        return this.nodeData.h / 4
+      }
+    },
+
+    textW () {
+      if (this.nodeData.type === 'subject') {
+        return this.nodeData.w * 1.4
+      } else {
+        return this.nodeData.w / 1.2
+      }
+    },
+
+    textH () {
+      if (this.nodeData.type === 'subject') {
         return this.nodeData.h
       } else {
-        return this.nodeData.h / 2
+        return this.nodeData.h
       }
     }
   },
@@ -272,8 +288,6 @@ export default {
       // end of mouse move
       const { x, y } = event.page
 
-      // console.log('checking displacement ' + this.displacement.x)
-
       // difference of start vs end
       // displacement is reactive data
 
@@ -289,8 +303,6 @@ export default {
       //     y: y - y0
       //   }
       // })
-
-      // console.log('nodeData x ', this.nodeData.x, 'displacement ', this.displacement)
 
       // this.$emit('drag-node', this.nodeData, this.displacement)
     },
@@ -309,11 +321,8 @@ export default {
 
       // place the node on the canvas permamently by changing the parent node's datastore
       this.$emit('move', passNodeData)
-
-      console.log('svglocation ' + this.svgLocation)
       // reset displacement after node has moved into new position
       this.resetDisplacement()
-      console.log('svglocation after reset ' + this.svgLocation)
     },
 
     selectNode (event) {

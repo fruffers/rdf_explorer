@@ -2,7 +2,9 @@
   <div class='c-graph-container'>
     <header>
       <nav>
+        <div id='navInner'>
         RDF Explorer
+        </div>
       </nav>
     </header>
     <main>
@@ -84,9 +86,9 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 100, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object' },
-      { id: 1, x: 450, y: 400, w: 60, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject' },
-      { id: 2, x: 600, y: 600, w: 60, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject' }
+      { id: 0, x: 200, y: 100, w: 150, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object' },
+      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject' },
+      { id: 2, x: 600, y: 600, w: 90, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject' }
     ],
 
     // idCount: this.idCompute,
@@ -237,15 +239,13 @@ export default {
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 60, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject' }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject' }
       this.nodes.push(newnode)
-      console.log(this.nodes)
     },
 
     addObjectHandler () {
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 100, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object' }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object' }
       this.nodes.push(newnode)
-      console.log(this.nodes)
     },
 
     deleteNodeHandler () {
@@ -292,7 +292,6 @@ export default {
     },
 
     idCompute (removedNodes) {
-      console.log('idrecompute')
       var a = 0
       var b = 0
       for (a in removedNodes) {
@@ -308,8 +307,6 @@ export default {
 
     selectNodeHandler (event) {
       // highlight with cyan outline and give target an active property
-
-      console.log('select')
 
       var index = event.target.getAttribute('indexval')
 
@@ -424,8 +421,14 @@ body {
 
 .c-graph-container header, .c-graph-container footer {
   height: 3em;
-  background-color: #999;
+  background-color: rgb(62, 86, 117);
   flex-grow: 0;
+  color: white;
+}
+
+#navInner {
+  padding: 1.5%;
+  float: left;
 }
 
 .c-graph-conta    inner, main {
@@ -436,5 +439,4 @@ body {
   height: 100%;
   width: 100%;
 }
-
 </style>
