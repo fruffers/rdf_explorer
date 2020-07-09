@@ -186,7 +186,6 @@ export default {
       return this.nodeData.label || 'A node with no name'
     },
 
-    // bug is here
     textX () {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.w / 3.6
@@ -248,13 +247,7 @@ export default {
       // these are all methods from interactjs
       const interactive = interact(this.$refs.svgG)
       interactive.draggable({
-        origin: 'self',
         inertia: false,
-        modifiers: [
-          interact.modifiers.restrict({
-            restriction: 'parent'
-          })
-        ],
         // listeners that wait for interactjs
         // event to trigger
         listeners: {

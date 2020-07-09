@@ -14,6 +14,7 @@
       <p v-html='this.levels[level].text'/>
 
       <button-pal
+      id= 'buttons'
       @add-subject='addSubjectHandler'
       @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
@@ -420,7 +421,12 @@ body {
 }
 
 #logo {
-  height: 5vh;
+  height: 45px;
   float: right;
+}
+
+#buttons {
+  float: right;
+  padding: 1%;
 }
 </style>
