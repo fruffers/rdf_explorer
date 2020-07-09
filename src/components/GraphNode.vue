@@ -191,7 +191,7 @@ export default {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.w / 3.6
       } else {
-        return this.nodeData.w / 14
+        return this.nodeData.w / 25
       }
     },
 
@@ -207,7 +207,7 @@ export default {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.w * 1.4
       } else {
-        return this.nodeData.w / 1.2
+        return this.nodeData.w / 1.1
       }
     },
 
