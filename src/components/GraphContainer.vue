@@ -2,6 +2,7 @@
   <div class='c-graph-container'>
     <header>
       <nav>
+        <img id='logo' src='../assets/epilogo.png'/>
         <div id='navInner'>
         RDF Explorer
         </div>
@@ -416,5 +417,10 @@ body {
 #svgContain {
   /* background-image: url(../assets/grid2.gif); */
   background-color: whitesmoke;
+}
+
+#logo {
+  height: 5vh;
+  float: right;
 }
 </style>

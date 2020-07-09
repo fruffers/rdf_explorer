@@ -35,7 +35,7 @@
     <foreignObject :x='textX' :y='textY' :width='textW' :height='textH'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
-          </div>
+      </div>
     </foreignObject>
 
     <!-- <text
@@ -215,7 +215,7 @@ export default {
       if (this.nodeData.type === 'subject') {
         return this.nodeData.h
       } else {
-        return this.nodeData.h
+        return this.nodeData.h / 2
       }
     }
   },
