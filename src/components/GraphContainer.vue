@@ -40,7 +40,6 @@
           @move='onMove'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
-          @drag-displacement-pass='dragDisplacementHandler'
           :indexNo='node.id'
           ref='node'
         />
@@ -125,7 +124,8 @@ export default {
         What is RDF? RDF stands for 'resource description framework'. It 
         is a syntax framework for describing resources (data) on the web. `
       }
-    ]
+    ],
+    drawEdgeFrom: []
   }),
 
   computed: {
@@ -302,7 +302,7 @@ export default {
 
     drawEdgeHandler (node, stage) {
       // problem: there can be duplicate edges which create duplicate key problem
-
+      console.log('draw edge')
       // if tracker is empty
       if (Object.keys(this.drawEdgeFrom).length === 0) {
         this.drawEdgeFrom = node
