@@ -241,14 +241,31 @@ export default {
         return {}
       }
 
+      // // rect node
+      // rect only uses w and h
+      // if (node.type === 'object') {
+
+      // }
       return {
         handles: [
-          { x: node.x + node.w, y: node.y }, // north
-          { x: node.x + node.w * 2, y: node.y + node.h }, // east
-          { x: node.x + node.w, y: node.y + node.h * 2 }, // south
-          { x: node.x, y: node.y + node.h } // west
+          { x: node.x + node.w / 2, y: node.y + node.h }, // south
+          { x: node.x + node.w, y: node.y + node.h / 2 }, // east
+          { x: node.x + node.w / 100, y: node.y + node.h / 2 }, // west
+          { x: node.x + node.w / 2, y: node.y + node.h / 20 } // south
         ]
       }
+
+      // to get the centre of the rect / w by 2
+
+      // ellipse node
+      // return {
+      //   handles: [
+      //     { x: node.x + node.w, y: node.y }, // north
+      //     { x: node.x + node.w * 2, y: node.y + node.h }, // east
+      //     { x: node.x + node.w, y: node.y + node.h * 2 }, // south
+      //     { x: node.x, y: node.y + node.h } // west
+      //   ]
+      // }
     },
 
     /* Pythagorean distance between two points */
