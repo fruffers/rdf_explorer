@@ -44,11 +44,14 @@
         />
         <!-- the edge location moves with the fromNode and toNode bindings -->
         <graph-edge
-          v-for='edge in edges'
+          v-for='(edge, index) in edges'
           :fromNode='edge.fromNode'
+          :edgeIndex='index'
           :toNode='edge.toNode'
+          :edgeLabel='edge.edgeLabel'
           :key='`edge-${edge.fromNode.id}-${edge.toNode.id}`'
           :deleteEdgeBool='edge.delete'
+          @label-input='edgeLabelHandler'
 
           :dragDisplacement='dragDisplacement'
         />
@@ -167,8 +170,8 @@ export default {
     this.idCount = this.nodes.length
 
     this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false },
-      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false }
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: '' },
+      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, edgeLabel: '' }
     )
 
     // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
@@ -301,12 +304,12 @@ export default {
     drawEdgeHandler (node, stage) {
       // problem: there can be duplicate edges which create duplicate key problem
       console.log('draw edge')
-      // if tracker is empty
+      // if tracker (drawEdgeFrom) is empty
       if (Object.keys(this.drawEdgeFrom).length === 0) {
         this.drawEdgeFrom = node
       } else if (node !== this.drawEdgeFrom) {
         // set up new edge to push
-        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node }
+        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '' }
 
         // check if edge already exists
         var x = 0
@@ -330,6 +333,15 @@ export default {
       } else {
         // remove a char since a backspace was entered
         this.nodes[nodeIndex].label = editLabel.substring(0, editLabel.length - 1)
+      }
+    },
+
+    edgeLabelHandler (index, newChar) {
+      var editLabel = this.edges[index].edgeLabel
+      if (newChar !== null) {
+        this.edges[index].edgeLabel += newChar
+      } else {
+        this.edges[index].edgeLabel = editLabel.substring(0, editLabel.length - 1)
       }
     },
 

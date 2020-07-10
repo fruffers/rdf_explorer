@@ -341,9 +341,7 @@ export default {
     },
 
     labelEmit (event) {
-      // if event data === null then delete a letter
-      // otherwise add a letter
-      console.log('new label ', event.data)
+      // change the node label via input, passes 1 char at a time
       this.$emit('label-input', this.nodeData.id, event.data)
     }
   }

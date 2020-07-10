@@ -33,7 +33,9 @@
     <!--label is connected to line location through startX and endY etc.-->
     <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='140' :height='25'>
       <div xmlns="http://www.w3.org/1999/xhtml">
-      <input :value='label'>
+      <input
+      :value='edgeLabel'
+      @input='edgeLabelEmit'>
           </div>
     </foreignObject>
 
@@ -57,6 +59,8 @@ export default {
       type: Object,
       required: true
     },
+    edgeLabel: String,
+    edgeIndex: Number,
     dragNode: Object,
     deleteEdgeBool: Boolean,
     dragDisplacement: Object,
@@ -125,6 +129,11 @@ export default {
 
     },
 
+    // edgeLabel: {
+    //   get: function () {
+    //     return this.edgeLabel || ' '
+    //   }
+    // },
     /* Cartesian product of the from handles and the to handles */
     handlePairs () {
       // fromHandles = {centre{x,y}, handles{{x,y},{x,y}}}
@@ -280,6 +289,23 @@ export default {
       const dy = fromHandle.y - toHandle.y
 
       return Math.sqrt(dx * dx + dy * dy)
+    },
+
+    edgeLabelEmit (event) {
+      // where to store edge label?
+      // edge label stored in tonode and fromnode but there is only
+      // one label between them... maybe have the same edgelabel in
+      // both attached nodes?
+      // so we only have to get the edgelabel from 1 because they will
+      // be the same anyway
+      // or we could store edge labels in the edges array! this works
+      // much better
+      // just find out where in edges the from and tonodes are
+      // change the node label via input, passes 1 char at a time
+
+      // how to identify which edge this is we have?
+      // use the index but where do we get it?
+      this.$emit('label-input', this.edgeIndex, event.data)
     }
   }
 
