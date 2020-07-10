@@ -292,19 +292,7 @@ export default {
     },
 
     edgeLabelEmit (event) {
-      // where to store edge label?
-      // edge label stored in tonode and fromnode but there is only
-      // one label between them... maybe have the same edgelabel in
-      // both attached nodes?
-      // so we only have to get the edgelabel from 1 because they will
-      // be the same anyway
-      // or we could store edge labels in the edges array! this works
-      // much better
-      // just find out where in edges the from and tonodes are
-      // change the node label via input, passes 1 char at a time
-
-      // how to identify which edge this is we have?
-      // use the index but where do we get it?
+      // edge labels are stored in edges array
       this.$emit('label-input', this.edgeIndex, event.data)
     }
   }

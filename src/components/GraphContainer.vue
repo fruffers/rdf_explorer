@@ -30,19 +30,7 @@
         width="1000px"
         height="1000px"
       >
-        <graph-node
-          class="node"
-          v-for='node in nodes'
-          :nodeData='node'
-          :key='node.id'
-          @move='onMove'
-          @select-node='selectNodeHandler'
-          @draw-edge='drawEdgeHandler'
-          @label-input='labelInputHandler'
-          :indexNo='node.id'
-          ref='node'
-        />
-        <!-- the edge location moves with the fromNode and toNode bindings -->
+              <!-- the edge location moves with the fromNode and toNode bindings -->
         <graph-edge
           v-for='(edge, index) in edges'
           :fromNode='edge.fromNode'
@@ -54,6 +42,18 @@
           @label-input='edgeLabelHandler'
 
           :dragDisplacement='dragDisplacement'
+        />
+        <graph-node
+          class="node"
+          v-for='node in nodes'
+          :nodeData='node'
+          :key='node.id'
+          @move='onMove'
+          @select-node='selectNodeHandler'
+          @draw-edge='drawEdgeHandler'
+          @label-input='labelInputHandler'
+          :indexNo='node.id'
+          ref='node'
         />
       </svg>
     </main>
