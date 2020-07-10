@@ -32,9 +32,16 @@
     style='fill: lightblue; stroke-width: 2px; stroke: black;'
     />
 
-    <foreignObject :x='textX' :y='textY' :width='textW' :height='textH'>
+    <foreignObject
+    ref='nodeLabel'
+    :x='textX'
+    :y='textY'
+    :width='textW'
+    :height='textH'>
       <div xmlns="http://www.w3.org/1999/xhtml">
-      <input :value='label'>
+      <input
+      :value='label'
+      @input='labelEmit'>
       </div>
     </foreignObject>
 
@@ -132,6 +139,9 @@ export default {
     // cx === rx
     // cy === ry
 
+    // rpoblem: computed nodeData.label is always reverting back
+    // to the old label > you can emit it and change it in parent?
+
     // centre values control where centre of node is
     centreX: {
       get: function () {
@@ -182,8 +192,15 @@ export default {
 
     },
 
-    label () {
-      return this.nodeData.label || 'A node with no name'
+    label: {
+      get: function () {
+        return this.nodeData.label || ' '
+      },
+
+      set: function (newVal) {
+        return newVal
+      }
+
     },
 
     textX () {
@@ -233,21 +250,11 @@ export default {
       }
     },
 
-    // flattenEllipse () {
-    //   this.centreX = 0
-    //   this.centreY = 0
-    //   this.radiusX = 0
-    //   this.radiusY = 0
-
-    //   // this.nodeData.w = 0
-    //   // this.nodeData.h = 0
-    // },
-
     initInteractJs () {
       // these are all methods from interactjs
       const interactive = interact(this.$refs.svgG)
       interactive.draggable({
-        inertia: false,
+        inertia: true, // throw nodes
         // listeners that wait for interactjs
         // event to trigger
         listeners: {
@@ -290,12 +297,15 @@ export default {
         y: y - y0
       }
 
-      // this.$emit('drag-displacement-pass', {
-      //   displacement: {
-      //     x: x - x0,
-      //     y: y - y0
-      //   }
-      // })
+      // need to reattach edge during drag so
+      // when the node is locally changing its svg location
+      // therefore put an emit event in svg location compute?
+      this.$emit('drag-displacement-pass', {
+        displacement: {
+          x: x - x0,
+          y: y - y0
+        }
+      })
 
       // this.$emit('drag-node', this.nodeData, this.displacement)
     },
@@ -311,7 +321,8 @@ export default {
         y: this.nodeData.y + this.displacement.y,
         id: this.nodeData.id
       }
-
+      // move to a new position when that new position is held
+      // the node is grabbed
       // place the node on the canvas permamently by changing the parent node's datastore
       this.$emit('move', passNodeData)
       // reset displacement after node has moved into new position
@@ -327,6 +338,13 @@ export default {
       var node = this.nodeData
       var stage = 'select'
       this.$emit('draw-edge', node, stage)
+    },
+
+    labelEmit (event) {
+      // if event data === null then delete a letter
+      // otherwise add a letter
+      console.log('new label ', event.data)
+      this.$emit('label-input', this.nodeData.id, event.data)
     }
   }
 }

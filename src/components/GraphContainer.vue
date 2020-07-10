@@ -30,9 +30,6 @@
         width="1000px"
         height="1000px"
       >
-        <g
-        ref='nodeAndEdgeGroup'
-        >
         <graph-node
           class="node"
           v-for='node in nodes'
@@ -41,6 +38,7 @@
           @move='onMove'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
+          @label-input='labelInputHandler'
           :indexNo='node.id'
           ref='node'
         />
@@ -54,7 +52,6 @@
 
           :dragDisplacement='dragDisplacement'
         />
-        </g>
       </svg>
     </main>
     <footer>
@@ -323,6 +320,16 @@ export default {
 
         // empty the store to get a new fromNode
         this.drawEdgeFrom = {}
+      }
+    },
+
+    labelInputHandler (nodeIndex, newChar) {
+      var editLabel = this.nodes[nodeIndex].label
+      if (newChar !== null) {
+        this.nodes[nodeIndex].label += newChar
+      } else {
+        // remove a char since a backspace was entered
+        this.nodes[nodeIndex].label = editLabel.substring(0, editLabel.length - 1)
       }
     },
 

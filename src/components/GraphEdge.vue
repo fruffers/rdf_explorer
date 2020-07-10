@@ -30,7 +30,7 @@
       >
       {{ startY }}
     </text> -->
-
+    <!--label is connected to line location through startX and endY etc.-->
     <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='140' :height='25'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input :value='label'>
