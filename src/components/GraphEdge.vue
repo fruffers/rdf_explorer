@@ -19,6 +19,7 @@
       :y2='endY'
       class='c-graph-edge'
       marker-end='url("#arrow")'
+      @dblclick='removeEdgeEmit'
     />
     <!-- <text
       class='edge-label'
@@ -294,6 +295,10 @@ export default {
     edgeLabelEmit (event) {
       // edge labels are stored in edges array
       this.$emit('label-input', this.edgeIndex, event.data)
+    },
+
+    removeEdgeEmit (event) {
+      this.$emit('remove-edge', this.edgeIndex)
     }
   }
 

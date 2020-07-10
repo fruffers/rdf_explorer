@@ -40,6 +40,7 @@
           :key='`edge-${edge.fromNode.id}-${edge.toNode.id}`'
           :deleteEdgeBool='edge.delete'
           @label-input='edgeLabelHandler'
+          @remove-edge='removeEdgeHandler'
 
           :dragDisplacement='dragDisplacement'
         />
@@ -115,7 +116,9 @@ export default {
      4. Double click a node, then double click another node, to 
         draw an edge between them.
 
-     5. Drag nodes around to rearrange them.`,
+     5. Drag nodes around to rearrange them.
+     
+     6. Delete edges by double clicking on them.`,
     level: 0,
     levels: [
       {
@@ -347,6 +350,16 @@ export default {
 
     instructAlertHandler () {
       alert(this.instructions)
+    },
+
+    removeEdgeHandler (deleteIndex) {
+      // return edges without specified index
+      var oldEdges = this.edges
+      var newEdges = oldEdges.filter(function (edge, index) {
+        return index !== deleteIndex
+      })
+
+      this.edges = newEdges
     }
 
     //   dragAlongHandler (node, displacement) {
