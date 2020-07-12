@@ -19,6 +19,7 @@
       :y2='endY'
       class='c-graph-edge'
       marker-end='url("#arrow")'
+      stroke-width = '1.7'
       @dblclick='removeEdgeEmit'
     />
     <!-- <text
