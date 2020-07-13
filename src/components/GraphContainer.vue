@@ -58,6 +58,10 @@
         />
 
       </svg>
+      <prefix-pal
+      @store-prefix='storePrefix'
+      :prefixes='prefixes'
+      />
     </main>
     <footer>
       the footer
@@ -76,13 +80,15 @@
 import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
+import prefixPal from './PrefixPalette'
 
 export default {
   name: 'graph-container',
   components: {
     GraphNode,
     GraphEdge,
-    buttonPal
+    buttonPal,
+    prefixPal
   },
 
   data: () => ({
@@ -97,6 +103,8 @@ export default {
     edges: [
 
     ], // fill with {fromNode and toNodes} objects
+
+    prefixes: [],
 
     message: 'no action',
     idCount: 0,
@@ -127,7 +135,7 @@ export default {
         text:
         `Introducing RDF knowledge graphs.
         What is RDF? RDF stands for 'resource description framework'. It 
-        is a syntax framework for describing resources (data) on the web. `
+        is a syntax framework for describing resources (data/any subject that can be identified) on the web. `
       }
     ],
     drawEdgeFrom: []
@@ -361,6 +369,22 @@ export default {
       })
 
       this.edges = newEdges
+    },
+
+    storePrefix (name, uri) {
+      // add new prefix
+      var newPrefix = { name: name, uri: uri }
+      // this.$set(this.prefixes,)
+      this.prefixes.push(newPrefix)
+    },
+
+    getJSON () {
+      // get JSON of graphs in triples
+      // also need a way to define prefixes in graph
+
+    },
+
+    convertJSONtoTURTLE () {
     }
 
     //   dragAlongHandler (node, displacement) {

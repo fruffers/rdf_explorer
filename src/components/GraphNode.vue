@@ -255,6 +255,7 @@ export default {
       const interactive = interact(this.$refs.svgG)
       interactive.draggable({
         inertia: true, // throw nodes
+        autoScroll: true,
         // listeners that wait for interactjs
         // event to trigger
         listeners: {
@@ -300,12 +301,12 @@ export default {
       // need to reattach edge during drag so
       // when the node is locally changing its svg location
       // therefore put an emit event in svg location compute?
-      this.$emit('drag-displacement-pass', {
-        displacement: {
-          x: x - x0,
-          y: y - y0
-        }
-      })
+      // this.$emit('drag-displacement-pass', {
+      //   displacement: {
+      //     x: x - x0,
+      //     y: y - y0
+      //   }
+      // })
 
       // this.$emit('drag-node', this.nodeData, this.displacement)
     },
