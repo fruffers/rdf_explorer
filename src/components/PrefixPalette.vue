@@ -8,6 +8,7 @@
         <button id='enter' @click='emitPrefix'>add</button>
         <ul id='prefixList' v-for='prefix in prefixes' :key= 'prefix.index'>
             <li>{{prefix.name}}   {{prefix.uri}}</li>
+            <br/>
         </ul>
     </div>
 </template>
