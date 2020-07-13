@@ -62,10 +62,14 @@
       @store-prefix='storePrefix'
       :prefixes='prefixes'
       />
+      <turtle-convert
+      :triples='triples'
+      @turtle-convert='turtleConvert'
+      />
     </main>
-    <footer>
+    <!-- <footer>
       the footer
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -76,11 +80,12 @@
 
 // import interact from 'interactjs'
 
-// import svg elements as vue components
+// components
 import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
 import prefixPal from './PrefixPalette'
+import turtleConvert from './TurtleConverter'
 
 export default {
   name: 'graph-container',
@@ -88,7 +93,8 @@ export default {
     GraphNode,
     GraphEdge,
     buttonPal,
-    prefixPal
+    prefixPal,
+    turtleConvert
   },
 
   data: () => ({
@@ -104,7 +110,11 @@ export default {
 
     ], // fill with {fromNode and toNodes} objects
 
-    prefixes: [],
+    prefixes: [
+      { name: 'rdf:', uri: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' },
+      { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
+      { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' }
+    ],
 
     message: 'no action',
     idCount: 0,
@@ -127,7 +137,12 @@ export default {
 
      5. Drag nodes around to rearrange them.
      
-     6. Delete edges by double clicking on them.`,
+     6. Delete edges by double clicking on them.
+     
+     7. Scroll down to the bottom. You can add new prefixes
+        and see existing ones.
+        
+     8. Convert your graph to turtle at the page bottom.`,
     level: 0,
     levels: [
       {
@@ -138,7 +153,8 @@ export default {
         is a syntax framework for describing resources (data/any subject that can be identified) on the web. `
       }
     ],
-    drawEdgeFrom: []
+    drawEdgeFrom: [],
+    triples: []
   }),
 
   computed: {
@@ -378,10 +394,40 @@ export default {
       this.prefixes.push(newPrefix)
     },
 
-    getJSON () {
-      // get JSON of graphs in triples
-      // also need a way to define prefixes in graph
+    determinePrefixes () {
+    },
 
+    turtleConvert () {
+      var catchTriples = []
+      // represent graph as simple turtle triples
+      var x = 0
+      for (x in this.edges) {
+        catchTriples.push({
+          subject: this.edges[x].fromNode.label || '_:nodeID',
+          predicate: this.edges[x].label || '_:nodeID',
+          object: this.edges[x].toNode.label || '_:nodeID'
+        })
+      }
+
+      // check for prefixes and add them
+      var b = 0
+      var c = 0
+      var d = 0
+      for (b in catchTriples) {
+        for (c in catchTriples[b]) {
+          for (d in this.prefixes) {
+            if (this.prefixes[d] === catchTriples[b][c]) {
+              // do nothing
+            } else {
+              // surround uri with < >
+              var editUri = `<${catchTriples[b][c]}>`
+              catchTriples[b][c] = editUri
+              break
+            }
+          }
+        }
+      }
+      this.triples = catchTriples
     },
 
     convertJSONtoTURTLE () {
