@@ -82,9 +82,10 @@ export default {
   // computed values automatically update reactively
   // these will automatically be fired because they are bound in the template
   computed: {
+    // startX calculates where the x start position of line is on fromnode
+    // by getting the closest handle on the opposite tonode
     startX: {
       get: function () {
-        // console.log('test ' + this.fromNode)
         // return this.fromNode.x + this.fromNode.w
         return this.closestHandlePair.fromHandle.x
       },
@@ -136,6 +137,7 @@ export default {
     //     return this.edgeLabel || ' '
     //   }
     // },
+
     /* Cartesian product of the from handles and the to handles */
     handlePairs () {
       // fromHandles = {centre{x,y}, handles{{x,y},{x,y}}}
@@ -180,20 +182,6 @@ export default {
       }
     },
 
-    // dragDisplacement: {
-    //   handler: function (value) {
-    //     // add displacement to edge
-    //     this.startX += this.displacement.x
-    //     this.startY += this.displacement.y
-    //   }
-    // }
-
-    // dragMoveEdges: {
-    //   handler: function (value) {
-
-    //   }
-    // }
-
     // these are the functions that automatically fill fromNodePoints etc.
     // fromNodePoints is filled with handle details of the node passed in as param
 
@@ -211,28 +199,6 @@ export default {
       immediate: true
     }
 
-    // dragDisplacement: {
-    //   computeDrag: function (displacement) {
-    //     // d = distance
-
-    //     // displacement of start point
-    //     var startdx = displacement.x - this.startX
-    //     var startdy = displacement.y - this.startY
-    //     var startd = Math.sqrt(startdx * startdx + startdy * startdy)
-
-    //     // displacement of end point
-    //     var enddx = displacement.x - this.endX
-    //     var enddy = displacement.y - this.endY
-    //     var endd = Math.sqrt(enddx * enddx + enddy * enddy)
-
-    //     // add the distances to the current values
-
-    //     // emit the distances data to the parent container
-    //     // so it can reactively add distances to the current location values through props
-    //     this.edgeDragDisplacementHandler(startd, endd)
-    //     // this.$emit('edgeDragDisplacementComputed', startd, endd)
-    //   }
-    // }
   },
 
   methods: {
@@ -267,26 +233,32 @@ export default {
       // if (node.type === 'object') {
 
       // }
-      return {
-        handles: [
-          { x: x + node.w / 2, y: y + node.h }, // south
-          { x: x + node.w, y: y + node.h / 2 }, // east
-          { x: x + node.w / 100, y: y + node.h / 2 }, // west
-          { x: x + node.w / 2, y: y + node.h / 20 } // south
-        ]
+
+      // decide whether handles are needed for rect or for ellipse
+
+      if (node.type === 'object') {
+        // rect handles
+        return {
+          handles: [
+            { x: x + node.w / 2, y: y + node.h }, // south
+            { x: x + node.w, y: y + node.h / 2 }, // east
+            { x: x + node.w / 100, y: y + node.h / 2 }, // west
+            { x: x + node.w / 2, y: y + node.h / 200 } // north
+          ]
+        }
+      } else {
+      // ellipse node
+        return {
+          handles: [
+            { x: x + node.w, y: y }, // north
+            { x: x + node.w * 2, y: y + node.h }, // east
+            { x: x + node.w, y: y + node.h * 2 }, // south
+            { x: x, y: y + node.h } // west
+          ]
+        }
       }
 
       // to get the centre of the rect / w by 2
-
-      // ellipse node
-      // return {
-      //   handles: [
-      //     { x: node.x + node.w, y: node.y }, // north
-      //     { x: node.x + node.w * 2, y: node.y + node.h }, // east
-      //     { x: node.x + node.w, y: node.y + node.h * 2 }, // south
-      //     { x: node.x, y: node.y + node.h } // west
-      //   ]
-      // }
     },
 
     /* Pythagorean distance between two points */
