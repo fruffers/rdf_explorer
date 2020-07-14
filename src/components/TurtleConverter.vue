@@ -27,6 +27,6 @@ export default {
 
 <style scoped>
     #wrapper {
-        margin-right: 20%;
+        margin-right: 5%;
     }
 </style>

@@ -61,19 +61,14 @@
 
 <script>
 import interact from 'interactjs'
-// import testChild from './testDragChild.vue'
 
 export default {
   name: 'graph-node',
 
   components: {
-    // testChild
   },
 
   props: {
-    // prop object that we fill up with all
-    // the data needed
-    // prop is accessible on the component tag
     nodeData: Object,
     indexNo: Number
   },
@@ -112,8 +107,8 @@ export default {
     // so when the node is dragged and displacement is updated then this will fire again
     svgLocation () {
       // only need x and y since this is moving the location
-      const x = this.nodeData.x + this.displacement.x
-      const y = this.nodeData.y + this.displacement.y
+      const x = this.nodeData.x + this.nodeData.displacement.x
+      const y = this.nodeData.y + this.nodeData.displacement.y
       // the ${} allows injecting variables into html
       // translate() is an svg method applied to transform attribute, to move an svg somewhere
       return `translate(${x},${y})`
@@ -138,9 +133,6 @@ export default {
 
     // cx === rx
     // cy === ry
-
-    // rpoblem: computed nodeData.label is always reverting back
-    // to the old label > you can emit it and change it in parent?
 
     // centre values control where centre of node is
     centreX: {
@@ -167,7 +159,7 @@ export default {
 
     },
 
-    // radius values control the size of the node (and thus never change)
+    // radius values control the size of the node
     radiusX: {
       get: function () {
         return this.supressObject(this.nodeData.w)
@@ -250,6 +242,21 @@ export default {
       }
     },
 
+    // resizeInteractJs () {
+    //   var interactive = interact(this.$refs.svgG).resizable({
+    //     edges: {
+    //       left: true,
+    //       right: true,
+    //       bottom: true,
+    //       top: true
+    //     }
+    //   })
+
+    //   listeners: {
+
+    //   }
+    // },
+
     initInteractJs () {
       // these are all methods from interactjs
       const interactive = interact(this.$refs.svgG)
@@ -273,61 +280,29 @@ export default {
     },
 
     onElementMove (event) {
+      // calculating displacement during drag of mouse and node
+
       // destructuring statement
       // if event = {x0:"somex",y0="somey",h0="someh",u0="someu"}
       // then the statement below will only pick out and assign x0 and y0 to
       // seperate variables
-
-      // all of this is calculated during the drag
-      // so reactive elements must be attached to these values
-      // otherwise they will only move at the end
-
-      // hook edge up in here to be reactive
 
       // page x and y coordinates of starting event
       const { x0, y0 } = event
       // end of mouse move
       const { x, y } = event.page
 
-      // difference of start vs end
-      // displacement is reactive data
-
-      // local drag changes that are not permament due to no link to parent datastore
-      this.displacement = {
-        x: x - x0,
-        y: y - y0
-      }
-
-      // need to reattach edge during drag so
-      // when the node is locally changing its svg location
-      // therefore put an emit event in svg location compute?
-      // this.$emit('drag-displacement-pass', {
-      //   displacement: {
-      //     x: x - x0,
-      //     y: y - y0
-      //   }
-      // })
-
-      // this.$emit('drag-node', this.nodeData, this.displacement)
+      this.$emit('move',
+        {
+          x: x - x0,
+          y: y - y0,
+          id: this.nodeData.id
+        }
+      )
     },
 
     onElementMoveEnd (event) {
-      // emits a new event 'move'
-      // event for parent to handle
-      // also passes object of xy,id with it
-
-      var passNodeData
-      passNodeData = {
-        x: this.nodeData.x + this.displacement.x,
-        y: this.nodeData.y + this.displacement.y,
-        id: this.nodeData.id
-      }
-      // move to a new position when that new position is held
-      // the node is grabbed
-      // place the node on the canvas permamently by changing the parent node's datastore
-      this.$emit('move', passNodeData)
-      // reset displacement after node has moved into new position
-      this.resetDisplacement()
+      this.$emit('move-end', { id: this.nodeData.id })
     },
 
     selectNode (event) {

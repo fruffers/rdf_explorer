@@ -258,6 +258,10 @@ export default {
         return {}
       }
 
+      // x and y positions with displacement added
+      const x = node.x + node.displacement.x
+      const y = node.y + node.displacement.y
+
       // // rect node
       // rect only uses w and h
       // if (node.type === 'object') {
@@ -265,10 +269,10 @@ export default {
       // }
       return {
         handles: [
-          { x: node.x + node.w / 2, y: node.y + node.h }, // south
-          { x: node.x + node.w, y: node.y + node.h / 2 }, // east
-          { x: node.x + node.w / 100, y: node.y + node.h / 2 }, // west
-          { x: node.x + node.w / 2, y: node.y + node.h / 20 } // south
+          { x: x + node.w / 2, y: y + node.h }, // south
+          { x: x + node.w, y: y + node.h / 2 }, // east
+          { x: x + node.w / 100, y: y + node.h / 2 }, // west
+          { x: x + node.w / 2, y: y + node.h / 20 } // south
         ]
       }
 

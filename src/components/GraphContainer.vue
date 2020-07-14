@@ -36,6 +36,7 @@
           :nodeData='node'
           :key='node.id'
           @move='onMove'
+          @move-end='onMoveEnd'
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
           @label-input='labelInputHandler'
@@ -101,9 +102,9 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 150, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object' },
-      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject' },
-      { id: 2, x: 600, y: 600, w: 90, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject' }
+      { id: 0, x: 200, y: 100, w: 150, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object', displacement: { x: 0, y: 0 } },
+      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 2, x: 600, y: 600, w: 90, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
     ],
 
     edges: [
@@ -217,12 +218,28 @@ export default {
 
     onMove ({ x, y, id }) {
       const node = this.nodes[id]
-      const updatedNode = Object.assign({}, node, { x, y })
 
       if (node) {
-        this.$set(this.nodes, node.id, updatedNode)
-        this.updateAffectedEdges(updatedNode)
+        this.updateNodePosition(Object.assign({}, node, { displacement: { x, y } }))
       }
+    },
+
+    onMoveEnd ({ id }) {
+      const node = this.nodes[id]
+
+      if (node) {
+        const x = node.x + node.displacement.x
+        const y = node.y + node.displacement.y
+
+        this.updateNodePosition(
+          Object.assign({}, node, { x, y, displacement: { x: 0, y: 0 } })
+        )
+      }
+    },
+
+    updateNodePosition (node) {
+      this.$set(this.nodes, node.id, node) // set node to have displacement on x and y
+      this.updateAffectedEdges(node)
     },
 
     updateAffectedEdges (node) {
@@ -238,12 +255,12 @@ export default {
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject' }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
     addObjectHandler () {
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object' }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
@@ -403,13 +420,14 @@ export default {
       var x = 0
       for (x in this.edges) {
         catchTriples.push({
-          subject: this.edges[x].fromNode.label || '_:nodeID',
-          predicate: this.edges[x].label || '_:nodeID',
-          object: this.edges[x].toNode.label || '_:nodeID'
+          subject: this.edges[x].fromNode.label || '_:blank',
+          predicate: this.edges[x].label || '_:blank',
+          object: this.edges[x].toNode.label || '_:blank'
         })
       }
 
       // check for prefixes and add them
+      // Objects can be literals in """  """ !!!! or blank nodes
       var b = 0
       var c = 0
       var d = 0
