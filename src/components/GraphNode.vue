@@ -264,7 +264,7 @@ export default {
 
     minHeight () {
       if (this.nodeData.type === 'subject') {
-        return 20
+        return 25
       } else {
         return 50
       }
