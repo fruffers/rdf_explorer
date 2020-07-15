@@ -300,8 +300,7 @@ export default {
       var a = 0
       for (x in this.edges) {
         for (a in deletedNodes) {
-          if (this.edges[x].fromNode.id === deletedNodes[a].id) {
-            console.log('edge to delete ' + x)
+          if (this.edges[x].fromNode.id === deletedNodes[a].id || this.edges[x].toNode.id === deletedNodes[a].id) {
             this.edges[x].delete = true
           }
         }

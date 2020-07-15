@@ -253,11 +253,21 @@ export default {
           interact.modifiers.restrictEdges({
             outer: 'parent'
           }),
-          interact.modifiers.restrictSize({
-            min: { width: 100, height: 50 }
-          })
+          interact.modifiers.restrictSize(
+            {
+              min: { width: 50, height: this.minHeight() }
+            }
+          )
         ]
       })
+    },
+
+    minHeight () {
+      if (this.nodeData.type === 'subject') {
+        return 20
+      } else {
+        return 50
+      }
     },
 
     resizeMove (event) {
