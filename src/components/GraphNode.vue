@@ -197,9 +197,9 @@ export default {
 
     textW () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.w * 1.4
+        return this.nodeData.w / 0.9
       } else {
-        return this.nodeData.w / 1.1
+        return this.nodeData.w / 1.4
       }
     },
 
@@ -233,7 +233,6 @@ export default {
 
       interactive.draggable({
         inertia: true, // throw nodes
-        autoScroll: true,
         // object containing listeners that wait for interactjs
         // event to trigger
         listeners: {

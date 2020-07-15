@@ -13,9 +13,6 @@
       Level:{{this.level}}
       <p v-html='this.levels[level].text'/>
 
-      <br/>
-      {{this.edges}}
-
       <button-pal
       id= 'buttons'
       @add-subject='addSubjectHandler'
