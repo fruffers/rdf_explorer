@@ -9,9 +9,12 @@
       </nav>
     </header>
     <main>
+      <div id='levelWrapper'>
       <!-- <p v-html='this.instructions'/> -->
-      Level:{{this.level}}
+      <h1>Level: {{this.level}}</h1>
       <p v-html='this.levels[level].text'/>
+      <goal-pal></goal-pal>
+      </div>
 
       <button-pal
       id= 'buttons'
@@ -30,11 +33,11 @@
         width="1000px"
         height="1000px"
       >
-              <graph-node
+          <graph-node
           class="node"
           v-for='node in nodes'
           :nodeData='node'
-          :key='node.id'
+          :key='`node + ${node.id}`'
           @move='onMove'
           @move-end='onMoveEnd'
           @select-node='selectNodeHandler'
@@ -51,7 +54,7 @@
           :edgeIndex='index'
           :toNode='edge.toNode'
           :edgeLabel='edge.edgeLabel'
-          :key='`edge-${edge.fromNode.id}-${edge.toNode.id}`'
+          :key='`edge + ${index}`'
           :deleteEdgeBool='edge.delete'
           @label-input='edgeLabelHandler'
           @remove-edge='removeEdgeHandler'
@@ -76,6 +79,7 @@
 </template>
 
 <script>
+// `edge-${edge.fromNode.id}-${edge.toNode.id}` < old key gen
 // import util from 'util'
 
 // smart node that handles all of the data and event handlers
@@ -88,6 +92,7 @@ import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
 import prefixPal from './PrefixPalette'
 import turtleConvert from './TurtleConverter'
+import goalPal from './GoalPalette'
 
 export default {
   name: 'graph-container',
@@ -96,16 +101,18 @@ export default {
     GraphEdge,
     buttonPal,
     prefixPal,
-    turtleConvert
+    turtleConvert,
+    goalPal
   },
 
   data: () => ({
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 150, h: 50, label: 'frodo', active: 'f', toNodes: [1, 2], type: 'object', displacement: { x: 0, y: 0 } },
-      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'sam', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 2, x: 600, y: 600, w: 90, h: 25, label: 'strider', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
+      { id: 0, x: 200, y: 100, w: 90, h: 25, label: 'bilbo baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'frodo baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 2, x: 600, y: 600, w: 120, h: 25, label: 'merry brandybuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 3, x: 100, y: 400, w: 150, h: 50, label: 'mushrooms', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
     ],
 
     edges: [
@@ -200,8 +207,11 @@ export default {
     this.idCount = this.nodes.length
 
     this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: '' },
-      { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, edgeLabel: '' }
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'cousin' },
+      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'second cousin' },
+      { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
+      { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
+      { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
     )
 
     // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
@@ -528,14 +538,16 @@ body {
 }
 
 .c-graph-container header, .c-graph-container footer {
-  height: 3em;
+  height: 5em;
   background-color: rgb(62, 86, 117);
   flex-grow: 0;
   color: white;
 }
 
 #navInner {
+  font-size: 30px;
   padding: 1.5%;
+  padding-top: 1%;
   float: left;
 }
 
@@ -554,6 +566,7 @@ body {
 }
 
 #logo {
+  padding: 1%;
   height: 45px;
   float: right;
 }
@@ -561,5 +574,16 @@ body {
 #buttons {
   float: right;
   padding: 1%;
+}
+
+#levelWrapper {
+  font-size: 18px;
+  line-height: 145%;
+  text-align: left;
+  margin-left: 10%;
+  margin-right: 60%;
+  padding: 3%;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 </style>
