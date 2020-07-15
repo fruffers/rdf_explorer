@@ -409,6 +409,9 @@ export default {
       var node = this.nodes[nodeId]
       var newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
       this.nodes[nodeId] = newNode
+      // this has no effect
+      this.updateAffectedEdges(Object.assign({}, newNode, { x, y, displacement: { x: 0, y: 0 } }))
+      // this.updateAffectedEdges(newNode)
     },
 
     storePrefix (name, uri) {

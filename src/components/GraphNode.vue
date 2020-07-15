@@ -262,15 +262,9 @@ export default {
 
     resizeMove (event) {
       // get x and y of event, where the mouse has grabbed
-      console.log('event only ', event)
+      // console.log('event only ', event)
       // var target = event.target
-
-      // target = rect
-
       var nodeId = this.nodeData.id
-
-      // deltarect applied to transform to translate it
-      // into the right place
 
       var x = this.nodeData.x
       var y = this.nodeData.y
@@ -289,13 +283,6 @@ export default {
 
       this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
       // apply translation delta from deltarect
-
-      // update width and height of svg using the event
-      // grab resize handle
-      // need to use the transform x and y of the g class
-      // also need to change g.node width and height
-      // and pass it to parent
-      console.log('event target', event.target)
     },
 
     // resetDisplacement () {
