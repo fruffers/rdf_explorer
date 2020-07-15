@@ -13,6 +13,9 @@
       Level:{{this.level}}
       <p v-html='this.levels[level].text'/>
 
+      <br/>
+      {{this.edges}}
+
       <button-pal
       id= 'buttons'
       @add-subject='addSubjectHandler'
@@ -274,13 +277,15 @@ export default {
       var result = this.nodes.filter(function (node) {
         return node.active === 'f'
       })
+
+      // need to delete attached edges before the indexes change after nodes reassignment
+      this.deleteAttachedEdges(activeNodes)
+
       // reassign nodes array to only nodes with 'f'
       // recompute ids
       this.idCompute(activeNodes)
       this.nodes = result
       // recompute ids to match indexes
-
-      this.deleteAttachedEdges(activeNodes)
     },
 
     clearCanvasHandler () {
@@ -295,7 +300,8 @@ export default {
       var a = 0
       for (x in this.edges) {
         for (a in deletedNodes) {
-          if (this.edges[x].fromNode === deletedNodes[a] || this.edges[x].toNode === deletedNodes[a]) {
+          if (this.edges[x].fromNode.id === deletedNodes[a].id) {
+            console.log('edge to delete ' + x)
             this.edges[x].delete = true
           }
         }
@@ -355,7 +361,7 @@ export default {
         this.drawEdgeFrom = node
       } else if (node !== this.drawEdgeFrom) {
         // set up new edge to push
-        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '' }
+        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '', delete: false }
 
         // check if edge already exists
         var x = 0
