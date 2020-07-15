@@ -248,15 +248,15 @@ export default {
         // listeners object
         listeners: {
           move: this.resizeMove
-        }
-        // modifiers: [
-        //   interactive.modifiers.restrictEdges({
-        //     outer: 'parent'
-        //   }),
-        //   interactive.modifiers.restrictSize({
-        //     min: { width: 100, height: 50 }
-        //   })
-        // ]
+        },
+        modifiers: [
+          interact.modifiers.restrictEdges({
+            outer: 'parent'
+          }),
+          interact.modifiers.restrictSize({
+            min: { width: 100, height: 50 }
+          })
+        ]
       })
     },
 
