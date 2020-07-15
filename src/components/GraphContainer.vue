@@ -109,10 +109,10 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 90, h: 25, label: 'bilbo baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 1, x: 450, y: 400, w: 90, h: 25, label: 'frodo baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 2, x: 600, y: 600, w: 120, h: 25, label: 'merry brandybuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 3, x: 100, y: 400, w: 150, h: 50, label: 'mushrooms', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
+      { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 2, x: 600, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+      { id: 3, x: 100, y: 400, w: 150, h: 50, label: '"Mushrooms"', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
     ],
 
     edges: [
@@ -122,7 +122,9 @@ export default {
     prefixes: [
       { name: 'rdf:', uri: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' },
       { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
-      { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' }
+      { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
+      { name: 'tg:', uri: 'http://www.tolkiengateway.net/wiki/' },
+      { name: 'wiki:', uri: 'https://www.wikipedia.org/' }
     ],
 
     message: 'no action',
@@ -138,20 +140,27 @@ export default {
 
      2. Deselect nodes by clicking on them again.
 
-     3. Multiple selected nodes can be deleted by pressing 
-        'bin nodes'.
+     3. Multiple selected nodes can be deleted by 
+        pressing 'bin nodes'.
 
-     4. Double click a node, then double click another node, to 
-        draw an edge between them.
+     4. Double click a node, then double click 
+        another node, to draw an edge between 
+        them.
 
      5. Drag nodes around to rearrange them.
      
      6. Delete edges by double clicking on them.
      
-     7. Scroll down to the bottom. You can add new prefixes
-        and see existing ones.
+     7. Scroll down to the bottom. You can add 
+        new prefixes and see existing ones.
         
-     8. Convert your graph to turtle at the page bottom.`,
+     8. Convert your graph to turtle at the page 
+        bottom.
+     
+     9. Resize nodes by hovering over them and 
+        dragging out once an arrow handle appears. 
+        To resize equally use the diagonal 
+        corners/black arrows.`,
     level: 0,
     levels: [
       {
@@ -207,8 +216,8 @@ export default {
     this.idCount = this.nodes.length
 
     this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'cousin' },
-      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'second cousin' },
+      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'tg:Baggins_Family' },
+      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'wiki:Cousin' },
       { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
       { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
       { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
