@@ -40,6 +40,7 @@
           @select-node='selectNodeHandler'
           @draw-edge='drawEdgeHandler'
           @label-input='labelInputHandler'
+          @resize-node='resizeNodeHandler'
           :indexNo='node.id'
           ref='node'
         />
@@ -402,6 +403,12 @@ export default {
       })
 
       this.edges = newEdges
+    },
+
+    resizeNodeHandler (nodeId, newWidth, newHeight, x, y) {
+      var node = this.nodes[nodeId]
+      var newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
+      this.nodes[nodeId] = newNode
     },
 
     storePrefix (name, uri) {

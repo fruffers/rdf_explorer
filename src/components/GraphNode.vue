@@ -83,22 +83,6 @@ export default {
 
   computed: {
 
-    // rectActive () {
-    //   if (this.nodeData.type === 'object') {
-    //     this.nodeType = 'object'
-    //     // var wCopy = this.nodeData.w
-    //     // var hCopy = this.nodeData.h
-    //     // hide all
-    //     // this.flattenEllipse()
-
-    //     // show rect
-    //     return { w: this.nodeData.w, h: this.nodeData.h }
-    //   } else {
-    //     // flatten rect so it doesn't appear
-    //     return { w: 0, h: 0 }
-    //   }
-    // },
-
     // this controls the location for g group
     // so a transform is applied to the initial node location
     // moves the node
@@ -229,6 +213,7 @@ export default {
   },
 
   mounted () {
+    // run these functions on document load
     this.initInteractJs()
   },
 
@@ -242,42 +227,83 @@ export default {
       }
     },
 
-    // resizeInteractJs () {
-    //   var interactive = interact(this.$refs.svgG).resizable({
-    //     edges: {
-    //       left: true,
-    //       right: true,
-    //       bottom: true,
-    //       top: true
-    //     }
-    //   })
-
-    //   listeners: {
-
-    //   }
-    // },
-
     initInteractJs () {
       // these are all methods from interactjs
       const interactive = interact(this.$refs.svgG)
+
       interactive.draggable({
         inertia: true, // throw nodes
         autoScroll: true,
-        // listeners that wait for interactjs
+        // object containing listeners that wait for interactjs
         // event to trigger
         listeners: {
           move: this.onElementMove,
           end: this.onElementMoveEnd
         }
       })
+      interactive.resizable({
+        // these edges are too far in so replace them with
+        // some handle elements later
+        edges: { left: true, right: true, bottom: true, top: true },
+        // listeners object
+        listeners: {
+          move: this.resizeMove
+        }
+        // modifiers: [
+        //   interactive.modifiers.restrictEdges({
+        //     outer: 'parent'
+        //   }),
+        //   interactive.modifiers.restrictSize({
+        //     min: { width: 100, height: 50 }
+        //   })
+        // ]
+      })
     },
 
-    resetDisplacement () {
-      this.displacement = {
-        x: 0,
-        y: 0
-      }
+    resizeMove (event) {
+      // get x and y of event, where the mouse has grabbed
+      console.log('event only ', event)
+      // var target = event.target
+
+      // target = rect
+
+      var nodeId = this.nodeData.id
+
+      // deltarect applied to transform to translate it
+      // into the right place
+
+      var x = this.nodeData.x
+      var y = this.nodeData.y
+
+      // change to new dimensions
+      var newWidth = event.rect.width
+      var newHeight = event.rect.height
+
+      // change nodeData and nodeData displacement through
+      // an emit
+
+      // translate the shape location after resize
+      // apply displacement
+      x += event.deltaRect.left
+      y += event.deltaRect.top
+
+      this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
+      // apply translation delta from deltarect
+
+      // update width and height of svg using the event
+      // grab resize handle
+      // need to use the transform x and y of the g class
+      // also need to change g.node width and height
+      // and pass it to parent
+      console.log('event target', event.target)
     },
+
+    // resetDisplacement () {
+    //   this.displacement = {
+    //     x: 0,
+    //     y: 0
+    //   }
+    // },
 
     onElementMove (event) {
       // calculating displacement during drag of mouse and node

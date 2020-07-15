@@ -247,7 +247,7 @@ export default {
           ]
         }
       } else {
-      // ellipse node
+      // ellipse handles
         return {
           handles: [
             { x: x + node.w, y: y }, // north
@@ -258,7 +258,7 @@ export default {
         }
       }
 
-      // to get the centre of the rect / w by 2
+      // to get the centre of the width of rect / w by 2
     },
 
     /* Pythagorean distance between two points */
