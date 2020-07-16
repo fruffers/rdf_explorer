@@ -470,7 +470,7 @@ export default {
           var origin = catchTriples[a][b]
           var uriForm = `<${catchTriples[a][b]}>`
           for (c in this.prefixes) {
-            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"')) {
+            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"') || catchTriples[a][b].includes('<>')) {
               catchTriples[a][b] = origin
               break
             } else {
