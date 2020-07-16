@@ -40,9 +40,10 @@ export default {
 
 <style scoped>
   #wrapper {
-    padding: 5%;
+    padding: 2%;
     float: left;
     margin-bottom: 20%;
+    text-align: left;
   }
 
   li {

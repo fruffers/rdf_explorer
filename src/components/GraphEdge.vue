@@ -248,12 +248,14 @@ export default {
         }
       } else {
       // ellipse handles
+
+        // var circ = 2 * Math.PI * Math.sqrt((node.w + node.h) / 2)
         return {
           handles: [
-            { x: x + node.w, y: y }, // north
+            { x: x + node.w, y: y }, // west
             { x: x + node.w * 2, y: y + node.h }, // east
             { x: x + node.w, y: y + node.h * 2 }, // south
-            { x: x, y: y + node.h } // west
+            { x: x, y: y + node.h } // north
           ]
         }
       }
@@ -266,6 +268,7 @@ export default {
       const dx = fromHandle.x - toHandle.x
       const dy = fromHandle.y - toHandle.y
 
+      // returns distance between the two closest possible handles
       return Math.sqrt(dx * dx + dy * dy)
     },
 

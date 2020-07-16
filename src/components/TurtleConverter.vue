@@ -1,13 +1,12 @@
 <template>
-    <div>
+    <div id='wrapper'>
         <h3>Turtle Converter</h3>
         <button @click='emitConvert'>Convert the graph</button>
-        <pre id='wrapper'>
+        <br/>
             <code v-for='triple in triples' :key='triple.index'>
                 {{triple.subject}} {{triple.predicate}} {{triple.object}} .
                 <br/>
             </code>
-        </pre>
     </div>
 </template>
 
@@ -26,7 +25,7 @@ export default {
 </script>
 
 <style scoped>
-    #wrapper {
-        margin-right: 5%;
-    }
+#wrapper {
+  text-align: left;
+}
 </style>
