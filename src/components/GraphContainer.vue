@@ -123,6 +123,7 @@ export default {
       { name: 'rdf:', uri: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' },
       { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
       { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
+      { name: 'dct:', uri: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/' },
       { name: 'tg:', uri: 'http://www.tolkiengateway.net/wiki/' },
       { name: 'wiki:', uri: 'https://www.wikipedia.org/' }
     ],
@@ -172,10 +173,14 @@ export default {
       }
     ],
     drawEdgeFrom: [],
-    triples: []
+    triples: [],
+    ontoTerms: []
   }),
 
   computed: {
+    // ontoTerms() {
+
+    // }
 
   },
 
@@ -217,7 +222,7 @@ export default {
 
     this.edges.push(
       { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'tg:Baggins_Family' },
-      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'wiki:Cousin' },
+      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:knows' },
       { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
       { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
       { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
@@ -275,12 +280,12 @@ export default {
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: 'gandalf', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
     addObjectHandler () {
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: 'gandalf', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
+      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
@@ -451,35 +456,32 @@ export default {
       var x = 0
       for (x in this.edges) {
         catchTriples.push({
-          subject: this.edges[x].fromNode.label || '_:blank',
-          predicate: this.edges[x].label || '_:blank',
+          subject: this.edges[x].fromNode.label || '_:blank', // the boolean tracks whether it is prefixed or not
+          predicate: this.edges[x].edgeLabel || '_:blank',
           object: this.edges[x].toNode.label || '_:blank'
         })
       }
 
-      // check for prefixes and add them
-      // Objects can be literals in """  """ !!!! or blank nodes
+      var a = 0
       var b = 0
       var c = 0
-      var d = 0
-      for (b in catchTriples) {
-        for (c in catchTriples[b]) {
-          for (d in this.prefixes) {
-            if (this.prefixes[d] === catchTriples[b][c]) {
-              // do nothing
-            } else {
-              // surround uri with < >
-              var editUri = `<${catchTriples[b][c]}>`
-              catchTriples[b][c] = editUri
+      for (a in catchTriples) {
+        for (b in catchTriples[a]) {
+          var origin = catchTriples[a][b]
+          var uriForm = `<${catchTriples[a][b]}>`
+          for (c in this.prefixes) {
+            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"')) {
+              catchTriples[a][b] = origin
               break
+            } else {
+              catchTriples[a][b] = uriForm
             }
           }
         }
       }
-      this.triples = catchTriples
-    },
 
-    convertJSONtoTURTLE () {
+      // filter to take out the boolean trackers
+      this.triples = catchTriples
     }
 
     //   dragAlongHandler (node, displacement) {
