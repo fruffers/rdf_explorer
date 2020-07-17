@@ -144,6 +144,8 @@ export default {
       const fromHandles = this.fromNodePoints.handles
       const toHandles = this.toNodePoints.handles
 
+      // returns pairs of all handles cartesian, with one from and one to
+      // {to,from} for every so {n, n}, {n, e}, {n, s}, {n, w} and so forth
       const pairs = []
       for (const fromHandle of fromHandles) {
         for (const toHandle of toHandles) {
@@ -249,9 +251,12 @@ export default {
       } else {
       // ellipse handles
 
-        // var circ = 2 * Math.PI * Math.sqrt((node.w + node.h) / 2)
+        // var circ = 2 * Math.PI * Math.sqrt(((node.w * 2 + x) + (node.h * 2 + y) / 2))
+        // console.log('circ ' + circ)
+        // console.log('x ' + x + node.w + 'y ' + y + node.y)
         return {
           handles: [
+            // { x: circ / 2 + x, y: circ / 50 + y }
             { x: x + node.w, y: y }, // west
             { x: x + node.w * 2, y: y + node.h }, // east
             { x: x + node.w, y: y + node.h * 2 }, // south
@@ -268,7 +273,7 @@ export default {
       const dx = fromHandle.x - toHandle.x
       const dy = fromHandle.y - toHandle.y
 
-      // returns distance between the two closest possible handles
+      // returns distance between handle sets
       return Math.sqrt(dx * dx + dy * dy)
     },
 

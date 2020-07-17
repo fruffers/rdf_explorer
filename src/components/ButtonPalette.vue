@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='wrapper'>
         <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
         <button ref="addObj" @click='addNodeObjectEmit'>Add object</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
@@ -42,5 +42,13 @@ export default {
 <style scoped>
   button:hover {
     cursor: pointer;
+    text-decoration: underline;
+  }
+  button {
+      margin: 0.5%;
+      color: #001c39;
+      background-color: white;
+      border: 4px solid #001c39;
+      text-transform: uppercase;
   }
 </style>

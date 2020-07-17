@@ -1,7 +1,9 @@
 <template>
     <div>
         <div id='goal'> Goal: <slot></slot> </div>
-        <button id='submit'>Submit Answer</button>
+        <div id='btnWrap'>
+            <button id='submit'>SUBMIT ANSWER</button>
+        </div>
 
     </div>
 </template>
@@ -14,19 +16,21 @@ export default {
 
 <style scoped>
     #submit:hover {
-        background-color: coral;
+        background-color: #67c7c6;
         cursor: pointer;
+        color: black;
+        text-decoration: underline;
     }
     #submit {
         margin-top: 5%;
         padding: 5%;
-        background-color: lightblue;
-        color: black;
+        background-color: #001c39;
+        color: white;
         font-size: 120%;
-        border-radius: 5%;
+        border: 4px solid white;
     }
     #goal {
-        background-color: palegreen;
-        padding: 20%;
+        background-color: #9ec1ee;
+        padding: 10%;
     }
 </style>

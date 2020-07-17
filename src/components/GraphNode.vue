@@ -11,7 +11,7 @@
       :cy='centreY'
       :rx='radiusX'
       :ry='radiusY'
-      class='c-graph-node'
+      class='ellipse'
       stroke-width= '2'
       stroke= 'black'
       @click='selectNode'
@@ -22,6 +22,7 @@
     />
 
     <rect
+    class='rect'
     :width='rectX'
     :height='rectY'
     @click='selectNode'
@@ -351,7 +352,11 @@ export default {
   touch-action: none;
 }
 
-.c-graph-node {
+.rect {
+  fill: #67c7c6;
+}
+
+.ellipse {
   fill: #99c;
   /* stroke: #336; */
 }

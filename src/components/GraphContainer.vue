@@ -2,7 +2,7 @@
   <div class='c-graph-container'>
     <header>
       <nav>
-        <img id='logo' src='../assets/epilogo.png'/>
+        <img id='logo' src='../assets/epi1.png'/>
         <div id='navInner'>
         RDF Explorer
         </div>
@@ -22,8 +22,7 @@
       @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
       @clear-canvas='clearCanvasHandler'
-      @instruct-alert='instructAlertHandler'
-      style='z-index: -100'>
+      @instruct-alert='instructAlertHandler'>
       </button-pal>
       <!--encase in svg tag-->
       <svg
@@ -545,21 +544,31 @@ body {
 .c-graph-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+}
+
+header {
+  height: 9vh;
+  padding: 3%;
 }
 
 .c-graph-container header, .c-graph-container footer {
-  height: 5em;
-  background-color: rgb(62, 86, 117);
+  /* background-color: #001c39; */
+  background: rgb(74,128,154);
+background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(67,89,135,1) 35%, rgba(0,28,57,1) 100%);
+  /* background: rgb(74,128,154);
+background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(104,141,179,1) 35%, rgba(0,28,57,1) 100%); */
+  /* background: rgb(85,106,116);
+background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%, rgba(0,28,57,1) 100%); */
   flex-grow: 0;
   color: white;
 }
 
 #navInner {
+  font-family: 'Montserrat', sans-serif;
   font-size: 30px;
-  padding: 1.5%;
-  padding-top: 1%;
+  padding: 1%;
   float: left;
+  margin-top: 1.5%;
 }
 
 .c-graph-conta    inner, main {
@@ -577,13 +586,15 @@ body {
 }
 
 #logo {
-  padding: 1%;
-  height: 45px;
+  padding-top: 0;
+  height: 90px;
+  margin-right: 1%;
   float: right;
 }
 
 #buttons {
   float: right;
+  display: flex;
   padding: 1%;
 }
 
