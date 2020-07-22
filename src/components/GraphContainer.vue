@@ -18,6 +18,10 @@
       <h1>Level: {{this.level}}</h1>
       <p v-html='this.levels[level].text'/>
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
+
+      <feedback-pal
+      :levelCompletion='levelCompletion'
+      />
       </div>
 
       <button-pal
@@ -96,6 +100,7 @@ import buttonPal from './ButtonPalette'
 import prefixPal from './PrefixPalette'
 import turtleConvert from './TurtleConverter'
 import goalPal from './GoalPalette'
+import feedbackPal from './LevelFeedback'
 
 export default {
   name: 'graph-container',
@@ -105,7 +110,8 @@ export default {
     buttonPal,
     prefixPal,
     turtleConvert,
-    goalPal
+    goalPal,
+    feedbackPal
   },
 
   data: () => ({
@@ -164,6 +170,7 @@ export default {
         To resize equally use the diagonal 
         corners/black arrows.`,
     level: 0,
+    levelCompletion: { levelNo: 0, result: 'wrong' },
     levels: [
       {
         no: 0,
@@ -171,7 +178,7 @@ export default {
         `RDF stands for <b>'resource description framework'</b>. It is a syntax framework for describing resources, and their relationships to other resources. RDF syntax is used so that machines can read the data and make use of it. 
         <br/>
         <br/>
-        A resource is any subject that can be identified. For example 'elephant', or 'thames river'. RDF has a data model that organizes data into triples. These consist of three parts. <b>Subject, predicate, object</b>.
+        A resource is any thing that can be identified. For example 'elephant', 'hunger', or 'wikipedia'. RDF has a data model that organizes data into triples. These consist of three parts. <b>Subject, predicate, object</b>.
         <br/>
         <br/>
         <b>
@@ -265,10 +272,9 @@ export default {
   },
 
   mounted () {
-    this.idCount = this.nodes.length
-
     // gen default graph on page load
     this.graphGen()
+    this.idCount = this.nodes.length
   },
 
   methods: {
@@ -524,7 +530,6 @@ export default {
     },
 
     answerHandler () {
-      console.log('btn click')
       // check whether answer is correct for current level
       // change turtle output format so it matches the answer format
       this.turtleConvert()
@@ -552,8 +557,11 @@ export default {
     },
 
     success () {
+      this.levelCompletion.result = 'right'
       // update level
       this.level++
+      // reassign
+      // this.levelCompletion = { levelNo: this.level, result: 'wrong' }
       // gen next graph
       this.graphGen()
       console.log('success')
