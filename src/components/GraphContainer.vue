@@ -213,7 +213,15 @@ export default {
         <br/>
         <br/>
         To find out more information about the ontologies follow their links to see the classes and properties associated with them. Your URI must be accurate in spelling; it must exist on the web.
-        `
+        `,
+        answer: 'tg:Bilbo_Baggins tg:Baggins_Family tg:Frodo_Baggins . ' +
+        'tg:Frodo_Baggins foaf:knows tg:Merry_BrandyBuck . ' +
+        'tg:Bilbo_Baggins foaf:interest "Mushrooms" . ' +
+        'tg:Frodo_Baggins foaf:interest "Mushrooms" . ' +
+        'tg:Merry_BrandyBuck foaf:interest "Mushrooms" . ' +
+        'tg:Bilbo_Baggins wo:species tg:Hobbits . ' +
+        'tg:Frodo_Baggins wo:species tg:Hobbits . ' +
+        'tg:Merry_BrandyBuck wo:species tg:Hobbits . '
       }
     ],
     drawEdgeFrom: [],
@@ -530,17 +538,45 @@ export default {
     },
 
     answerHandler () {
+      console.log('btn click')
+      // check whether answer is correct for current level
+      this.turtleConvert()
+      var result = ''
+      var a = 0
+      for (a; a < this.triples.length; a++) {
+        if (a !== 0) {
+          result += '.' + ' '
+        }
+        for (var prop in this.triples[a]) {
+          result += this.triples[a][prop] + ' '
 
+          if (a === this.triples.length - 1 && prop === 'object') {
+            result += '. '
+          }
+        }
+      }
+      console.log('result ' + result)
+      if (result.includes(this.levels[this.level].answer)) {
+        // correct
+        this.success()
+      } else {
+        // wrong
+        this.failure()
+      }
     },
 
     success () {
+      // update level
       // gen next graph
-
+      console.log('success')
     },
 
-    fail () {
+    failure () {
       // regen graph
+      console.log('failure')
+    },
 
+    graphGen () {
     }
 
   }
