@@ -112,10 +112,6 @@ export default {
     // array of node objects
     // id must match the index
     nodes: [
-      { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 2, x: 600, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-      { id: 3, x: 100, y: 400, w: 150, h: 50, label: '"Mushrooms"', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
     ],
 
     edges: [
@@ -269,20 +265,10 @@ export default {
   },
 
   mounted () {
-    // create some test edges
-
     this.idCount = this.nodes.length
 
-    this.edges.push(
-      { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'tg:Baggins_Family' },
-      { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:knows' },
-      { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
-      { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
-      { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
-    )
-
-    // pushing an object of 2 node objects into edges. The nodes will carry {id,x,y,w,h,label}.
-    // and each object has its name depending on what it is. fromNode. toNode.
+    // gen default graph on page load
+    this.graphGen()
   },
 
   methods: {
@@ -540,6 +526,7 @@ export default {
     answerHandler () {
       console.log('btn click')
       // check whether answer is correct for current level
+      // change turtle output format so it matches the answer format
       this.turtleConvert()
       var result = ''
       var a = 0
@@ -555,7 +542,6 @@ export default {
           }
         }
       }
-      console.log('result ' + result)
       if (result.includes(this.levels[this.level].answer)) {
         // correct
         this.success()
@@ -567,16 +553,37 @@ export default {
 
     success () {
       // update level
+      this.level++
       // gen next graph
+      this.graphGen()
       console.log('success')
     },
 
     failure () {
       // regen graph
+      this.graphGen()
       console.log('failure')
     },
 
     graphGen () {
+      // delete current work
+      this.clearCanvasHandler()
+      // gen graph depending on level
+      if (this.level === 0) {
+        this.nodes.push(
+          { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
+          { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+          { id: 2, x: 600, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+          { id: 3, x: 100, y: 400, w: 150, h: 50, label: '"Mushrooms"', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
+        )
+        this.edges.push(
+          { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'tg:Baggins_Family' },
+          { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:knows' },
+          { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
+          { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
+          { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
+        )
+      }
     }
 
   }
