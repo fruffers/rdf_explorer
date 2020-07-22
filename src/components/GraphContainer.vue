@@ -593,6 +593,8 @@ export default {
           { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
         )
       }
+
+      this.idCount = this.nodes.length
     }
 
   }
