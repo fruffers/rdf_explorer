@@ -2,7 +2,7 @@
     <div>
         <div id='goal'> Goal: <slot></slot> </div>
         <div id='btnWrap'>
-            <button id='submit'>SUBMIT ANSWER</button>
+            <button @click="emitAnswer" id='submit'>SUBMIT ANSWER</button>
         </div>
 
     </div>
@@ -10,7 +10,12 @@
 
 <script>
 export default {
-  name: 'goalPalette'
+  name: 'goalPalette',
+  methods: {
+    emitAnswer (event) {
+      this.$emit('answer')
+    }
+  }
 }
 </script>
 
@@ -28,6 +33,7 @@ export default {
         color: white;
         font-size: 120%;
         border: 4px solid white;
+        transition: 0.6s;
     }
     #goal {
         background-color: #9ec1ee;

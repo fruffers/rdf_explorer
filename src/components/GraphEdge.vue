@@ -230,12 +230,6 @@ export default {
       const x = node.x + node.displacement.x
       const y = node.y + node.displacement.y
 
-      // // rect node
-      // rect only uses w and h
-      // if (node.type === 'object') {
-
-      // }
-
       // decide whether handles are needed for rect or for ellipse
 
       if (node.type === 'object') {
@@ -250,17 +244,76 @@ export default {
         }
       } else {
       // ellipse handles
+        // var a = node.w / 2
+        // var b = node.h / 2
+        // // length to focis
+        // var c = Math.sqrt((a * a) - (b * b))
+        // var center = { x: x + node.w, y: y + node.h }
+        // var lfx = center.x - c
+        // var rfx = center.x + c
+        // var leftFoci = { x: lfx, y: center.y }
+        // var rightFoci = { x: rfx, y: center.y }
 
-        // var circ = 2 * Math.PI * Math.sqrt(((node.w * 2 + x) + (node.h * 2 + y) / 2))
-        // console.log('circ ' + circ)
-        // console.log('x ' + x + node.w + 'y ' + y + node.y)
+        // var longestLen = x + node.w * 2
+
+        // var onePart = longestLen / 4
+
+        // how to get points using the foci?
+        // the width to the two foci has to equal longest len
+
+        // console.log('center' + center.x)
+        // console.log('left foci' + leftFoci.x)
+        // console.log('right foci ' + rightFoci.x)
+        // console.log('width ' + longestLen)
+
+        // distance from (-c,0) to (x,y) where (x,y) is point and (-c,0) is left foci
+        // var d1 = 0
+        // distance from right foci to point
+        // var d2 = 0
+
+        // set of all points on the coordinate system
+        // var boundBox = []
+        // var x1 = 0
+        // var y1 = 0
+        // make bounding box around ellipse to pick points from
+        // ranges from x+y to (x+y)*2
+        // ranges from
+
+        // declare vertices
+        // var north = { x: x + node.w, y: y }
+        // var east = { x: x + node.w * 2, y: y + node.h }
+        // var south = { x: x + node.w, y: y + node.h * 2 }
+        // var west = { x: x, y: y + node.h }
+
+        // var t1 = { x: west.x, y: north.y }
+        // var t2 = { x: east.x, y: north.y }
+        // var b1 = { x: west.x, y: south.y }
+        // var b2 = { x: east.x, y: south.y }
+
+        // var diagPoints = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
+
+        // diagPoints.forEach((p, i) => {
+        //   var t = Math.tan(i * Math.PI / 4 + Math.atan(2 * b / a) / 2)
+        //   var px = a * (1 - t ** 2) / (1 + t ** 2)
+        //   var py = b * 2 * t / (1 + t ** 2)
+        //   // console.log('px ' + px)
+        //   p.x = px
+        //   p.y = py
+        // })
+
+        // var ellipsePointSet = []
+        // var count = 0
+
+        // sum of distance must equal width
+
         return {
           handles: [
-            // { x: circ / 2 + x, y: circ / 50 + y }
-            { x: x + node.w, y: y }, // west
+            // { x: leftFoci.x, y: leftFoci.y },
+            // { x: rightFoci.x, y: rightFoci.y }
+            { x: x + node.w, y: y }, // north
             { x: x + node.w * 2, y: y + node.h }, // east
             { x: x + node.w, y: y + node.h * 2 }, // south
-            { x: x, y: y + node.h } // north
+            { x: x, y: y + node.h } // west
           ]
         }
       }

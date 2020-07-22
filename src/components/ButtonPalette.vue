@@ -1,7 +1,7 @@
 <template>
     <div id='wrapper'>
         <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
-        <button ref="addObj" @click='addNodeObjectEmit'>Add object</button>
+        <button ref="addObj" @click='addNodeObjectEmit'>Add literal</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
         <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>

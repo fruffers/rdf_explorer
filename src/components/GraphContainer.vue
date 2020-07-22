@@ -17,7 +17,7 @@
       <!-- <p v-html='this.instructions'/> -->
       <h1>Level: {{this.level}}</h1>
       <p v-html='this.levels[level].text'/>
-      <goal-pal></goal-pal>
+      <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
       </div>
 
       <button-pal
@@ -128,7 +128,9 @@ export default {
       { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
       { name: 'dct:', uri: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/' },
       { name: 'tg:', uri: 'http://www.tolkiengateway.net/wiki/' },
-      { name: 'wiki:', uri: 'https://www.wikipedia.org/' }
+      { name: 'wo:', uri: 'http://purl.org/ontology/wo/' },
+      { name: 'dbpedia:', uri: 'https://wiki.dbpedia.org/' },
+      { name: 'schema:', uri: 'https://schema.org/' }
     ],
 
     message: 'no action',
@@ -170,14 +172,54 @@ export default {
       {
         no: 0,
         text:
-        `Introducing RDF knowledge graphs.
-        What is RDF? RDF stands for 'resource description framework'. It 
-        is a syntax framework for describing resources (data/any subject that can be identified) on the web. `
+        `RDF stands for <b>'resource description framework'</b>. It is a syntax framework for describing resources, and their relationships to other resources. RDF syntax is used so that machines can read the data and make use of it. 
+        <br/>
+        <br/>
+        A resource is any subject that can be identified. For example 'elephant', or 'thames river'. RDF has a data model that organizes data into triples. These consist of three parts. <b>Subject, predicate, object</b>.
+        <br/>
+        <br/>
+        <b>
+        Subject: a resource identified with a URI.
+        <br/>
+        <br/>
+        Predicate: URI identifier to data specifying the relationship between the subject and object.
+        <br/>
+        <br/>
+        Object: a resource or literal (string) that is related to the subject.
+        </b>
+        <br/>
+        <br/>
+
+        Ontologies are web-hosted vocabularies with classes and properties that can be used to describe resources.`,
+        goal: `Add a 'hobbit' resource to the graph and connect it to other resources. 
+        <br/>
+        <br/>
+        Think of it like this...
+        <br/>
+        <br/>
+        subject: bilbo baggins
+        <br/>
+        predicate: has the species
+        <br/>
+        object: hobbit
+        <br/>
+        <br/>
+
+        A prefix replaces part of a URI so that one only needs to type the suffix after the defined prefix instead of a whole URI. 
+        &lt;www.tolkiengateway.net/Hobbits&gt; becomes tg:Hobbits
+        <br/>
+        <br/>
+        Use the given prefixes at the bottom of the page. For this one you will need to use: tg (tolkiengate) and wo (wildlife ontology). 
+        <br/>
+        <br/>
+        To find out more information about the ontologies follow their links to see the classes and properties associated with them. Your URI must be accurate in spelling; it must exist on the web.
+        `
       }
     ],
     drawEdgeFrom: [],
     triples: [],
-    ontoTerms: []
+    ontoTerms: [],
+    coordSystem: []
   }),
 
   computed: {
@@ -485,55 +527,21 @@ export default {
 
       // filter to take out the boolean trackers
       this.triples = catchTriples
+    },
+
+    answerHandler () {
+
+    },
+
+    success () {
+      // gen next graph
+
+    },
+
+    fail () {
+      // regen graph
+
     }
-
-    //   dragAlongHandler (node, displacement) {
-    //     // create a store for affected node points
-    //     var nodePoints = { fromNode: {}, toNodes: [], origin: '', indexes: [] }
-
-    //     // check if dragged node is attached to any edges
-    //     var x = 0
-    //     var b = 0
-    //     for (x in this.edges) {
-    //       if (node === this.edges[x].fromNode) {
-    //         // only one fromNode
-    //         nodePoints.fromNode = this.edges[x].fromNode
-    //         nodePoints.origin = 'from'
-    //         // there may be multiple toNodes
-    //         for (b in this.edges) {
-    //           if (this.edges[b].fromNode === node) {
-    //             // get the toNode attached to each matching fromNode found
-    //             nodePoints.toNodes += this.edges[b].toNode
-
-    //             // change the startx and starty of each node
-    //             this.edges[b].toNode.x += displacement.x
-    //             this.edges[b].toNode.y += displacement.y
-    //           }
-    //         }
-    //       } else if (node === this.edges[x].toNode) {
-    //         // there will only be one matching fromNode
-    //         nodePoints.fromNode = this.edges[x].fromNode
-    //         nodePoints.origin = 'to'
-
-    //         this.edges[x].fromNode.x += displacement.x
-    //         this.edges[x].fromNode.y += displacement.y
-    //       }
-    //     }
-
-    //     // apply displacement to every node in store
-
-    //     // if origin is 'from' then change startx and starty of every edge attached to a toNode
-
-    //     // if origin is 'to' then change endx and endy of origin node
-
-    //     // different if we are dragging a fromNode
-
-    //     console.log('drag')
-
-    //     // console.log('fromnode ' + this.edges[0].fromNode)
-    //   }
-
-    // }
 
   }
 
@@ -556,9 +564,9 @@ header {
 }
 
 .c-graph-container header, .c-graph-container footer {
-  /* background-color: #001c39; */
-background: rgb(74,128,154);
-background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(67,89,135,1) 35%, rgba(0,28,57,1) 100%);
+  background-color: #001c39;
+/* background: rgb(74,128,154);
+background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(67,89,135,1) 35%, rgba(0,28,57,1) 100%); */
   /* background: rgb(74,128,154);
 background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(104,141,179,1) 35%, rgba(0,28,57,1) 100%); */
   /* background: rgb(85,106,116);
@@ -567,9 +575,13 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   color: white;
 }
 
+#nav {
+  height: 10vh;
+}
+
 #navInner {
   font-family: 'Montserrat', sans-serif;
-  font-size: 30px;
+  font-size: 130%;
   float: left;
   margin-top: 1.5%;
 }
@@ -590,7 +602,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #logo {
   padding-top: 0;
-  height: 90px;
+  height: 50px;
   margin-right: 1%;
   float: right;
 }
@@ -614,5 +626,9 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   padding: 3%;
   margin-top: 0;
   margin-bottom: 0;
+}
+
+p {
+  overflow-wrap:break-word;
 }
 </style>
