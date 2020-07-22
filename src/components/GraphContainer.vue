@@ -569,6 +569,7 @@ export default {
 
     failure () {
       // regen graph
+      this.levelCompletion = { levelNo: this.level, result: 'wrong' }
       this.graphGen()
       console.log('failure')
     },

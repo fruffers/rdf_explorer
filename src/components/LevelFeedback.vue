@@ -1,6 +1,6 @@
 <template>
     <div :id='color'>
-        <p :v-html='text'/>
+        <p v-html='text'/>
     </div>
 </template>
 
@@ -21,9 +21,13 @@ export default {
   },
   watch: {
     levelCompletion: function (change) {
+      console.log('a change')
       if (this.levelCompletion.result === 'right') {
         this.color = 'success'
-        this.text = this.feedback[this.levelCompletion.levelNo]
+        this.text = this.feedback[this.levelCompletion.levelNo].right
+      } else {
+        this.color = 'failure'
+        this.text = this.feedback[this.levelCompletion.levelNo].wrong
       }
     }
   }
