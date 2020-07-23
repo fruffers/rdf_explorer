@@ -15,7 +15,7 @@
     <main>
       <div id='levelWrapper'>
       <!-- <p v-html='this.instructions'/> -->
-      <h1>Level: {{this.level}}</h1>
+      <h1>Level: <a v-html='level'/></h1>
       <p v-html='this.levels[level].text'/>
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
 
@@ -557,7 +557,8 @@ export default {
     },
 
     success () {
-      this.levelCompletion.result = 'right'
+      // this.levelCompletion.result = 'right'
+      this.levelCompletion = { levelNo: this.level, result: 'right' }
       // update level
       this.level++
       // reassign
@@ -666,10 +667,6 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   display: flex;
   padding: 1%;
 }
-
-/* #dots {
-  font-size: 50px;
-} */
 
 #levelWrapper {
   font-size: 18px;
