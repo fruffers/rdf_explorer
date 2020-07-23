@@ -2,13 +2,15 @@
   <div class='c-graph-container'>
     <header>
       <nav>
-        <a href='https://www.epimorphics.com/'>
-        <img id='logo' src='../assets/epi1.png'/>
-        </a>
-        <div id='navInner'>
-        RDF Explorer
-        <br/>
-        <a id='dots'>===========</a>
+        <div id='navWrapper'>
+          <a href='https://www.epimorphics.com/'>
+            <img id='logo' src='../assets/epi1.png'/>
+          </a>
+          <div id='navInner'>
+            RDF Explorer
+            <br/>
+            <a id='dots'>===========</a>
+          </div>
         </div>
       </nav>
     </header>
@@ -630,7 +632,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   color: white;
 }
 
-#nav {
+#navWrapper {
   height: 10vh;
 }
 
@@ -657,7 +659,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #logo {
   padding-top: 0;
-  height: 50px;
+  height: 90%;
   margin-right: 1%;
   float: right;
 }
