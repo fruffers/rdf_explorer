@@ -583,7 +583,7 @@ export default {
         this.nodes.push(
           { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
           { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 2, x: 600, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+          { id: 2, x: 400, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
           { id: 3, x: 100, y: 400, w: 150, h: 50, label: '"Mushrooms"', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
         )
         this.edges.push(
