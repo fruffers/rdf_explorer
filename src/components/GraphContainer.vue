@@ -11,7 +11,7 @@
             ===========
           </div>
           <div id='padder'/>
-          <div id='tagline'>Learn about the RDF with knowledge graphs</div>
+          <div id='tagline'>Learn about the RDF with interactive knowledge graphs</div>
         </div>
     </div>
     <main>
@@ -660,6 +660,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #tagline {
   float: left;
+  font-size: 80%;
   margin-right: 60%;
 }
 
