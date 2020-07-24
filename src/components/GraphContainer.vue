@@ -10,6 +10,8 @@
             <br/>
             ===========
           </div>
+          <div id='padder'/>
+          <div id='tagline'>Learn about the RDF with knowledge graphs</div>
         </div>
     </div>
     <main>
@@ -632,9 +634,8 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 #navWrapper {
   height: 10vh;
   margin: 0;
-  padding: 0;
   background-color: #001c39;
-  height: 9vh;
+  height: 10vh;
   padding: 3%;
   color: white;
 }
@@ -651,6 +652,15 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   float: left;
   margin-top: 1.5%;
   color: white;
+}
+
+#padder {
+  padding: 4vh;
+}
+
+#tagline {
+  float: left;
+  margin-right: 60%;
 }
 
 .c-graph-conta    inner, main {
