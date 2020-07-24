@@ -35,10 +35,10 @@
     <!--label is connected to line location through startX and endY etc.-->
     <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='140' :height='25'>
       <div xmlns="http://www.w3.org/1999/xhtml">
-      <input
-      :value='edgeLabel'
-      @input='edgeLabelEmit'>
-          </div>
+        <input
+        :value='edgeLabel'
+        @input='edgeLabelEmit'>
+      </div>
     </foreignObject>
 
   </g>
@@ -243,11 +243,38 @@ export default {
           ]
         }
       } else {
-      // ellipse handles
+        // ellipse handles
+        // given x
+        // var givenx = x
+        // var y1 = (node.h) * Math.sqrt((1 + (4 * (givenx ** 2))) / ((node.w) ** 2))
+        // use outer rect bounds to cut diagonal lines
+        // through ellipse and get points at intersections on
+        // ellipse circumference
+        // get rect bounds
+        // var north = { x: x + node.w, y: y }
+        // var east = { x: x + node.w * 2, y: y + node.h }
+        // var south = { x: x + node.w, y: y + node.h * 2 }
+        // var west = { x: x, y: y + node.h }
+
+        var nwX = (node.w + x) + (node.w * Math.cos(10))
+        var nwY = (node.h + y) + (node.h * Math.sin(10))
+        var neX = (node.w + x) + (node.w * Math.cos(100))
+        var neY = (node.h + y) + (node.h * Math.sin(10))
+        var swX = (node.w + x) + (node.w * Math.cos(-10))
+        var swY = (node.h + y) + (node.h * Math.sin(-10))
+        var seX = (node.w + x) + (node.w * Math.cos(-100))
+        var seY = (node.h + y) + (node.h * Math.sin(-10))
+
+        // var t1 = { x: west.x, y: north.y }
+        // var t2 = { x: east.x, y: north.y }
+        // var b1 = { x: west.x, y: south.y }
+        // var b2 = { x: east.x, y: south.y }
+
         // var a = node.w / 2
         // var b = node.h / 2
         // // length to focis
         // var c = Math.sqrt((a * a) - (b * b))
+        // var center = { x: t1.x + node.w / 2, y: t1.y + node.h / 2 }
         // var center = { x: x + node.w, y: y + node.h }
         // var lfx = center.x - c
         // var rfx = center.x + c
@@ -257,6 +284,9 @@ export default {
         // var longestLen = x + node.w * 2
 
         // var onePart = longestLen / 4
+
+        // var xnw = ((t1.x) ** 2) / (center.x)
+        // var ynw = ((t1.y) ** 2) / (center.y)
 
         // how to get points using the foci?
         // the width to the two foci has to equal longest len
@@ -279,17 +309,6 @@ export default {
         // ranges from x+y to (x+y)*2
         // ranges from
 
-        // declare vertices
-        // var north = { x: x + node.w, y: y }
-        // var east = { x: x + node.w * 2, y: y + node.h }
-        // var south = { x: x + node.w, y: y + node.h * 2 }
-        // var west = { x: x, y: y + node.h }
-
-        // var t1 = { x: west.x, y: north.y }
-        // var t2 = { x: east.x, y: north.y }
-        // var b1 = { x: west.x, y: south.y }
-        // var b2 = { x: east.x, y: south.y }
-
         // var diagPoints = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
 
         // diagPoints.forEach((p, i) => {
@@ -308,8 +327,10 @@ export default {
 
         return {
           handles: [
-            // { x: leftFoci.x, y: leftFoci.y },
-            // { x: rightFoci.x, y: rightFoci.y }
+            { x: neX, y: neY },
+            { x: seX, y: seY },
+            { x: nwX, y: nwY },
+            { x: swX, y: swY },
             { x: x + node.w, y: y }, // north
             { x: x + node.w * 2, y: y + node.h }, // east
             { x: x + node.w, y: y + node.h * 2 }, // south

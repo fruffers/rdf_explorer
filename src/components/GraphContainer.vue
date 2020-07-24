@@ -1,7 +1,6 @@
 <template>
   <div class='c-graph-container'>
-    <header>
-      <nav>
+    <div id='nav'>
         <div id='navWrapper'>
           <a href='https://www.epimorphics.com/'>
             <img id='logo' src='../assets/epi1.png'/>
@@ -9,11 +8,10 @@
           <div id='navInner'>
             RDF Explorer
             <br/>
-            <a id='dots'>===========</a>
+            ===========
           </div>
         </div>
-      </nav>
-    </header>
+    </div>
     <main>
       <div id='levelWrapper'>
       <!-- <p v-html='this.instructions'/> -->
@@ -480,11 +478,11 @@ export default {
 
     resizeNodeHandler (nodeId, newWidth, newHeight, x, y) {
       var node = this.nodes[nodeId]
-      var newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y, displacement: { x: 0, y: 0 } })
-      this.nodes[nodeId] = newNode
+      var newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
+      // this.nodes[nodeId] = newNode
 
       this.$set(this.nodes, node.id, newNode) // set node to have displacement on x and y
-      this.updateAffectedEdges(Object.assign({}, node, { w: newWidth, h: newHeight, x: x, y: y, displacement: { x: 0, y: 0 } }))
+      this.updateAffectedEdges(Object.assign({}, node, { w: newWidth, h: newHeight, x: x, y: y }))
     },
 
     storePrefix (name, uri) {
@@ -615,13 +613,12 @@ body {
   flex-direction: column;
 }
 
-header {
+/* header {
   height: 9vh;
   padding: 3%;
-}
+} */
 
 .c-graph-container header, .c-graph-container footer {
-  background-color: #001c39;
 /* background: rgb(74,128,154);
 background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(67,89,135,1) 35%, rgba(0,28,57,1) 100%); */
   /* background: rgb(74,128,154);
@@ -634,6 +631,18 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #navWrapper {
   height: 10vh;
+  margin: 0;
+  padding: 0;
+  background-color: #001c39;
+  height: 9vh;
+  padding: 3%;
+  color: white;
+}
+
+#nav {
+  margin: 0;
+  padding: 0;
+  /* box-shadow: 0px 2px 0px 1px rgba(172, 172, 172, 0.8); */
 }
 
 #navInner {
@@ -641,6 +650,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   font-size: 130%;
   float: left;
   margin-top: 1.5%;
+  color: white;
 }
 
 .c-graph-conta    inner, main {

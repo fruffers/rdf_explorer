@@ -120,53 +120,25 @@ export default {
     // cy === ry
 
     // centre values control where centre of node is
-    centreX: {
-      get: function () {
-        return this.supressObject(this.nodeData.w)
-        // return this.nodeData.w
-      },
-
-      set: function (newVal) {
-        return newVal
-      }
-
+    centreX () {
+      return this.supressObject(this.nodeData.w)
+      // return this.nodeData.w
     },
 
-    centreY: {
-      get: function () {
-        // return this.nodeData.h
-        return this.supressObject(this.nodeData.h)
-      },
-
-      set: function (newVal) {
-        return newVal
-      }
-
+    centreY () {
+      // return this.nodeData.h
+      return this.supressObject(this.nodeData.h)
     },
 
     // radius values control the size of the node
-    radiusX: {
-      get: function () {
-        return this.supressObject(this.nodeData.w)
-        // return this.nodeData.w
-      },
-
-      set: function (newVal) {
-        return newVal
-      }
-
+    radiusX () {
+      return this.supressObject(this.nodeData.w)
+      // return this.nodeData.w
     },
 
-    radiusY: {
-      get: function () {
-        return this.supressObject(this.nodeData.h)
-        // return this.nodeData.h
-      },
-
-      set: function (newVal) {
-        return this.newVal
-      }
-
+    radiusY () {
+      return this.supressObject(this.nodeData.h)
+      // return this.nodeData.h
     },
 
     label: {
@@ -221,6 +193,7 @@ export default {
   methods: {
 
     supressObject (changeVal) {
+      // object is rect node. This makes it flat/invisible
       if (this.nodeData.type === 'object') {
         return 0
       } else {
