@@ -5,6 +5,8 @@
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
         <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
+        <button ref='saveGraph' @click='saveGraphEmit'>Save graph</button>
+        <button ref='loadGraph' @click='loadGraphEmit'>Load graph</button>
 
     </div>
 </template>
@@ -33,6 +35,14 @@ export default {
 
     showInstructionsEmit () {
       this.$emit('instruct-alert')
+    },
+
+    saveGraphEmit () {
+      this.$emit('save-graph')
+    },
+
+    loadGraphEmit () {
+      this.$emit('load-graph')
     }
 
   }

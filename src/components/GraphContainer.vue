@@ -465,7 +465,7 @@ export default {
     },
 
     instructAlertHandler () {
-      alert(this.instructions)
+      confirm(this.instructions)
     },
 
     removeEdgeHandler (deleteIndex) {
