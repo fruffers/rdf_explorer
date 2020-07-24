@@ -239,7 +239,11 @@ export default {
             { x: x + node.w / 2, y: y + node.h }, // south
             { x: x + node.w, y: y + node.h / 2 }, // east
             { x: x + node.w / 100, y: y + node.h / 2 }, // west
-            { x: x + node.w / 2, y: y + node.h / 200 } // north
+            { x: x + node.w / 2, y: y + node.h / 200 }, // north
+            { x: x + node.w / 2 * 1.7, y: y + node.h }, // se
+            { x: x + node.w / 2 / 4, y: y + node.h }, // sw
+            { x: x + node.w / 2 / 5, y: y + node.h / 200 }, // nw
+            { x: x + node.w / 2 * 1.7, y: y + node.h / 200 } // ne
           ]
         }
       } else {
@@ -256,6 +260,8 @@ export default {
         // var south = { x: x + node.w, y: y + node.h * 2 }
         // var west = { x: x, y: y + node.h }
 
+        // https://stackoverflow.com/questions/9411861/how-do-i-calculate-a-point-on-a-ellipse-s-circumference
+        // use angle to find handles
         var nwX = (node.w + x) + (node.w * Math.cos(10))
         var nwY = (node.h + y) + (node.h * Math.sin(10))
         var neX = (node.w + x) + (node.w * Math.cos(100))
@@ -327,10 +333,10 @@ export default {
 
         return {
           handles: [
-            { x: neX, y: neY },
-            { x: seX, y: seY },
-            { x: nwX, y: nwY },
-            { x: swX, y: swY },
+            { x: neX, y: neY }, // ne
+            { x: seX, y: seY }, // se
+            { x: nwX, y: nwY }, // nw
+            { x: swX, y: swY }, // sw
             { x: x + node.w, y: y }, // north
             { x: x + node.w * 2, y: y + node.h }, // east
             { x: x + node.w, y: y + node.h * 2 }, // south
