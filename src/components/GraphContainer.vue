@@ -636,10 +636,9 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 }
 
 #navWrapper {
-  height: 10vh;
+  height: 100px;
   margin: 0;
   background-color: #001c39;
-  height: 10vh;
   padding: 3%;
   color: white;
 }
