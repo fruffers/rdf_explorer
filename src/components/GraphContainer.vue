@@ -579,7 +579,7 @@ export default {
 
     graphGen (level) {
       level = parseInt(level, 10)
-      console.log('graphgen is running', level)
+      this.level = level
       // delete current work
       this.clearCanvasHandler()
       // gen graph depending on level
