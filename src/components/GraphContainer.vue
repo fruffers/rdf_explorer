@@ -454,12 +454,9 @@ export default {
       }
     },
 
-    edgeLabelHandler (index, newChar) {
-      var editLabel = this.edges[index].edgeLabel
-      if (newChar !== null) {
-        this.edges[index].edgeLabel += newChar
-      } else {
-        this.edges[index].edgeLabel = editLabel.substring(0, editLabel.length - 1)
+    edgeLabelHandler (index, newVal) {
+      if (newVal !== null) {
+        this.edges[index].edgeLabel = newVal
       }
     },
 

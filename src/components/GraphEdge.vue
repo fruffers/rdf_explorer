@@ -372,7 +372,7 @@ export default {
 
     edgeLabelEmit (event) {
       // edge labels are stored in edges array
-      this.$emit('label-input', this.edgeIndex, event.data)
+      this.$emit('label-input', this.edgeIndex, event.target.value)
     },
 
     removeEdgeEmit (event) {
