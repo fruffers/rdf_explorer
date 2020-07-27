@@ -15,13 +15,14 @@ export default {
   methods: {
     levelChangeEmit (event) {
     // give level change number
-      this.$emit(document.getElementById('levelPickBtn').innerText)
+      this.$emit('levelPick', document.getElementById('levelPickBtn').innerText)
     }
   }
 }
 </script>
 <style scoped>
     #pal {
+        display: inline-block;
         padding: 2%;
         padding-bottom: 0;
         margin-right: 80%;

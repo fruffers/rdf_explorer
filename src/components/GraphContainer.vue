@@ -17,6 +17,7 @@
     <main>
       <level-buttons
       :levels='levels'
+      @levelPick='graphGen'
       />
       <div id='levelWrapper'>
       <!-- <p v-html='this.instructions'/> -->
@@ -283,7 +284,7 @@ export default {
 
   mounted () {
     // gen default graph on page load
-    this.graphGen()
+    this.graphGen(this.level)
     this.idCount = this.nodes.length
   },
 
@@ -565,24 +566,24 @@ export default {
       // update level
       this.level++
       // reassign
-      // this.levelCompletion = { levelNo: this.level, result: 'wrong' }
       // gen next graph
-      this.graphGen()
+      this.graphGen(this.level)
       console.log('success')
     },
 
     failure () {
       // regen graph
       this.levelCompletion = { levelNo: this.level, result: 'wrong' }
-      this.graphGen()
       console.log('failure')
     },
 
-    graphGen () {
+    graphGen (level) {
+      level = parseInt(level, 10)
+      console.log('graphgen is running', level)
       // delete current work
       this.clearCanvasHandler()
       // gen graph depending on level
-      if (this.level === 0) {
+      if (level === 0) {
         this.nodes.push(
           { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
           { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
