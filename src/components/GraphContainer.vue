@@ -15,6 +15,9 @@
         </div>
     </div>
     <main>
+      <level-buttons
+      :levels='levels'
+      />
       <div id='levelWrapper'>
       <!-- <p v-html='this.instructions'/> -->
       <h1>Level: <a v-html='level'/></h1>
@@ -106,6 +109,7 @@ import prefixPal from './PrefixPalette'
 import turtleConvert from './TurtleConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
+import levelButtons from './LevelButtons'
 
 export default {
   name: 'graph-container',
@@ -116,7 +120,8 @@ export default {
     prefixPal,
     turtleConvert,
     goalPal,
-    feedbackPal
+    feedbackPal,
+    levelButtons
   },
 
   data: () => ({
