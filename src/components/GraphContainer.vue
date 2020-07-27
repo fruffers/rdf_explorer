@@ -448,13 +448,9 @@ export default {
       }
     },
 
-    labelInputHandler (nodeIndex, newChar) {
-      var editLabel = this.nodes[nodeIndex].label
-      if (newChar !== null) {
-        this.nodes[nodeIndex].label += newChar
-      } else {
-        // remove a char since a backspace was entered
-        this.nodes[nodeIndex].label = editLabel.substring(0, editLabel.length - 1)
+    labelInputHandler (nodeIndex, newVal) {
+      if (newVal !== null) {
+        this.nodes[nodeIndex].label = newVal
       }
     },
 

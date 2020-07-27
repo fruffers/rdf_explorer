@@ -313,8 +313,8 @@ export default {
     },
 
     labelEmit (event) {
-      // change the node label via input, passes 1 char at a time
-      this.$emit('label-input', this.nodeData.id, event.data)
+      // change the node label via input, passes whole value
+      this.$emit('label-input', this.nodeData.id, event.target.value)
     }
   }
 }
