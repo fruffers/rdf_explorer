@@ -20,9 +20,8 @@
       @levelPick='graphGen'
       />
       <div id='levelWrapper'>
-      <!-- <p v-html='this.instructions'/> -->
-      <h1>Level: <a v-html='level'/></h1>
-      <p v-html='this.levels[level].text'/>
+          <h1>Level: <a v-html='level'/></h1>
+          <p v-html='this.levels[level].text'/>
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
 
       <feedback-pal
