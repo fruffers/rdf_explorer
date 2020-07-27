@@ -32,7 +32,10 @@
       @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
       @clear-canvas='clearCanvasHandler'
-      @instruct-alert='instructAlertHandler'>
+      @instruct-alert='instructAlertHandler'
+      @load-graph='loadGraphHandler'
+      @save-graph='saveGraphHandler'
+      >
       </button-pal>
       <!--encase in svg tag-->
       <svg
@@ -598,6 +601,9 @@ export default {
       }
 
       this.idCount = this.nodes.length
+    },
+
+    saveGraphHandler () {
     }
 
   }

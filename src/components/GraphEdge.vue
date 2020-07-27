@@ -271,6 +271,15 @@ export default {
         var seX = (node.w + x) + (node.w * Math.cos(-100))
         var seY = (node.h + y) + (node.h * Math.sin(-10))
 
+        var swX2 = (node.w + x) + (node.w * Math.cos(130))
+        var swY2 = (node.h + y) + (node.h * Math.sin(30))
+        var nwX2 = (node.w + x) + (node.w * Math.cos(130))
+        var nwY2 = (node.h + y) + (node.h * Math.sin(-30))
+        var neX2 = (node.w + x) + (node.w * Math.cos(-200))
+        var neY2 = (node.h + y) + (node.h * Math.sin(200))
+        var seX2 = (node.w + x) + (node.w * Math.cos(200))
+        var seY2 = (node.h + y) + (node.h * Math.sin(800))
+
         // var t1 = { x: west.x, y: north.y }
         // var t2 = { x: east.x, y: north.y }
         // var b1 = { x: west.x, y: south.y }
@@ -333,6 +342,10 @@ export default {
 
         return {
           handles: [
+            { x: seX2, y: seY2 }, // se2
+            { x: neX2, y: neY2 }, // ne2
+            { x: nwX2, y: nwY2 }, // nw2
+            { x: swX2, y: swY2 }, // se2
             { x: neX, y: neY }, // ne
             { x: seX, y: seY }, // se
             { x: nwX, y: nwY }, // nw
