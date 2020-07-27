@@ -603,6 +603,16 @@ export default {
     },
 
     saveGraphHandler () {
+      // // create new file
+
+      // var nodeJSONdata = ''
+      // // parse the nodes and edges into json
+      // for (var node in this.nodes) {
+      //   nodeJSONdata += JSON.stringify(node)
+      // }
+      // var blob = new Blob(nodeJSONdata, {type: "application/json"})
+      // var url = URL.createObjectURL(blob)
+      // create download links
     }
 
   }

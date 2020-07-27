@@ -5,8 +5,29 @@
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
         <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
-        <button ref='saveGraph' @click='saveGraphEmit'>Save graph</button>
-        <button ref='loadGraph' @click='loadGraphEmit'>Load graph</button>
+        <button
+          class='collapse'
+          ref='saveGraph'
+          @click='saveGraphEmit'>
+          Save graph
+        </button>
+          <div class='collapseContent'>
+            <p><a>Save locally</a></p>
+            <p><a :href='exportURL'>Export to JSON</a></p>
+          </div>
+        <button
+          class='collapse'
+          ref='loadGraph'
+          @click='loadGraphEmit'>
+          Load graph
+        </button>
+          <div class='collapseContent'>
+            <a>Import JSON</a>
+            <a
+            v-for='(importa,index) in imports' :key='index'>
+              <a href='import.link'>{{importa.name}}</a>
+            </a>
+          </div>
 
     </div>
 </template>
@@ -15,6 +36,10 @@
 // import interact from 'interactjs'
 export default {
   name: 'buttonPal',
+  props: {
+    exportURL: String,
+    imports: Array
+  },
 
   methods: {
     addNodeSubjectEmit () {
@@ -37,12 +62,26 @@ export default {
       this.$emit('instruct-alert')
     },
 
-    saveGraphEmit () {
+    saveGraphEmit (event) {
+      this.showCollapseContent(event)
+
       this.$emit('save-graph')
     },
 
     loadGraphEmit () {
+      this.showCollapseContent(event)
+
       this.$emit('load-graph')
+    },
+
+    showCollapseContent (event) {
+      // show dropdown
+      var content = event.target.nextElementSibling
+      if (content.style.display === 'block') {
+        content.style.display = 'none'
+      } else {
+        content.style.display = 'block'
+      }
     }
 
   }
@@ -60,5 +99,11 @@ export default {
       background-color: white;
       border: 4px solid #001c39;
       text-transform: uppercase;
+  }
+  .collapseContent {
+    /* background-color: lightblue; */
+    padding: 5%;
+    display: none; /*swap between none and block to show content*/
+    overflow: hidden;
   }
 </style>
