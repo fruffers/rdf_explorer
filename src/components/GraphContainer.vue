@@ -672,14 +672,13 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   color: white;
 }
 
-#padder {
+/* #padder {
   padding: 4vh;
-}
+} */
 
 #tagline {
-  float: left;
+  padding: 5%;
   font-size: 80%;
-  margin-right: 60%;
 }
 
 .c-graph-conta    inner, main {
@@ -714,7 +713,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   line-height: 145%;
   text-align: left;
   margin-left: 10%;
-  margin-right: 60%;
+  margin-right: 40%;
   padding: 3%;
   margin-top: 0;
   margin-bottom: 0;
