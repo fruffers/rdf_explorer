@@ -31,13 +31,14 @@
 
       <button-pal
       id= 'buttons'
+      :exportURL='graphFile'
+      :graphName='graphExportName'
       @add-subject='addSubjectHandler'
       @add-object='addObjectHandler'
       @delete-node='deleteNodeHandler'
       @clear-canvas='clearCanvasHandler'
       @instruct-alert='instructAlertHandler'
-      @load-graph='loadGraphHandler'
-      @save-graph='saveGraphHandler'
+      @export-graph='exportGraphHandler'
       >
       </button-pal>
       <!--encase in svg tag-->
@@ -98,8 +99,6 @@
 // import util from 'util'
 
 // smart node that handles all of the data and event handlers
-
-// import interact from 'interactjs'
 
 // components
 import GraphNode from './GraphNode'
@@ -240,7 +239,9 @@ export default {
     drawEdgeFrom: [],
     triples: [],
     ontoTerms: [],
-    coordSystem: []
+    coordSystem: [],
+    graphFile: '',
+    graphExportName: 'graph.json'
   }),
 
   computed: {
@@ -601,17 +602,21 @@ export default {
       this.idCount = this.nodes.length
     },
 
-    saveGraphHandler () {
-      // // create new file
+    exportGraphHandler () {
+      var nodeJSONdata = ''
+      // parse the nodes into json
+      for (var node in this.nodes) {
+        nodeJSONdata += JSON.stringify(this.nodes[node])
+      }
+      // add a seperator
+      nodeJSONdata += ','
+      // parse edges
+      for (var edge in this.edges) {
+        nodeJSONdata += JSON.stringify(this.edges[edge])
+      }
 
-      // var nodeJSONdata = ''
-      // // parse the nodes and edges into json
-      // for (var node in this.nodes) {
-      //   nodeJSONdata += JSON.stringify(node)
-      // }
-      // var blob = new Blob(nodeJSONdata, {type: "application/json"})
-      // var url = URL.createObjectURL(blob)
-      // create download links
+      // bind new file URI
+      this.graphFile = 'data:text/json;charset=utf-8,' + encodeURIComponent(nodeJSONdata)
     }
 
   }

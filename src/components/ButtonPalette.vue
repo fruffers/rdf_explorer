@@ -8,24 +8,31 @@
         <button
           class='collapse'
           ref='saveGraph'
-          @click='saveGraphEmit'>
+          @click='showCollapseContent'>
           Save graph
         </button>
           <div class='collapseContent'>
             <p><a>Save locally</a></p>
-            <p><a :href='exportURL'>Export to JSON</a></p>
+            <p>
+              <a
+              @click='exportGraphEmit'
+              :download='graphName'
+              :href='exportURL'>
+              Export to JSON
+              </a>
+            </p>
           </div>
         <button
           class='collapse'
           ref='loadGraph'
-          @click='loadGraphEmit'>
+          @click='showCollapseContent'>
           Load graph
         </button>
           <div class='collapseContent'>
             <a>Import JSON</a>
             <a
             v-for='(importa,index) in imports' :key='index'>
-              <a href='import.link'>{{importa.name}}</a>
+              <a href='importa.link'>{{importa.name}}</a>
             </a>
           </div>
 
@@ -38,6 +45,7 @@ export default {
   name: 'buttonPal',
   props: {
     exportURL: String,
+    graphName: String,
     imports: Array
   },
 
@@ -62,18 +70,6 @@ export default {
       this.$emit('instruct-alert')
     },
 
-    saveGraphEmit (event) {
-      this.showCollapseContent(event)
-
-      this.$emit('save-graph')
-    },
-
-    loadGraphEmit () {
-      this.showCollapseContent(event)
-
-      this.$emit('load-graph')
-    },
-
     showCollapseContent (event) {
       // show dropdown
       var content = event.target.nextElementSibling
@@ -82,6 +78,11 @@ export default {
       } else {
         content.style.display = 'block'
       }
+    },
+
+    exportGraphEmit () {
+      console.log('exportgraphemit')
+      this.$emit('export-graph')
     }
 
   }
