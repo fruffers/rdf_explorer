@@ -666,7 +666,8 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #navInner {
   font-family: 'Montserrat', sans-serif;
-  font-size: 130%;
+  text-align: left;
+  font-size: 220%;
   margin-right: 90%;
   color: white;
 }
