@@ -9,8 +9,8 @@
             RDF Explorer
             <br/>
             ===========
+            <!-- <p id='tagline'>Learn about the RDF with interactive knowledge graphs</p> -->
           </div>
-          <div id='padder'/>
           <div id='tagline'>Learn about the RDF with interactive knowledge graphs</div>
         </div>
     </div>
@@ -651,7 +651,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 }
 
 #navWrapper {
-  height: 100px;
+  height: 20vh;
   margin: 0;
   background-color: #001c39;
   padding: 3%;
@@ -667,8 +667,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 #navInner {
   font-family: 'Montserrat', sans-serif;
   font-size: 130%;
-  float: left;
-  margin-top: 1.5%;
+  margin-right: 90%;
   color: white;
 }
 
@@ -677,8 +676,9 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 } */
 
 #tagline {
-  padding: 5%;
   font-size: 80%;
+  margin-right: 50%;
+  text-align: left;
 }
 
 .c-graph-conta    inner, main {
@@ -697,7 +697,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 
 #logo {
   padding-top: 0;
-  height: 90%;
+  width: 40%;
   margin-right: 1%;
   float: right;
 }

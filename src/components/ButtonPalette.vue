@@ -29,11 +29,12 @@
           Load graph
         </button>
           <div class='collapseContent'>
-            <a>Import JSON</a>
+            <p><a>Load locally</a></p>
             <a
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>
             </a>
+            <p><a>Import JSON</a></p>
           </div>
 
     </div>
