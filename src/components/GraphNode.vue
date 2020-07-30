@@ -94,7 +94,7 @@ export default {
       // only need x and y since this is moving the location
       const x = this.nodeData.x + this.nodeData.displacement.x
       const y = this.nodeData.y + this.nodeData.displacement.y
-      // the ${} allows injecting variables into html
+      // the ${} allows injecting constiables into html
       // translate() is an svg method applied to transform attribute, to move an svg somewhere
       return `translate(${x},${y})`
     },
@@ -246,15 +246,15 @@ export default {
     resizeMove (event) {
       // get x and y of event, where the mouse has grabbed
       // console.log('event only ', event)
-      // var target = event.target
-      var nodeId = this.nodeData.id
+      // const target = event.target
+      const nodeId = this.nodeData.id
 
-      var x = this.nodeData.x
-      var y = this.nodeData.y
+      let x = this.nodeData.x
+      let y = this.nodeData.y
 
       // change to new dimensions
-      var newWidth = event.rect.width
-      var newHeight = event.rect.height
+      const newWidth = event.rect.width
+      const newHeight = event.rect.height
 
       // change nodeData and nodeData displacement through
       // an emit
@@ -281,7 +281,7 @@ export default {
       // destructuring statement
       // if event = {x0:"somex",y0="somey",h0="someh",u0="someu"}
       // then the statement below will only pick out and assign x0 and y0 to
-      // seperate variables
+      // seperate constiables
 
       // page x and y coordinates of starting event
       const { x0, y0 } = event
@@ -307,8 +307,8 @@ export default {
     },
 
     drawEdge (event) {
-      var node = this.nodeData
-      var stage = 'select'
+      const node = this.nodeData
+      const stage = 'select'
       this.$emit('draw-edge', node, stage)
     },
 

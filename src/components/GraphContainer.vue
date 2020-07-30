@@ -39,6 +39,7 @@
       @clear-canvas='clearCanvasHandler'
       @instruct-alert='instructAlertHandler'
       @export-graph='exportGraphHandler'
+      @file-input='fileLoadHandler'
       >
       </button-pal>
       <!--encase in svg tag-->
@@ -263,9 +264,9 @@ export default {
     // nodes: {
     //   handler: function () {
     //     // allow new nodes to be connected to by entering their indexes in nodes.toNodes
-    //     var newEdges = this.edges || []
-    //     var x = 0
-    //     var b = 0
+    //     let newEdges = this.edges || []
+    //     let x = 0
+    //     let b = 0
     //     for (x in this.nodes) {
     //       if (this.nodes[x].toNodes) {
     //         for (b in this.nodes[x].toNodes) {
@@ -336,22 +337,22 @@ export default {
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
     addObjectHandler () {
-      var newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
       this.nodes.push(newnode)
     },
 
     deleteNodeHandler () {
-      var activeNodes = this.nodes.filter(function (node) {
+      const activeNodes = this.nodes.filter(function (node) {
         return node.active === 't'
       })
 
       // deletes all nodes with active 't'
-      var result = this.nodes.filter(function (node) {
+      const result = this.nodes.filter(function (node) {
         return node.active === 'f'
       })
 
@@ -373,8 +374,8 @@ export default {
 
     deleteAttachedEdges (deletedNodes) {
       // delete edges attached to deleted nodes
-      var x = 0
-      var a = 0
+      let x = 0
+      let a = 0
       for (x in this.edges) {
         for (a in deletedNodes) {
           if (this.edges[x].fromNode.id === deletedNodes[a].id || this.edges[x].toNode.id === deletedNodes[a].id) {
@@ -383,7 +384,7 @@ export default {
         }
       }
 
-      var newEdges = this.edges.filter(function (edge) {
+      const newEdges = this.edges.filter(function (edge) {
         return edge.delete === false
       })
 
@@ -391,8 +392,8 @@ export default {
     },
 
     idCompute (removedNodes) {
-      var a = 0
-      var b = 0
+      let a = 0
+      let b = 0
       for (a in removedNodes) {
         for (b in this.nodes) {
           if (this.nodes[b].id > removedNodes[a].id) {
@@ -407,7 +408,7 @@ export default {
     selectNodeHandler (event) {
       // highlight with cyan outline and give target an active property
 
-      var index = event.target.getAttribute('indexval')
+      const index = event.target.getAttribute('indexval')
 
       if (event.target.id === 'unactive') {
         event.target.id = 'active'
@@ -437,10 +438,10 @@ export default {
         this.drawEdgeFrom = node
       } else if (node !== this.drawEdgeFrom) {
         // set up new edge to push
-        var newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '', delete: false }
+        const newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '', delete: false }
 
         // check if edge already exists
-        var x = 0
+        let x = 0
         for (x in this.edges) {
           if (this.edges[x] === newEdge) {
             return
@@ -472,8 +473,8 @@ export default {
 
     removeEdgeHandler (deleteIndex) {
       // return edges without specified index
-      var oldEdges = this.edges
-      var newEdges = oldEdges.filter(function (edge, index) {
+      const oldEdges = this.edges
+      const newEdges = oldEdges.filter(function (edge, index) {
         return index !== deleteIndex
       })
 
@@ -481,8 +482,8 @@ export default {
     },
 
     resizeNodeHandler (nodeId, newWidth, newHeight, x, y) {
-      var node = this.nodes[nodeId]
-      var newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
+      const node = this.nodes[nodeId]
+      const newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
       // this.nodes[nodeId] = newNode
 
       this.$set(this.nodes, node.id, newNode) // set node to have displacement on x and y
@@ -491,7 +492,7 @@ export default {
 
     storePrefix (name, uri) {
       // add new prefix
-      var newPrefix = { name: name, uri: uri }
+      const newPrefix = { name: name, uri: uri }
       // this.$set(this.prefixes,)
       this.prefixes.push(newPrefix)
     },
@@ -500,9 +501,9 @@ export default {
     },
 
     turtleConvert () {
-      var catchTriples = []
+      const catchTriples = []
       // represent graph as simple turtle triples
-      var x = 0
+      let x = 0
       for (x in this.edges) {
         catchTriples.push({
           subject: this.edges[x].fromNode.label || '_:blank', // the boolean tracks whether it is prefixed or not
@@ -511,13 +512,13 @@ export default {
         })
       }
 
-      var a = 0
-      var b = 0
-      var c = 0
+      let a = 0
+      let b = 0
+      let c = 0
       for (a in catchTriples) {
         for (b in catchTriples[a]) {
-          var origin = catchTriples[a][b]
-          var uriForm = `<${catchTriples[a][b]}>`
+          const origin = catchTriples[a][b]
+          const uriForm = `<${catchTriples[a][b]}>`
           for (c in this.prefixes) {
             if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"') || catchTriples[a][b].includes('<>')) {
               catchTriples[a][b] = origin
@@ -537,13 +538,13 @@ export default {
       // check whether answer is correct for current level
       // change turtle output format so it matches the answer format
       this.turtleConvert()
-      var result = ''
-      var a = 0
+      let result = ''
+      let a = 0
       for (a; a < this.triples.length; a++) {
         if (a !== 0) {
           result += '.' + ' '
         }
-        for (var prop in this.triples[a]) {
+        for (const prop in this.triples[a]) {
           result += this.triples[a][prop] + ' '
 
           if (a === this.triples.length - 1 && prop === 'object') {
@@ -603,20 +604,26 @@ export default {
     },
 
     exportGraphHandler () {
-      var nodeJSONdata = ''
+      let nodeJSONdata = ''
       // parse the nodes into json
-      for (var node in this.nodes) {
+      for (const node in this.nodes) {
         nodeJSONdata += JSON.stringify(this.nodes[node])
       }
       // add a seperator
       nodeJSONdata += ','
       // parse edges
-      for (var edge in this.edges) {
+      for (const edge in this.edges) {
         nodeJSONdata += JSON.stringify(this.edges[edge])
       }
 
       // bind new file URI
       this.graphFile = 'data:text/json;charset=utf-8,' + encodeURIComponent(nodeJSONdata)
+    },
+
+    fileLoadHandler (file) {
+      // check if file JSON
+      // parse file to seperate nodes and edges
+      // load into graph
     }
 
   }
@@ -677,7 +684,7 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
 } */
 
 #tagline {
-  font-size: 80%;
+  font-size: 100%;
   margin-right: 50%;
   text-align: left;
 }

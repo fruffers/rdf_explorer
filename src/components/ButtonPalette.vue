@@ -34,7 +34,7 @@
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>
             </a>
-            <p><a>Import JSON</a></p>
+            <p>Import file<input @change='fileInputEmit' type='file' value='Import JSON'></p>
           </div>
 
     </div>
@@ -73,7 +73,7 @@ export default {
 
     showCollapseContent (event) {
       // show dropdown
-      var content = event.target.nextElementSibling
+      const content = event.target.nextElementSibling
       if (content.style.display === 'block') {
         content.style.display = 'none'
       } else {
@@ -82,8 +82,11 @@ export default {
     },
 
     exportGraphEmit () {
-      console.log('exportgraphemit')
       this.$emit('export-graph')
+    },
+
+    fileInputEmit (event) {
+      this.$emit('file-input', event.target.files)
     }
 
   }
