@@ -8,7 +8,7 @@
 export default {
   name: 'levelFeedback',
   props: {
-    levelCompletion: Array
+    levelCompletion: Object
   },
   data: function () {
     return {
@@ -21,7 +21,6 @@ export default {
   },
   watch: {
     levelCompletion: function (change) {
-      console.log('a change')
       if (this.levelCompletion.result === 'right') {
         this.color = 'success'
         this.text = this.feedback[this.levelCompletion.levelNo].right

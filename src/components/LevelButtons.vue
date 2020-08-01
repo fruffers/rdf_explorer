@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='wrapper'>
         <a id='pal' v-for='(level,index) in levels' :key='index'>
             <button @click='levelChangeEmit'> Level <a id='levelPickBtn'>{{level.no}}</a> </button>
         </a>
@@ -21,15 +21,22 @@ export default {
 }
 </script>
 <style scoped>
+    #wrapper {
+      margin-right: 50%;
+      margin-bottom: 0;
+      padding-top: 5%;
+      padding-bottom: 0;
+    }
     #pal {
-        display: inline-block;
-        padding: 2%;
+        /* display: block; */
+        /* padding: 2%;
         padding-top: 5%;
         margin-bottom: 0;
         padding-bottom: 0;
-        margin-right: 90%;
+        margin-right: 90%; */
     }
     button {
-        padding: 5%;
+        display: inline-block;
+        padding: 1%;
     }
 </style>

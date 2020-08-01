@@ -34,7 +34,11 @@
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>
             </a>
-            <p>Import file<input @change='fileInputEmit' type='file' value='Import JSON'></p>
+            <p>Import file<input @change='fileInputEmit'
+            type='file'
+            value='Import JSON'
+            accept='.json, .txt'
+            ></p>
           </div>
 
     </div>
@@ -86,6 +90,7 @@ export default {
     },
 
     fileInputEmit (event) {
+      // use File API to access file contents
       this.$emit('file-input', event.target.files)
     }
 

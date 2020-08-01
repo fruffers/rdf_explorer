@@ -185,47 +185,9 @@ export default {
       {
         no: 0,
         text:
-        `RDF stands for <b>'resource description framework'</b>. It is a syntax framework for describing resources, and their relationships to other resources. RDF syntax is used so that machines can read the data and make use of it. 
-        <br/>
-        <br/>
-        A resource is any thing that can be identified. For example 'elephant', 'hunger', or 'wikipedia'. RDF has a data model that organizes data into triples. These consist of three parts. <b>Subject, predicate, object</b>.
-        <br/>
-        <br/>
-        <b>
-        Subject: a resource identified with a URI.
-        <br/>
-        <br/>
-        Predicate: URI identifier to data specifying the relationship between the subject and object.
-        <br/>
-        <br/>
-        Object: a resource or literal (string) that is related to the subject.
-        </b>
-        <br/>
-        <br/>
-
-        Ontologies are web-hosted vocabularies with classes and properties that can be used to describe resources.`,
-        goal: `Add a 'hobbit' resource to the graph and connect it to other resources. 
-        <br/>
-        <br/>
-        Think of it like this...
-        <br/>
-        <br/>
-        subject: bilbo baggins
-        <br/>
-        predicate: has the species
-        <br/>
-        object: hobbit
-        <br/>
-        <br/>
-
-        A prefix replaces part of a URI so that one only needs to type the suffix after the defined prefix instead of a whole URI. 
-        &lt;www.tolkiengateway.net/Hobbits&gt; becomes tg:Hobbits
-        <br/>
-        <br/>
-        Use the given prefixes at the bottom of the page. For this one you will need to use: tg (tolkiengate) and wo (wildlife ontology). 
-        <br/>
-        <br/>
-        To find out more information about the ontologies follow their links to see the classes and properties associated with them. Your URI must be accurate in spelling; it must exist on the web.
+        `undefined
+        `,
+        goal: `undefined
         `,
         answer: 'tg:Bilbo_Baggins tg:Baggins_Family tg:Frodo_Baggins . ' +
         'tg:Frodo_Baggins foaf:knows tg:Merry_BrandyBuck . ' +
@@ -235,6 +197,33 @@ export default {
         'tg:Bilbo_Baggins wo:species tg:Hobbits . ' +
         'tg:Frodo_Baggins wo:species tg:Hobbits . ' +
         'tg:Merry_BrandyBuck wo:species tg:Hobbits . '
+      },
+      {
+        no: 1,
+        text:
+        `undefined
+        `,
+        goal: `undefined
+        `,
+        answer: ''
+      },
+      {
+        no: 2,
+        text:
+        `undefined
+        `,
+        goal: `undefined
+        `,
+        answer: ''
+      },
+      {
+        no: 3,
+        text:
+        `undefined
+        `,
+        goal: `undefined
+        `,
+        answer: ''
       }
     ],
     drawEdgeFrom: [],
@@ -586,17 +575,17 @@ export default {
       // gen graph depending on level
       if (level === 0) {
         this.nodes.push(
-          { id: 0, x: 200, y: 100, w: 150, h: 25, label: 'tg:Bilbo_Baggins', active: 'f', toNodes: [1, 2], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 1, x: 450, y: 400, w: 150, h: 25, label: 'tg:Frodo_Baggins', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 2, x: 400, y: 600, w: 150, h: 25, label: 'tg:Merry_BrandyBuck', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 3, x: 100, y: 400, w: 150, h: 50, label: '"Mushrooms"', active: 'f', toNodes: [1, 2, 3], type: 'object', displacement: { x: 0, y: 0 } }
+          { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
+          { id: 1, x: 450, y: 400, w: 150, h: 50, label: 'Bethany', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '07/08/2020', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 3, x: 300, y: 30, w: 150, h: 50, label: 'Beth', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '37', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
         )
         this.edges.push(
-          { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'tg:Baggins_Family' },
-          { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:knows' },
-          { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
-          { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' },
-          { fromNode: this.nodes[2], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:interest' }
+          { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
+          { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:birthday' },
+          { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:nickname' },
+          { fromNode: this.nodes[0], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:age' }
         )
       }
 
@@ -621,6 +610,11 @@ export default {
     },
 
     fileLoadHandler (file) {
+      const inputFile = file[0]
+      console.log(inputFile)
+      // const fileRead = new FileReader()
+      // const fileData = fileRead.readAsText(file)
+      // console.log(fileData)
       // check if file JSON
       // parse file to seperate nodes and edges
       // load into graph
