@@ -1,6 +1,6 @@
 <template>
     <div id='wrapper'>
-        <h3>Turtle Converter</h3>
+        <h3>N-Triples Converter</h3>
         <button @click='emitConvert'>Convert the graph</button>
         <br/>
             <code v-for='triple in triples' :key='triple.index'>

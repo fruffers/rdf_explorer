@@ -186,11 +186,18 @@ export default {
   },
 
   mounted () {
-    // run these functions on document load
+    // run these functions on document load, when node created
     this.initInteractJs()
+    this.sendLocationInfo()
   },
 
   methods: {
+
+    sendLocationInfo () {
+      // send location information to parent then tooltip component
+      const locInfo = { textX: this.textX, textY: this.textY, textW: this.textW, textH: this.textH, svgLocation: this.svgLocation }
+      this.$emit('emit-loc', locInfo)
+    },
 
     supressObject (changeVal) {
       // object is rect node. This makes it flat/invisible
@@ -265,6 +272,7 @@ export default {
       y += event.deltaRect.top
 
       this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
+      this.sendLocationInfo()
       // apply translation delta from deltarect
     },
 
@@ -299,6 +307,7 @@ export default {
 
     onElementMoveEnd (event) {
       this.$emit('move-end', { id: this.nodeData.id })
+      this.sendLocationInfo()
     },
 
     selectNode (event) {

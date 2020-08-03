@@ -6,16 +6,20 @@
 </template>
 
 <script>
-import rdf from 'rdf'
+import rdfTranslator from 'rdf-translator'
 export default {
-    name: 'converterPalette',
-    methods: {
-        create () {
-            // convert triples inside graph nodes
-            // to rdf/xml
-            const namednode = new rdf.NamedNode('')
-        }
+  name: 'converterPalette',
+  methods: {
+    convert (input) {
+      // convert n-triples to xml/rdf
+      const xml = rdfTranslator(input, 'n-triples', 'xml', function (err, data) {
+        if (err) { return console.error(err) }
+        console.log(data)
+        return data
+      })
+      return xml
     }
+  }
 
 }
 </script>

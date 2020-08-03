@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "interactjs": "^1.9.19",
     "rdf": "^4.1.0",
+    "rdf-translator": "^2.0.0",
     "rdfstore": "^0.9.17",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

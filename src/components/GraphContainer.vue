@@ -61,6 +61,7 @@
           @draw-edge='drawEdgeHandler'
           @label-input='labelInputHandler'
           @resize-node='resizeNodeHandler'
+          @emit-loc='emitLocTooltipHandler'
           :indexNo='node.id'
           ref='node'
         />
@@ -78,6 +79,17 @@
 
           :dragDisplacement='dragDisplacement'
         />
+
+        <node-tool-tip
+          v-for='(node,index) in nodes'
+          :key='`tooltip + ${index}`'
+          :svgLocation='locInfo.svgLocation'
+          :textX='locInfo.textX'
+          :textY='locInfo.textY'
+          :textW='locInfo.textW'
+          :textH='locInfo.textH'
+        >
+        </node-tool-tip>
 
       </svg>
       <prefix-pal
@@ -110,6 +122,7 @@ import turtleConvert from './TurtleConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
+import nodeToolTip from './NodeToolTip'
 
 export default {
   name: 'graph-container',
@@ -121,7 +134,8 @@ export default {
     turtleConvert,
     goalPal,
     feedbackPal,
-    levelButtons
+    levelButtons,
+    nodeToolTip
   },
 
   data: () => ({
@@ -185,7 +199,35 @@ export default {
       {
         no: 0,
         text:
-        `undefined
+        `RDF stands for resource description framework. It is a syntax model for presenting data to describe resources. A resource
+        is anything which can be identified. RDF is particularly concerned with resources found on the web. RDF describes a resource
+        and its relationship to other resources used a triple format of subject, predicate, object. 
+        URIs are used as unique identifiers to point to a document on the web that describes the exact resource. The resource cannot
+        be identified with simply a string 'John Doe' because there might be multiple John Does'.
+        <br/>
+        <br/>
+        Subject: the identifier (URI) resource being described.
+        <br/>
+        <br/>
+        Predicate: the relationship between the subject and object resources. This will usually be taken from a vocabulary which is a document set of predefined relationship types.
+        <br/>
+        <br/>
+        Object: the resource or literal (string) related to the subject.
+        A vocabulary is a set of properties and classes used to describe relationships between
+        resources.
+        <br/>
+        <br/>
+        RDF uses prefixes such as 
+        db:lion
+        The prefix is 'db:'
+        The prefix is associated with a URI. Using the prefix means that the entire URI does
+        not have to be repeated throughout the document if its used on several occasions, it
+        is replaced with the prefix. And the added part is a suffix of the URI. Such as
+        http://dbpedia.org/about/lion
+
+        <br/>
+        <br/>
+        RDF documents can be written in several different formats which include TURTLE, RDF/XML, N-triples, N3, JSON-LD.
         `,
         goal: `undefined
         `,
@@ -231,7 +273,8 @@ export default {
     ontoTerms: [],
     coordSystem: [],
     graphFile: '',
-    graphExportName: 'graph.json'
+    graphExportName: 'graph.json',
+    locInfo: {}
   }),
 
   computed: {
@@ -578,7 +621,7 @@ export default {
           { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
           { id: 1, x: 450, y: 400, w: 150, h: 50, label: 'Bethany', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
           { id: 2, x: 110, y: 400, w: 150, h: 50, label: '07/08/2020', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 3, x: 300, y: 30, w: 150, h: 50, label: 'Beth', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 3, x: 450, y: 30, w: 150, h: 50, label: 'Beth', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
           { id: 4, x: 50, y: 50, w: 150, h: 50, label: '37', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
         )
         this.edges.push(
@@ -618,6 +661,10 @@ export default {
       // check if file JSON
       // parse file to seperate nodes and edges
       // load into graph
+    },
+
+    emitLocTooltipHandler (loc) {
+      this.locInfo = loc
     }
 
   }
