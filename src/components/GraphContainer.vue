@@ -619,10 +619,10 @@ export default {
       if (level === 0) {
         this.nodes.push(
           { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 1, x: 450, y: 400, w: 150, h: 50, label: 'Bethany', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '07/08/2020', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 3, x: 450, y: 30, w: 150, h: 50, label: 'Beth', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '37', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
+          { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 3, x: 450, y: 30, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
+          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
         )
         this.edges.push(
           { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
