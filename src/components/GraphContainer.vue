@@ -647,7 +647,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       // gen graph depending on level
       if (level === 0) {
         this.nodes.push(
-          { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 2, x: 200, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 3, x: 400, y: 90, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
@@ -763,7 +763,7 @@ body {
 } */
 
 #svgContain {
-  /* background-image: url(../assets/grid2.gif); */
+  background-image: url(../assets/grid2.gif);
   background-color: white;
   width: 100%;
   height: 100%;
