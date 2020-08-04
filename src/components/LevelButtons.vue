@@ -22,7 +22,7 @@ export default {
 </script>
 <style scoped>
     #wrapper {
-      margin-right: 50%;
+      margin-right: 60%;
       margin-bottom: 0;
       padding-top: 5%;
       padding-bottom: 0;

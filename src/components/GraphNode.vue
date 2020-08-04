@@ -196,7 +196,7 @@ export default {
     sendLocationInfo () {
       // send location information to parent then tooltip component
       const locInfo = { textX: this.textX, textY: this.textY, textW: this.textW, textH: this.textH, svgLocation: this.svgLocation }
-      this.$emit('emit-loc', locInfo)
+      this.$emit('emit-loc', locInfo, this.nodeData.id)
     },
 
     supressObject (changeVal) {

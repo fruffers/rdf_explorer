@@ -83,11 +83,11 @@
         <node-tool-tip
           v-for='(node,index) in nodes'
           :key='`tooltip + ${index}`'
-          :svgLocation='locInfo.svgLocation'
-          :textX='locInfo.textX'
-          :textY='locInfo.textY'
-          :textW='locInfo.textW'
-          :textH='locInfo.textH'
+          :svgLocation='node.textLocInfo.svgLocation'
+          :textX='node.textLocInfo.textX'
+          :textY='node.textLocInfo.textY'
+          :textW='node.textLocInfo.textW'
+          :textH='node.textLocInfo.textH'
         >
         </node-tool-tip>
 
@@ -369,12 +369,12 @@ export default {
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
     addObjectHandler () {
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
@@ -618,11 +618,11 @@ export default {
       // gen graph depending on level
       if (level === 0) {
         this.nodes.push(
-          { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 } },
-          { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 3, x: 450, y: 30, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } },
-          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 } }
+          { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 450, y: 30, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
         )
         this.edges.push(
           { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
@@ -663,8 +663,8 @@ export default {
       // load into graph
     },
 
-    emitLocTooltipHandler (loc) {
-      this.locInfo = loc
+    emitLocTooltipHandler (loc, nodeId) {
+      this.nodes[nodeId].textLocInfo = loc
     }
 
   }
