@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='masterWrap'>
         <div id='nav'>
         <div id='navWrapper'>
           <a href='https://www.epimorphics.com/'>
@@ -711,20 +711,22 @@ FOAF Properties: topic, publications, PrimaryTopic
 .topWrap {
   display: flex;
   width: 100%;
+  height: 100%;
 }
 .box1 {
-  display: grid;
-  background-color: red;
+  display: flexbox;
+  /* background-color: red; */
   width: 20%;
 }
 .box2 {
-  background-color: green;
+  display: flexbox;
+  /* background-color: green; */
   width: 90%;
 }
 .box3 {
-  display: grid;
-  background-color: blue;
-  width: 10%;
+  display: flexbox;
+  /* background-color: blue; */
+  width: 20%;
 }
 body {
   margin: 0;
@@ -789,16 +791,20 @@ body {
 
 #levelWrapper {
   font-size: 18px;
-  line-height: 145%;
   text-align: left;
-  margin-left: 10%;
-  margin-right: 40%;
-  padding: 3%;
+  padding: 10%;
+  padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 p {
   overflow-wrap:break-word;
+}
+
+#masterWrap {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
 }
 </style>

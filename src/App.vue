@@ -9,6 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap');
 body {
   display: inline-grid;
+  overflow-wrap:break-word;
 }
 #app {
   font-family: 'Hind Siliguri', sans-serif;
@@ -18,6 +19,7 @@ body {
   text-align: center;
   color: #2c3e50;
   display: inline-grid;
+  overflow-wrap:break-word;
 }
 
 #nav {

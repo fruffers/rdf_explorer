@@ -41,9 +41,9 @@ export default {
 <style scoped>
   #wrapper {
     padding: 2%;
-    float: left;
     margin-bottom: 20%;
     text-align: left;
+    overflow-wrap:break-word;
   }
 
   li {

@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'turtleConverter',
+  name: 'ntriplesConverter',
   props: {
     triples: Array
   },
@@ -27,5 +27,6 @@ export default {
 <style scoped>
 #wrapper {
   text-align: left;
+  overflow-wrap:break-word;
 }
 </style>
