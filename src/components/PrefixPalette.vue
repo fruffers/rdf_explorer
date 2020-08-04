@@ -40,8 +40,7 @@ export default {
 
 <style scoped>
   #wrapper {
-    padding: 2%;
-    margin-bottom: 20%;
+    padding: 10%;
     text-align: left;
     overflow-wrap:break-word;
   }

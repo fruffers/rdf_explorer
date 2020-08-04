@@ -22,11 +22,10 @@
       :levels='levels'
       @levelPick='graphGen'
       />
+      <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
       <div id='levelWrapper'>
           <h1>Level: <a v-html='level'/></h1>
           <p v-html='this.levels[level].text'/>
-
-      <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
 
       <feedback-pal
       :levelCompletion='levelCompletion'
@@ -107,13 +106,14 @@
 
   <div class='box3'>
 
-      <prefix-pal
-      @store-prefix='storePrefix'
-      :prefixes='prefixes'
-      />
       <turtle-convert
       :triples='triples'
       @turtle-convert='turtleConvert'
+      />
+
+      <prefix-pal
+      @store-prefix='storePrefix'
+      :prefixes='prefixes'
       />
     <!-- <footer>
       the footer
@@ -654,9 +654,9 @@ FOAF Properties: topic, publications, PrimaryTopic
         this.nodes.push(
           { id: 0, x: 200, y: 200, w: 150, h: 25, label: 'foaf:person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 2, x: 110, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 3, x: 450, y: 30, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 4, x: 50, y: 50, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+          { id: 2, x: 200, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 400, y: 90, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 50, y: 70, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
         )
         this.edges.push(
           { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
@@ -749,8 +749,7 @@ body {
 #navInner {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  font-size: 220%;
-  margin-right: 90%;
+  margin-left: 1%;
   color: white;
 }
 
@@ -778,7 +777,7 @@ body {
 
 #logo {
   padding-top: 0;
-  width: 1%;
+  width: 5%;
   margin-right: 1%;
   float: right;
 }

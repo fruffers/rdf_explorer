@@ -28,5 +28,6 @@ export default {
 #wrapper {
   text-align: left;
   overflow-wrap:break-word;
+  padding: 10%;
 }
 </style>

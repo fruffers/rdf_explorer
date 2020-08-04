@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='wrapper'>
         <div id='goal'> Goal: <slot></slot> </div>
         <div id='btnWrap'>
             <button @click="emitAnswer" id='submit'>SUBMIT ANSWER</button>
@@ -38,5 +38,8 @@ export default {
     #goal {
         background-color: #9ec1ee;
         padding: 10%;
+    }
+    #wrapper {
+        padding: 5%;
     }
 </style>
