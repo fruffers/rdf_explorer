@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
     #submit:hover {
-        background-color: #67c7c6;
+        background-color: white;
         cursor: pointer;
         color: black;
         text-decoration: underline;
@@ -29,14 +29,16 @@ export default {
     #submit {
         margin-top: 5%;
         padding: 5%;
-        background-color: #001c39;
-        color: white;
+        background-color: #79C5C4;
+        color: black;
         font-size: 120%;
         transition: 0.6s;
     }
     #goal {
-        background-color: #9ec1ee;
+        background-color: #21A0C7;
+        color: white;
         padding: 10%;
+        font-size: 120%;
         border-radius: 10px;
     }
     #wrapper {

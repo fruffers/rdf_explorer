@@ -731,7 +731,7 @@ body {
 #navWrapper {
   height: 2vh;
   margin: 0;
-  background-color: #001c39;
+  background-color: #21A0C7;
   color: white;
 }
 
@@ -753,7 +753,7 @@ body {
 } */
 
 #tagline {
-  color: rgb(113, 113, 146);
+  color: rgb(33, 46, 49);
   font-size: 70%;
 }
 
