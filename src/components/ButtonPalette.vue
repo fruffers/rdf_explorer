@@ -100,7 +100,6 @@ export default {
 
 <style scoped>
   #wrapper {
-    margin: 0;
     padding: 0;
     height: 1px;
     width: 50%;
@@ -111,6 +110,7 @@ export default {
   }
   button {
       height: 1%;
+      float: right;
       color: #001c39;
       background-color: white;
       border: 4px solid #001c39;

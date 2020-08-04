@@ -24,12 +24,11 @@
       />
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
       <div id='levelWrapper'>
-          <h1>Level: <a v-html='level'/></h1>
-          <p v-html='this.levels[level].text'/>
-
-      <feedback-pal
-      :levelCompletion='levelCompletion'
-      />
+        <feedback-pal
+        :levelCompletion='levelCompletion'
+        />
+        <h1>Level: <a v-html='level'/></h1>
+        <p v-html='this.levels[level].text'/>
       </div>
 
   </div>
@@ -171,8 +170,7 @@ export default {
       { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
       { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
       { name: 'dct:', uri: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/' },
-      { name: 'tg:', uri: 'http://www.tolkiengateway.net/wiki/' },
-      { name: 'wo:', uri: 'http://purl.org/ontology/wo/' },
+      { name: 'wo:', uri: 'http://purl.org/ontology/wo/about/' },
       { name: 'dbpedia:', uri: 'https://wiki.dbpedia.org/' },
       { name: 'schema:', uri: 'https://schema.org/' }
     ],
@@ -716,7 +714,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box1 {
   display: flexbox;
   /* background-color: red; */
-  width: 20%;
+  width: 30%;
 }
 .box2 {
   display: flexbox;
@@ -791,7 +789,7 @@ body {
 #levelWrapper {
   font-size: 18px;
   text-align: left;
-  padding: 10%;
+  padding: 8%;
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;

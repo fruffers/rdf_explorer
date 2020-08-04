@@ -47,10 +47,5 @@ export default {
 
   li {
     list-style-type: none;
-    float: left;
-  }
-
-  h3 {
-    line-height: 1%;
   }
 </style>
