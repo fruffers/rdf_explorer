@@ -1,7 +1,7 @@
 <template>
     <div id='wrapper'>
         <a id='pal' v-for='(level,index) in levels' :key='index'>
-            <button @click='levelChangeEmit'> Level <a id='levelPickBtn'>{{level.no}}</a> </button>
+            <button @click='levelChangeEmit'> Level <a ref='levelCount' id='levelPickBtn'>{{parseInt(level.no)}}</a> </button>
         </a>
     </div>
 </template>
@@ -15,7 +15,8 @@ export default {
   methods: {
     levelChangeEmit (event) {
     // give level change number
-      this.$emit('levelPick', document.getElementById('levelPickBtn').innerText)
+      console.log('inner level' + this.$refs.levelCount)
+      this.$emit('levelPick', this.$refs.levelCount)
     }
   }
 }

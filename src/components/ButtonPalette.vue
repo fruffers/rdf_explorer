@@ -99,19 +99,24 @@ export default {
 </script>
 
 <style scoped>
+  #wrapper {
+    margin: 0;
+    padding: 0;
+    height: 1px;
+    width: 50%;
+  }
   button:hover {
     cursor: pointer;
     text-decoration: underline;
   }
   button {
-      margin: 0.5%;
+      height: 1%;
       color: #001c39;
       background-color: white;
       border: 4px solid #001c39;
       text-transform: uppercase;
   }
   .collapseContent {
-    /* background-color: lightblue; */
     padding: 5%;
     display: none; /*swap between none and block to show content*/
     overflow: hidden;

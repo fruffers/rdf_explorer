@@ -1,6 +1,6 @@
 <template>
-  <div class='c-graph-container'>
-    <div id='nav'>
+  <div>
+        <div id='nav'>
         <div id='navWrapper'>
           <a href='https://www.epimorphics.com/'>
             <img id='logo' src='../assets/epi1.png'/>
@@ -14,7 +14,10 @@
           <div id='tagline'>Learn about the RDF with interactive knowledge graphs</div>
         </div>
     </div>
-    <main>
+
+  <div class='topWrap'>
+  <div class='box1'>
+
       <level-buttons
       :levels='levels'
       @levelPick='graphGen'
@@ -22,6 +25,7 @@
       <div id='levelWrapper'>
           <h1>Level: <a v-html='level'/></h1>
           <p v-html='this.levels[level].text'/>
+
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
 
       <feedback-pal
@@ -29,6 +33,11 @@
       />
       </div>
 
+  </div>
+
+  <div class='box2'>
+
+    <div id='box2Buttons'>
       <button-pal
       id= 'buttons'
       :exportURL='graphFile'
@@ -42,6 +51,7 @@
       @file-input='fileLoadHandler'
       >
       </button-pal>
+    </div>
       <!--encase in svg tag-->
       <svg
         id='svgContain'
@@ -50,7 +60,7 @@
         width="1000px"
         height="1000px"
       >
-          <graph-node
+        <graph-node
           class="node"
           v-for='node in nodes'
           :nodeData='node'
@@ -92,6 +102,11 @@
         </node-tool-tip>
 
       </svg>
+
+  </div>
+
+  <div class='box3'>
+
       <prefix-pal
       @store-prefix='storePrefix'
       :prefixes='prefixes'
@@ -100,11 +115,14 @@
       :triples='triples'
       @turtle-convert='turtleConvert'
       />
-    </main>
     <!-- <footer>
       the footer
     </footer> -->
+
   </div>
+
+</div>
+</div>
 </template>
 
 <script>
@@ -229,7 +247,13 @@ export default {
         <br/>
         RDF documents can be written in several different formats which include TURTLE, RDF/XML, N-triples, N3, JSON-LD.
         `,
-        goal: `undefined
+        goal: `Bethany Gunn, known as Beth, will celebrate her 37th birthday on 07/08
+      </br>
+      </br>
+FOAF Classes: Person
+FOAF Properties: firstName, lastName. Nickname, birthday, age
+
+
         `,
         answer: 'tg:Bilbo_Baggins tg:Baggins_Family tg:Frodo_Baggins . ' +
         'tg:Frodo_Baggins foaf:knows tg:Merry_BrandyBuck . ' +
@@ -245,7 +269,12 @@ export default {
         text:
         `undefined
         `,
-        goal: `undefined
+        goal: `Beth works at The Creature Garden along with her colleague Amy. Amy is an editor and Beth is a photographer
+      </br>
+      </br>
+FOAF Classes: Person, Organization
+FOAF Properties: name, knows, focus/interest
+
         `,
         answer: ''
       },
@@ -254,7 +283,12 @@ export default {
         text:
         `undefined
         `,
-        goal: `undefined
+        goal: `Beth, Amy and Jack have been working on publishing a piece of their own research, based on the growth rate of succulents. 
+      </br>
+      </br>
+FOAF Classes: Person, Document
+FOAF Properties: topic, publications, PrimaryTopic
+
         `,
         answer: ''
       },
@@ -633,6 +667,7 @@ export default {
       }
 
       this.idCount = this.nodes.length
+      console.log(this.level)
     },
 
     exportGraphHandler () {
@@ -673,36 +708,33 @@ export default {
 </script>
 
 <style>
+.topWrap {
+  display: flex;
+  width: 100%;
+}
+.box1 {
+  display: grid;
+  background-color: red;
+  width: 20%;
+}
+.box2 {
+  background-color: green;
+  width: 90%;
+}
+.box3 {
+  display: grid;
+  background-color: blue;
+  width: 10%;
+}
 body {
   margin: 0;
   padding: 0;
 }
-.c-graph-container {
-  display: flex;
-  flex-direction: column;
-}
-
-/* header {
-  height: 9vh;
-  padding: 3%;
-} */
-
-.c-graph-container header, .c-graph-container footer {
-/* background: rgb(74,128,154);
-background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(67,89,135,1) 35%, rgba(0,28,57,1) 100%); */
-  /* background: rgb(74,128,154);
-background: linear-gradient(90deg, rgba(74,128,154,1) 0%, rgba(104,141,179,1) 35%, rgba(0,28,57,1) 100%); */
-  /* background: rgb(85,106,116);
-background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%, rgba(0,28,57,1) 100%); */
-  flex-grow: 0;
-  color: white;
-}
 
 #navWrapper {
-  height: 20vh;
+  height: 2vh;
   margin: 0;
   background-color: #001c39;
-  padding: 3%;
   color: white;
 }
 
@@ -730,32 +762,30 @@ background: linear-gradient(90deg, rgba(85,106,116,1) 0%, rgba(82,100,135,1) 35%
   text-align: left;
 }
 
-.c-graph-conta    inner, main {
-  flex-grow: 1;
-}
-
-.c-graph-container main svg {
+/* .topWrap main svg {
   height: 100%;
   width: 100%;
-}
+} */
 
 #svgContain {
   /* background-image: url(../assets/grid2.gif); */
   background-color: whitesmoke;
+  width: 100%;
+  height: 100%;
 }
 
 #logo {
   padding-top: 0;
-  width: 40%;
+  width: 1%;
   margin-right: 1%;
   float: right;
 }
 
-#buttons {
+/* #buttons {
   float: right;
   display: flex;
   padding: 1%;
-}
+} */
 
 #levelWrapper {
   font-size: 18px;

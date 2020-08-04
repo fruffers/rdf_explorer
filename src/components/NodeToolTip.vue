@@ -4,12 +4,25 @@
     >
         <foreignObject
             ref='nodeTooltip'
+            @mouseover='activateTooltip'
+            :x='textX'
+            :y='textY'
+            :width='textW'
+            :height='textH'>
+            <div>
+            <span
+            ></span>
+        </div>
+        </foreignObject>
+        <foreignObject
+            ref='nodeTooltip'
+            id='nodeTooltip'
             :x='textX'
             :y='textY + 70'
             :width='textW'
             :height='textH'>
             <div>
-            <span class='tooltiptext'>tooltiptext</span>
+            <span ref='test' class='tooltiptext'>tooltiptext</span>
         </div>
         </foreignObject>
     </g>
@@ -17,6 +30,8 @@
 
 <script>
 // this class allows tooltip to be placed on top of edges
+// if first foreignobject span is hovered over this activates
+// tooltip
 export default {
   name: 'nodeToolTip',
   props: {
@@ -27,7 +42,14 @@ export default {
     textH: Number
   },
   mounted () {
-    console.log('loc' + this.textX)
+  },
+  methods: {
+    activateTooltip (event) {
+      console.log('hover')
+      // change tooltip to visible
+      var tooltip = this.$refs.test
+      tooltip.style.color = 'blue'
+    }
   }
 }
 </script>
