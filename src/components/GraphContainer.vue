@@ -225,7 +225,7 @@ export default {
         Predicate: the relationship between the subject and object resources. This will usually be taken from a vocabulary which is a document set of predefined relationship types.
         <br/>
         <br/>
-        Object: the resource or literal (string) related to the subject.
+        Object: a resource URI or literal (string) related to the subject.
         A vocabulary is a set of properties and classes used to describe relationships between
         resources.
         <br/>
@@ -744,6 +744,7 @@ body {
 #navInner {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
+  font-size: 1.6vh;
   margin-left: 1%;
   color: white;
 }
@@ -754,7 +755,7 @@ body {
 
 #tagline {
   color: rgb(33, 46, 49);
-  font-size: 70%;
+  font-size: 1.2vh;
 }
 
 /* .topWrap main svg {
