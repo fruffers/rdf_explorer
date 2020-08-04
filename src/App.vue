@@ -10,6 +10,7 @@
 body {
   display: inline-grid;
   overflow-wrap:break-word;
+  background-color: whitesmoke;
 }
 #app {
   font-family: 'Hind Siliguri', sans-serif;
@@ -47,7 +48,7 @@ button {
     padding: 1%;
     margin: 0.5%;
     color: #001c39;
-    background-color: white;
+    background-color: whitesmoke;
     border: 4px solid #001c39;
     text-transform: uppercase;
 }

@@ -112,7 +112,6 @@ export default {
       height: 1%;
       float: right;
       color: #001c39;
-      background-color: white;
       border: 4px solid #001c39;
       text-transform: uppercase;
   }

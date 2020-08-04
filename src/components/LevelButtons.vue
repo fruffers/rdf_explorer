@@ -26,14 +26,11 @@ export default {
       margin-bottom: 0;
       padding-top: 5%;
       padding-bottom: 0;
+      margin-right: 30%;
     }
     #pal {
-        /* display: block; */
-        /* padding: 2%;
-        padding-top: 5%;
         margin-bottom: 0;
         padding-bottom: 0;
-        margin-right: 90%; */
     }
     button {
         display: inline-block;

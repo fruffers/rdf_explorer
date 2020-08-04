@@ -7,11 +7,8 @@
           </a>
           <div id='navInner'>
             RDF Explorer
-            <br/>
-            ===========
-            <!-- <p id='tagline'>Learn about the RDF with interactive knowledge graphs</p> -->
+            <span id='tagline'>Learn about the RDF with interactive knowledge graphs</span>
           </div>
-          <div id='tagline'>Learn about the RDF with interactive knowledge graphs</div>
         </div>
     </div>
 
@@ -756,9 +753,8 @@ body {
 } */
 
 #tagline {
-  font-size: 100%;
-  margin-right: 50%;
-  text-align: left;
+  color: rgb(113, 113, 146);
+  font-size: 70%;
 }
 
 /* .topWrap main svg {
@@ -768,7 +764,7 @@ body {
 
 #svgContain {
   /* background-image: url(../assets/grid2.gif); */
-  background-color: whitesmoke;
+  background-color: white;
   width: 100%;
   height: 100%;
 }

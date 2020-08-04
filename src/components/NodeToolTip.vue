@@ -22,7 +22,7 @@
             :width='textW'
             :height='textH'>
             <div>
-            <span ref='test' class='tooltiptext'>tooltiptext</span>
+            <span ref='test' class='tooltiptext'></span>
         </div>
         </foreignObject>
     </g>

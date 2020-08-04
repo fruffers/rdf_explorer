@@ -32,7 +32,6 @@ export default {
         background-color: #001c39;
         color: white;
         font-size: 120%;
-        border: 4px solid white;
         transition: 0.6s;
     }
     #goal {
