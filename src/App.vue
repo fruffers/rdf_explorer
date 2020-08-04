@@ -51,6 +51,7 @@ button {
     background-color: whitesmoke;
     border: 4px solid #001c39;
     text-transform: uppercase;
+    border-radius: 10px;
 }
 
 button {

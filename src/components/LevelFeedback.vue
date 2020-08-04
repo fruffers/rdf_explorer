@@ -37,9 +37,11 @@ export default {
     #success {
         background-color: palegreen;
         padding: 10%;
+        border-radius: 10px;
     }
     #failure {
         background-color: palevioletred;
         padding: 10%;
+        border-radius: 10px;
     }
 </style>

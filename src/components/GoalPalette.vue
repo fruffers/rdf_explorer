@@ -37,6 +37,7 @@ export default {
     #goal {
         background-color: #9ec1ee;
         padding: 10%;
+        border-radius: 10px;
     }
     #wrapper {
         padding: 5%;
