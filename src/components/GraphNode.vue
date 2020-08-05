@@ -25,7 +25,7 @@
     class='rect'
     :width='rectX'
     :height='rectY'
-    rx='5'
+    rx='10'
     @click='selectNode'
     @dblclick='drawEdge'
     :indexval='indexNo'
@@ -236,7 +236,8 @@ export default {
           }),
           interact.modifiers.restrictSize(
             {
-              min: { width: 50, height: this.minHeight() }
+              min: { width: 50, height: this.minHeight() },
+              max: { width: 500, height: 25 }
             }
           )
         ]
