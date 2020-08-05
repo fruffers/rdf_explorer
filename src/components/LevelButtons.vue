@@ -15,8 +15,9 @@ export default {
   methods: {
     levelChangeEmit (event) {
     // give level change number
-      console.log('inner level' + this.$refs.levelCount)
-      this.$emit('levelPick', this.$refs.levelCount)
+      // console.dir(event.currentTarget, { depth: null })
+      const levelCount = event.currentTarget.lastElementChild.innerText
+      this.$emit('levelPick', levelCount)
     }
   }
 }
