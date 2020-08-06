@@ -398,7 +398,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 90, h: 25, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 250, h: 75, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
