@@ -5,12 +5,10 @@
     class='c-svg-g'
   >
   <!--drawing an ellipse with binded values-->
-  <!-- <test-child></test-child> -->
-    <ellipse
-      :cx='centreX'
-      :cy='centreY'
-      :rx='radiusX'
-      :ry='radiusY'
+    <rect
+      :width='centreX'
+      :height='centreY'
+      rx='500'
       class='ellipse'
       stroke-width= '2'
       stroke= 'black'
@@ -58,6 +56,22 @@
     >
       {{ label}}
     </text> -->
+
+    <!-- <foreignObject
+  ref='moveable'
+  :x='textX'
+  :y='textY'
+  width='100px'
+  height='100px'
+  >
+  testing
+  <div style='background-color: red; width: 500px; height: 500px;' xmlns="http://www.w3.org/1999/xhtml">
+      <input
+      :value='label'
+      @input='labelEmit'>
+      </div>
+
+  </foreignObject> -->
   </g>
 </template>
 
@@ -71,7 +85,10 @@ export default {
   },
 
   props: {
-    nodeData: Object,
+    nodeData: {
+      type: Object,
+      required: true
+    },
     indexNo: Number
   },
 
@@ -95,9 +112,7 @@ export default {
       // only need x and y since this is moving the location
       const x = this.nodeData.x + this.nodeData.displacement.x
       const y = this.nodeData.y + this.nodeData.displacement.y
-      // the ${} allows injecting constiables into html
-      // translate() is an svg method applied to transform attribute, to move an svg somewhere
-      return `translate(${x},${y})`
+      return `translate(${x} ${y})`
     },
 
     rectX () {
@@ -155,7 +170,7 @@ export default {
 
     textX () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.w / 3.6
+        return this.nodeData.w / 8
       } else {
         return this.nodeData.w / 25
       }
@@ -163,7 +178,7 @@ export default {
 
     textY () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.h / 2
+        return this.nodeData.h / 3
       } else {
         return this.nodeData.h / 4
       }
@@ -171,7 +186,7 @@ export default {
 
     textW () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.w / 0.9
+        return this.nodeData.w / 1.6
       } else {
         return this.nodeData.w / 1.4
       }
@@ -179,7 +194,7 @@ export default {
 
     textH () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.h
+        return this.nodeData.h / 3
       } else {
         return this.nodeData.h / 2
       }
@@ -214,9 +229,14 @@ export default {
       const interactive = interact(this.$refs.svgG)
 
       interactive.draggable({
+        origin: 'self',
         inertia: true, // throw nodes
         // object containing listeners that wait for interactjs
         // event to trigger
+        modifiers: {
+          restriction: self,
+          endOnly: true
+        },
         listeners: {
           move: this.onElementMove,
           end: this.onElementMoveEnd
@@ -226,18 +246,16 @@ export default {
         // these edges are too far in so replace them with
         // some handle elements later
         edges: { left: true, right: true, bottom: true, top: true },
-        // listeners object
+        // listeners objects which are predefined in library
         listeners: {
-          move: this.resizeMove
+          move: this.resizeMove,
+          end: this.resizeMoveEnd
         },
         modifiers: [
-          interact.modifiers.restrictEdges({
-            outer: 'parent'
-          }),
           interact.modifiers.restrictSize(
             {
-              min: { width: 50, height: this.minHeight() },
-              max: { width: 500, height: 25 }
+              min: { width: 50, height: this.minHeight() }
+              // max: { width: 500, height: 25 }
             }
           )
         ]
@@ -246,22 +264,19 @@ export default {
 
     minHeight () {
       if (this.nodeData.type === 'subject') {
-        return 25
+        return 70
       } else {
         return 50
       }
     },
 
     resizeMove (event) {
-      // get x and y of event, where the mouse has grabbed
-      // console.log('event only ', event)
-      // const target = event.target
       const nodeId = this.nodeData.id
 
       let x = this.nodeData.x
       let y = this.nodeData.y
 
-      // change to new dimensions
+      // change width and height to new dimensions
       const newWidth = event.rect.width
       const newHeight = event.rect.height
 
@@ -276,6 +291,10 @@ export default {
       this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
       this.sendLocationInfo()
       // apply translation delta from deltarect
+    },
+
+    resizeMoveEnd (event) {
+      this.$emit('resize-end')
     },
 
     // resetDisplacement () {
