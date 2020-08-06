@@ -248,112 +248,37 @@ export default {
         }
       } else {
         // ellipse handles
-        // given x
-        // const givenx = x
-        // const y1 = (node.h) * Math.sqrt((1 + (4 * (givenx ** 2))) / ((node.w) ** 2))
-        // use outer rect bounds to cut diagonal lines
-        // through ellipse and get points at intersections on
-        // ellipse circumference
-        // get rect bounds
-        // const north = { x: x + node.w, y: y }
-        // const east = { x: x + node.w * 2, y: y + node.h }
-        // const south = { x: x + node.w, y: y + node.h * 2 }
-        // const west = { x: x, y: y + node.h }
 
         // https://stackoverflow.com/questions/9411861/how-do-i-calculate-a-point-on-a-ellipse-s-circumference
         // use angle to find handles
-        const nwX = (node.w + x) + (node.w * Math.cos(10))
-        const nwY = (node.h + y) + (node.h * Math.sin(10))
-        const neX = (node.w + x) + (node.w * Math.cos(100))
-        const neY = (node.h + y) + (node.h * Math.sin(10))
-        const swX = (node.w + x) + (node.w * Math.cos(-10))
-        const swY = (node.h + y) + (node.h * Math.sin(-10))
-        const seX = (node.w + x) + (node.w * Math.cos(-100))
-        const seY = (node.h + y) + (node.h * Math.sin(-10))
+        // const nwX = (node.w + x) + (node.w * Math.cos(10))
+        // const nwY = (node.h + y) + (node.h * Math.sin(10))
+        // const neX = (node.w + x) + (node.w * Math.cos(100))
+        // const neY = (node.h + y) + (node.h * Math.sin(10))
+        // const swX = (node.w + x) + (node.w * Math.cos(-10))
+        // const swY = (node.h + y) + (node.h * Math.sin(-10))
+        // const seX = (node.w + x) + (node.w * Math.cos(-100))
+        // const seY = (node.h + y) + (node.h * Math.sin(-10))
 
-        const swX2 = (node.w + x) + (node.w * Math.cos(130))
-        const swY2 = (node.h + y) + (node.h * Math.sin(30))
-        const nwX2 = (node.w + x) + (node.w * Math.cos(130))
-        const nwY2 = (node.h + y) + (node.h * Math.sin(-30))
-        const neX2 = (node.w + x) + (node.w * Math.cos(-200))
-        const neY2 = (node.h + y) + (node.h * Math.sin(200))
-        const seX2 = (node.w + x) + (node.w * Math.cos(200))
-        const seY2 = (node.h + y) + (node.h * Math.sin(800))
-
-        // const t1 = { x: west.x, y: north.y }
-        // const t2 = { x: east.x, y: north.y }
-        // const b1 = { x: west.x, y: south.y }
-        // const b2 = { x: east.x, y: south.y }
-
-        // const a = node.w / 2
-        // const b = node.h / 2
-        // // length to focis
-        // const c = Math.sqrt((a * a) - (b * b))
-        // const center = { x: t1.x + node.w / 2, y: t1.y + node.h / 2 }
-        // const center = { x: x + node.w, y: y + node.h }
-        // const lfx = center.x - c
-        // const rfx = center.x + c
-        // const leftFoci = { x: lfx, y: center.y }
-        // const rightFoci = { x: rfx, y: center.y }
-
-        // const longestLen = x + node.w * 2
-
-        // const onePart = longestLen / 4
-
-        // const xnw = ((t1.x) ** 2) / (center.x)
-        // const ynw = ((t1.y) ** 2) / (center.y)
-
-        // how to get points using the foci?
-        // the width to the two foci has to equal longest len
-
-        // console.log('center' + center.x)
-        // console.log('left foci' + leftFoci.x)
-        // console.log('right foci ' + rightFoci.x)
-        // console.log('width ' + longestLen)
-
-        // distance from (-c,0) to (x,y) where (x,y) is point and (-c,0) is left foci
-        // const d1 = 0
-        // distance from right foci to point
-        // const d2 = 0
-
-        // set of all points on the coordinate system
-        // const boundBox = []
-        // const x1 = 0
-        // const y1 = 0
-        // make bounding box around ellipse to pick points from
-        // ranges from x+y to (x+y)*2
-        // ranges from
-
-        // const diagPoints = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }]
-
-        // diagPoints.forEach((p, i) => {
-        //   const t = Math.tan(i * Math.PI / 4 + Math.atan(2 * b / a) / 2)
-        //   const px = a * (1 - t ** 2) / (1 + t ** 2)
-        //   const py = b * 2 * t / (1 + t ** 2)
-        //   // console.log('px ' + px)
-        //   p.x = px
-        //   p.y = py
-        // })
-
-        // const ellipsePointSet = []
-        // const count = 0
-
-        // sum of distance must equal width
+        // const swX2 = (node.w + x) + (node.w * Math.cos(130))
+        // const swY2 = (node.h + y) + (node.h * Math.sin(30))
+        // const nwX2 = (node.w + x) + (node.w * Math.cos(130))
+        // const nwY2 = (node.h + y) + (node.h * Math.sin(-30))
+        // const neX2 = (node.w + x) + (node.w * Math.cos(-200))
+        // const neY2 = (node.h + y) + (node.h * Math.sin(200))
+        // const seX2 = (node.w + x) + (node.w * Math.cos(200))
+        // const seY2 = (node.h + y) + (node.h * Math.sin(800))
 
         return {
           handles: [
-            { x: seX2, y: seY2 }, // se2
-            { x: neX2, y: neY2 }, // ne2
-            { x: nwX2, y: nwY2 }, // nw2
-            { x: swX2, y: swY2 }, // se2
-            { x: neX, y: neY }, // ne
-            { x: seX, y: seY }, // se
-            { x: nwX, y: nwY }, // nw
-            { x: swX, y: swY }, // sw
-            { x: x + node.w, y: y }, // north
-            { x: x + node.w * 2, y: y + node.h }, // east
-            { x: x + node.w, y: y + node.h * 2 }, // south
-            { x: x, y: y + node.h } // west
+            { x: x + node.w / 2, y: y + node.h }, // south
+            { x: x + node.w, y: y + node.h / 2 }, // east
+            { x: x + node.w / 100, y: y + node.h / 2 }, // west
+            { x: x + node.w / 2, y: y + node.h / 200 }, // north
+            { x: x + node.w / 2 * 1.7, y: y + node.h }, // se
+            { x: x + node.w / 2 / 4, y: y + node.h }, // sw
+            { x: x + node.w / 2 / 5, y: y + node.h / 200 }, // nw
+            { x: x + node.w / 2 * 1.7, y: y + node.h / 200 } // ne
           ]
         }
       }
