@@ -251,34 +251,25 @@ export default {
 
         // https://stackoverflow.com/questions/9411861/how-do-i-calculate-a-point-on-a-ellipse-s-circumference
         // use angle to find handles
-        // const nwX = (node.w + x) + (node.w * Math.cos(10))
-        // const nwY = (node.h + y) + (node.h * Math.sin(10))
-        // const neX = (node.w + x) + (node.w * Math.cos(100))
-        // const neY = (node.h + y) + (node.h * Math.sin(10))
-        // const swX = (node.w + x) + (node.w * Math.cos(-10))
-        // const swY = (node.h + y) + (node.h * Math.sin(-10))
-        // const seX = (node.w + x) + (node.w * Math.cos(-100))
-        // const seY = (node.h + y) + (node.h * Math.sin(-10))
-
-        // const swX2 = (node.w + x) + (node.w * Math.cos(130))
-        // const swY2 = (node.h + y) + (node.h * Math.sin(30))
-        // const nwX2 = (node.w + x) + (node.w * Math.cos(130))
-        // const nwY2 = (node.h + y) + (node.h * Math.sin(-30))
-        // const neX2 = (node.w + x) + (node.w * Math.cos(-200))
-        // const neY2 = (node.h + y) + (node.h * Math.sin(200))
-        // const seX2 = (node.w + x) + (node.w * Math.cos(200))
-        // const seY2 = (node.h + y) + (node.h * Math.sin(800))
+        const nwX = (x + node.w) + (node.w * Math.cos(10))
+        const nwY = (y + node.h / 1.5) + (node.h * Math.sin(10))
+        const neX = (x + node.w / 80) + (node.w * Math.cos(100))
+        const neY = (y + node.h / 1.4) + (node.h * Math.sin(10))
+        const swX = (x + node.w / 1) + (node.w * Math.cos(-10))
+        const swY = (y + node.h / 3) + (node.h * Math.sin(-10))
+        const seX = (x + node.w / 20) + (node.w * Math.cos(-100))
+        const seY = (y + node.h / 4) + (node.h * Math.sin(-10))
 
         return {
           handles: [
             { x: x + node.w / 2, y: y + node.h }, // south
             { x: x + node.w, y: y + node.h / 2 }, // east
-            { x: x + node.w / 100, y: y + node.h / 2 }, // west
+            { x: x + node.w / 200, y: y + node.h / 2 }, // west
             { x: x + node.w / 2, y: y + node.h / 200 }, // north
-            { x: x + node.w / 2 * 1.7, y: y + node.h }, // se
-            { x: x + node.w / 2 / 4, y: y + node.h }, // sw
-            { x: x + node.w / 2 / 5, y: y + node.h / 200 }, // nw
-            { x: x + node.w / 2 * 1.7, y: y + node.h / 200 } // ne
+            { x: seX, y: seY }, // se
+            { x: swX, y: swY }, // sw
+            { x: nwX, y: nwY }, // nw
+            { x: neX, y: neY } // ne
           ]
         }
       }
