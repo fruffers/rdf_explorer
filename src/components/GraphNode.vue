@@ -242,7 +242,7 @@ export default {
       y += event.deltaRect.top
 
       this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
-      this.sendLocationInfo()
+      // this.sendLocationInfo()
       // apply translation delta from deltarect
     },
 

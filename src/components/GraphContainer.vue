@@ -166,7 +166,7 @@ export default {
       { name: 'rdf:', uri: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' },
       { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
       { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
-      { name: 'dct:', uri: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/' },
+      { name: 'dct:', uri: 'http://purl.org/dc/terms/' },
       { name: 'wo:', uri: 'http://purl.org/ontology/wo/about/' },
       { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
       { name: 'schema:', uri: 'https://schema.org/' }
