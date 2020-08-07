@@ -1,6 +1,8 @@
 <template>
     <div>
+        <button>Convert to RDF XML</button>
         <div id='rdfxmlWrap'>
+            {{}}
         </div>
     </div>
 </template>
@@ -9,6 +11,11 @@
 import rdfTranslator from 'rdf-translator'
 export default {
   name: 'converterPalette',
+  data () {
+    return {
+      rdfxml: ''
+    }
+  },
   methods: {
     convert (input) {
       // convert n-triples to xml/rdf

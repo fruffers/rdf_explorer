@@ -253,10 +253,10 @@ FOAF Properties: firstName, lastName, Nickname, birthday, age
 
 
         `,
-        answer: 'foaf:Person foaf:age "37" . ' +
+        answer: 'foaf:Person foaf:firstName "Bethany" . ' +
+        'foaf:Person foaf:birthday "07/08/2020" . ' +
         'foaf:Person foaf:nickname "Beth" . ' +
-        'foaf:Person foaf:firstName "Bethany" . ' +
-        'foaf:Person foaf:birthday "07/08/2020 . ' +
+        'foaf:Person foaf:age "37" . ' +
         'foaf:Person foaf:interest dbpedia:Marine_biology . '
       },
       {
@@ -516,16 +516,18 @@ FOAF Properties: topic, publications, PrimaryTopic
       }
     },
 
+    whiteSpaceTrimmer (input) {
+      return input.replace(/^\s+|\s+$/gm, '')
+    },
+
     labelInputHandler (nodeIndex, newVal) {
-      if (newVal !== null) {
-        this.nodes[nodeIndex].label = newVal
-      }
+      newVal = this.whiteSpaceTrimmer(newVal)
+      this.nodes[nodeIndex].label = newVal
     },
 
     edgeLabelHandler (index, newVal) {
-      if (newVal !== null) {
-        this.edges[index].edgeLabel = newVal
-      }
+      newVal = this.whiteSpaceTrimmer(newVal)
+      this.edges[index].edgeLabel = newVal
     },
 
     instructAlertHandler () {
