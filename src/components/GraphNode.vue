@@ -274,7 +274,7 @@ export default {
 
     onElementMoveEnd (event) {
       this.$emit('move-end', { id: this.nodeData.id })
-      this.sendLocationInfo()
+      // this.sendLocationInfo()
     },
 
     selectNode (event) {
