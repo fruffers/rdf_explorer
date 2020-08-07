@@ -34,10 +34,10 @@
 
     <foreignObject
     ref='nodeLabel'
-    :x='textX'
-    :y='textY'
     :width='textW'
-    :height='textH'>
+    :height='textH'
+    :x='textX'
+    :y='textY'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input
       :value='label'
@@ -45,33 +45,6 @@
       </div>
     </foreignObject>
 
-    <!-- <text
-    contenteditable='true'
-      class='c-graph-node__label'
-      :x='textX'
-      :y='textY'
-      dominant-baseline='middle'
-      text-anchor='middle'
-
-    >
-      {{ label}}
-    </text> -->
-
-    <!-- <foreignObject
-  ref='moveable'
-  :x='textX'
-  :y='textY'
-  width='100px'
-  height='100px'
-  >
-  testing
-  <div style='background-color: red; width: 500px; height: 500px;' xmlns="http://www.w3.org/1999/xhtml">
-      <input
-      :value='label'
-      @input='labelEmit'>
-      </div>
-
-  </foreignObject> -->
   </g>
 </template>
 
@@ -103,9 +76,6 @@ export default {
   computed: {
 
     // this controls the location for g group
-    // so a transform is applied to the initial node location
-    // moves the node
-
     // due to being computed this will automatically detect changes in any of the dependencies inside
     // so when the node is dragged and displacement is updated then this will fire again
     svgLocation () {
@@ -130,31 +100,14 @@ export default {
       }
     },
 
-    // these are cx, cy etc. dimensions of ellipse
-
-    // cx === rx
-    // cy === ry
-
+    // cx, cy etc. dimensions of ellipse
     // centre values control where centre of node is
     centreX () {
       return this.supressObject(this.nodeData.w)
-      // return this.nodeData.w
     },
 
     centreY () {
-      // return this.nodeData.h
       return this.supressObject(this.nodeData.h)
-    },
-
-    // radius values control the size of the node
-    radiusX () {
-      return this.supressObject(this.nodeData.w)
-      // return this.nodeData.w
-    },
-
-    radiusY () {
-      return this.supressObject(this.nodeData.h)
-      // return this.nodeData.h
     },
 
     label: {
@@ -202,21 +155,21 @@ export default {
   },
 
   mounted () {
-    // run these functions on document load, when node created
+    // execute on document load. sendlocinfo is for the tooltips
     this.initInteractJs()
-    this.sendLocationInfo()
+    // this.sendLocationInfo()
   },
 
   methods: {
 
-    sendLocationInfo () {
-      // send location information to parent then tooltip component
-      const locInfo = { textX: this.textX, textY: this.textY, textW: this.textW, textH: this.textH, svgLocation: this.svgLocation }
-      this.$emit('emit-loc', locInfo, this.nodeData.id)
-    },
+    // sendLocationInfo () {
+    //   // send location information to parent then tooltip component
+    //   const locInfo = { textX: this.textX, textY: this.textY, textW: this.textW, textH: this.textH, svgLocation: this.svgLocation }
+    //   this.$emit('emit-loc', locInfo, this.nodeData.id)
+    // },
 
     supressObject (changeVal) {
-      // object is rect node. This makes it flat/invisible
+      // object is rectangular node. This makes it flat/invisible
       if (this.nodeData.type === 'object') {
         return 0
       } else {
@@ -297,13 +250,6 @@ export default {
       this.$emit('resize-end')
     },
 
-    // resetDisplacement () {
-    //   this.displacement = {
-    //     x: 0,
-    //     y: 0
-    //   }
-    // },
-
     onElementMove (event) {
       // calculating displacement during drag of mouse and node
 
@@ -361,10 +307,5 @@ export default {
 
 .ellipse {
   fill: #99c;
-  /* stroke: #336; */
 }
-
-/* .c-graph-node__label {
-
-} */
 </style>

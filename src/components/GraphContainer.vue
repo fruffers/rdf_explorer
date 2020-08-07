@@ -85,7 +85,7 @@
           :dragDisplacement='dragDisplacement'
         />
 
-        <node-tool-tip
+        <!-- <node-tool-tip
           v-for='(node,index) in nodes'
           :key='`tooltip + ${index}`'
           :svgLocation='node.textLocInfo.svgLocation'
@@ -94,7 +94,7 @@
           :textW='node.textLocInfo.textW'
           :textH='node.textLocInfo.textH'
         >
-        </node-tool-tip>
+        </node-tool-tip> -->
 
       </svg>
 
@@ -136,7 +136,7 @@ import turtleConvert from './TurtleConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
-import nodeToolTip from './NodeToolTip'
+// import nodeToolTip from './NodeToolTip'
 
 export default {
   name: 'graph-container',
@@ -148,8 +148,8 @@ export default {
     turtleConvert,
     goalPal,
     feedbackPal,
-    levelButtons,
-    nodeToolTip
+    levelButtons
+    // nodeToolTip
   },
 
   data: () => ({
@@ -168,7 +168,7 @@ export default {
       { name: 'foaf:', uri: 'http://xmlns.com/foaf/0.1/' },
       { name: 'dct:', uri: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/' },
       { name: 'wo:', uri: 'http://purl.org/ontology/wo/about/' },
-      { name: 'dbpedia:', uri: 'https://wiki.dbpedia.org/' },
+      { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
       { name: 'schema:', uri: 'https://schema.org/' }
     ],
 
@@ -242,22 +242,22 @@ export default {
         <br/>
         RDF documents can be written in several different formats which include TURTLE, RDF/XML, N-triples, N3, JSON-LD.
         `,
-        goal: `Bethany Gunn, known as Beth, will celebrate her 37th birthday on 07/08
+        goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
+        using the foaf ontology and dbpedia.
       </br>
       </br>
 FOAF Classes: Person
-FOAF Properties: firstName, lastName. Nickname, birthday, age
+</br>
+</br>
+FOAF Properties: firstName, lastName, Nickname, birthday, age
 
 
         `,
-        answer: 'tg:Bilbo_Baggins tg:Baggins_Family tg:Frodo_Baggins . ' +
-        'tg:Frodo_Baggins foaf:knows tg:Merry_BrandyBuck . ' +
-        'tg:Bilbo_Baggins foaf:interest "Mushrooms" . ' +
-        'tg:Frodo_Baggins foaf:interest "Mushrooms" . ' +
-        'tg:Merry_BrandyBuck foaf:interest "Mushrooms" . ' +
-        'tg:Bilbo_Baggins wo:species tg:Hobbits . ' +
-        'tg:Frodo_Baggins wo:species tg:Hobbits . ' +
-        'tg:Merry_BrandyBuck wo:species tg:Hobbits . '
+        answer: 'foaf:Person foaf:age "37" . ' +
+        'foaf:Person foaf:nickname "Beth" . ' +
+        'foaf:Person foaf:firstName "Bethany" . ' +
+        'foaf:Person foaf:birthday "07/08/2020 . ' +
+        'foaf:Person foaf:interest dbpedia:Marine_biology . '
       },
       {
         no: 1,
