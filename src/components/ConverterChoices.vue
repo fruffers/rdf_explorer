@@ -1,8 +1,11 @@
 <template>
     <div>
-        <button>Convert to RDF XML</button>
+        <button
+        @click='fetchNtriples'
+        >
+        Convert to RDF XML</button>
         <div id='rdfxmlWrap'>
-            {{}}
+            {{rdfxml}}
         </div>
     </div>
 </template>
@@ -11,20 +14,27 @@
 import rdfTranslator from 'rdf-translator'
 export default {
   name: 'converterPalette',
+  props: {
+    triples: Array
+  },
   data () {
     return {
-      rdfxml: ''
+      rdfxml: 'test'
     }
   },
   methods: {
-    convert (input) {
+    fetchNtriples () {
+      this.$emit('fetch-triples')
+      this.convertRDFXML(this.triples)
+    },
+    convertRDFXML (input) {
       // convert n-triples to xml/rdf
       const xml = rdfTranslator(input, 'n-triples', 'xml', function (err, data) {
         if (err) { return console.error(err) }
         console.log(data)
-        return data
+        this.rdfxml = data
       })
-      return xml
+      this.rdfxml = xml
     }
   }
 

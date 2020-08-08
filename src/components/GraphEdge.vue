@@ -22,17 +22,7 @@
       stroke-width = '1.7'
       @dblclick='removeEdgeEmit'
     />
-    <!-- <text
-      class='edge-label'
-      :x='Math.sqrt(endX * startX)'
-      :y='Math.sqrt(endY * startY)'
-      fill='black'
-      text-anchor='middle'
-      dominant-baseline='middle'
-      >
-      {{ startY }}
-    </text> -->
-    <!--label is connected to line location through startX and endY etc.-->
+    <!--input label is connected to edge location through startX and endY etc.-->
     <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='140' :height='25'>
       <div xmlns="http://www.w3.org/1999/xhtml">
         <input
@@ -45,13 +35,10 @@
 </template>
 
 <script>
-// edit x and y of text label depending on
-// import interact from 'interactjs'
 export default {
   name: 'graph-edge',
 
-  // fromnode and tonode are props which are passed down to the child from the parent
-  // these props are both node objects
+  // these props are both node objects with all info about node
   props: {
     fromNode: {
       type: Object,
@@ -67,7 +54,6 @@ export default {
     deleteEdgeBool: Boolean,
     dragDisplacement: Object,
     dragMoveEdges: Array
-    // label: Text
 
   },
 
@@ -82,11 +68,10 @@ export default {
   // computed values automatically update reactively
   // these will automatically be fired because they are bound in the template
   computed: {
-    // startX calculates where the x start position of line is on fromnode
+    // startX calculates where the x start position of edge is on fromnode
     // by getting the closest handle on the opposite tonode
     startX: {
       get: function () {
-        // return this.fromNode.x + this.fromNode.w
         return this.closestHandlePair.fromHandle.x
       },
 
@@ -98,7 +83,6 @@ export default {
 
     startY: {
       get: function () {
-        // return this.fromNode.y + this.fromNode.h
         return this.closestHandlePair.fromHandle.y
       },
 
@@ -110,7 +94,6 @@ export default {
 
     endX: {
       get: function () {
-        // return this.toNode.x + this.toNode.w
         return this.closestHandlePair.toHandle.x
       },
 
@@ -122,7 +105,6 @@ export default {
 
     endY: {
       get: function () {
-        // return this.toNode.y + this.toNode.h
         return this.closestHandlePair.toHandle.y
       },
 
@@ -131,12 +113,6 @@ export default {
       }
 
     },
-
-    // edgeLabel: {
-    //   get: function () {
-    //     return this.edgeLabel || ' '
-    //   }
-    // },
 
     /* Cartesian product of the from handles and the to handles */
     handlePairs () {
@@ -173,7 +149,7 @@ export default {
     }
   },
 
-  // fire the functions when these constiables change
+  // fire functions on variable changes
   watch: {
 
     deleteEdgeBool: {
@@ -185,7 +161,7 @@ export default {
     },
 
     // these are the functions that automatically fill fromNodePoints etc.
-    // fromNodePoints is filled with handle details of the node passed in as param
+    // fromNodePoints is filled with handles details of the node passed in as param
 
     // when new nodes are pushed as props this will activate
     fromNode: {
@@ -219,8 +195,7 @@ export default {
       }
     },
 
-    // here calculate the handles around the edges of the node so as to attach edges to them
-    // handles
+    // calculate the 'handles' points around the edges of the node so as to attach edges to them
     nodePoints (node) {
       if (!node) {
         return {}

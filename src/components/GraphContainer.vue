@@ -47,7 +47,7 @@
       >
       </button-pal>
     </div>
-      <!--encase in svg tag-->
+      <!--container of all svg elements-->
       <svg
         id='svgContain'
         xmlns='http://www.w3.org/2000/svg'
@@ -70,7 +70,7 @@
           :indexNo='node.id'
           ref='node'
         />
-              <!-- the edge location moves with the fromNode and toNode bindings -->
+        <!-- the edge location moves with the fromNode and toNode bindings -->
         <graph-edge
           v-for='(edge, index) in edges'
           :fromNode='edge.fromNode'
@@ -102,18 +102,20 @@
 
   <div class='box3'>
 
-      <turtle-convert
-      :triples='triples'
-      @turtle-convert='turtleConvert'
-      />
+    <converter-choices
+    @fetch-triples='turtleConvert'
+    :triples='triples'
+    />
 
-      <prefix-pal
-      @store-prefix='storePrefix'
-      :prefixes='prefixes'
-      />
-    <!-- <footer>
-      the footer
-    </footer> -->
+    <turtle-convert
+    :triples='triples'
+    @turtle-convert='turtleConvert'
+    />
+
+    <prefix-pal
+    @store-prefix='storePrefix'
+    :prefixes='prefixes'
+    />
 
   </div>
 
@@ -122,9 +124,6 @@
 </template>
 
 <script>
-// `edge-${edge.fromNode.id}-${edge.toNode.id}` < old key gen
-// import util from 'util'
-
 // smart node that handles all of the data and event handlers
 
 // components
@@ -136,6 +135,7 @@ import turtleConvert from './TurtleConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
+import converterChoices from './ConverterChoices'
 // import nodeToolTip from './NodeToolTip'
 
 export default {
@@ -148,7 +148,8 @@ export default {
     turtleConvert,
     goalPal,
     feedbackPal,
-    levelButtons
+    levelButtons,
+    converterChoices
     // nodeToolTip
   },
 
@@ -300,47 +301,16 @@ FOAF Properties: topic, publications, PrimaryTopic
     drawEdgeFrom: [],
     triples: [],
     ontoTerms: [],
-    coordSystem: [],
     graphFile: '',
     graphExportName: 'graph.json',
     locInfo: {}
   }),
 
   computed: {
-    // ontoTerms() {
-
-    // }
 
   },
 
   watch: {
-    // watch can't detect property addition or deletion, only other changes
-
-    // displacement () {
-    //   // update nodes and edges to add displacement values to select nodes
-
-    // }
-
-    // .................. this produces an error with #2 bin nodes. Return to it later?
-    // nodes: {
-    //   handler: function () {
-    //     // allow new nodes to be connected to by entering their indexes in nodes.toNodes
-    //     let newEdges = this.edges || []
-    //     let x = 0
-    //     let b = 0
-    //     for (x in this.nodes) {
-    //       if (this.nodes[x].toNodes) {
-    //         for (b in this.nodes[x].toNodes) {
-    //           newEdges.push({ fromNode: this.nodes[x], toNode: this.nodes[this.nodes[x].toNodes[b]] })
-    //           // newEdges[this.nodes[x].toNodes] = { fromNode: this.nodes[x], toNode: this.nodes[x].toNodes[b], delete: false, dragDisplacement: {} }
-    //         }
-    //       }
-    //     }
-    //     this.edges = newEdges
-    //   },
-    //   immediate: true
-
-    // }
 
   },
 
@@ -420,11 +390,10 @@ FOAF Properties: topic, publications, PrimaryTopic
       // need to delete attached edges before the indexes change after nodes reassignment
       this.deleteAttachedEdges(activeNodes)
 
-      // reassign nodes array to only nodes with 'f'
-      // recompute ids
+      // recompute ids to match new node indexes
       this.idCompute(activeNodes)
+      // reassign nodes array to only nodes with 'f'
       this.nodes = result
-      // recompute ids to match indexes
     },
 
     clearCanvasHandler () {
@@ -467,8 +436,6 @@ FOAF Properties: topic, publications, PrimaryTopic
     },
 
     selectNodeHandler (event) {
-      // highlight with cyan outline and give target an active property
-
       const index = event.target.getAttribute('indexval')
 
       if (event.target.id === 'unactive') {
@@ -476,8 +443,7 @@ FOAF Properties: topic, publications, PrimaryTopic
         event.target.style.stroke = 'cyan'
         event.target.style.strokeWidth = '4'
 
-        // use indexVal to get the corresponding node in nodes
-        // so that it can be marked for actions and deletion
+        // select multiple nodes by giving them an active property
         this.nodes[index].active = 't'
       } else if (event.target.id === 'active') {
         event.target.id = 'unactive'
@@ -486,14 +452,9 @@ FOAF Properties: topic, publications, PrimaryTopic
 
         this.nodes[index].active = 'f'
       }
-
-      // if user clicks twice then they deselect. so we can bin multiple
-      // nodes at once
     },
 
     drawEdgeHandler (node, stage) {
-      // problem: there can be duplicate edges which create duplicate key problem
-      console.log('draw edge')
       // if tracker (drawEdgeFrom) is empty
       if (Object.keys(this.drawEdgeFrom).length === 0) {
         this.drawEdgeFrom = node
@@ -517,6 +478,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     },
 
     whiteSpaceTrimmer (input) {
+      // remove '' whitespace at start of input labels
       return input.replace(/^\s+|\s+$/gm, '')
     },
 
@@ -547,7 +509,6 @@ FOAF Properties: topic, publications, PrimaryTopic
     resizeNodeHandler (nodeId, newWidth, newHeight, x, y) {
       const node = this.nodes[nodeId]
       const newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
-      // this.nodes[nodeId] = newNode
 
       this.$set(this.nodes, node.id, newNode) // set node to have displacement on x and y
       this.updateAffectedEdges(Object.assign({}, node, { w: newWidth, h: newHeight, x: x, y: y }))
@@ -556,7 +517,6 @@ FOAF Properties: topic, publications, PrimaryTopic
     storePrefix (name, uri) {
       // add new prefix
       const newPrefix = { name: name, uri: uri }
-      // this.$set(this.prefixes,)
       this.prefixes.push(newPrefix)
     },
 
@@ -565,12 +525,12 @@ FOAF Properties: topic, publications, PrimaryTopic
 
     turtleConvert () {
       const catchTriples = []
-      // represent graph as simple turtle triples
+      // parse graph data as n-triples
       let x = 0
       for (x in this.edges) {
         catchTriples.push({
           subject: this.edges[x].fromNode.label || '_:blank', // the boolean tracks whether it is prefixed or not
-          predicate: this.edges[x].edgeLabel || '_:blank',
+          predicate: this.edges[x].edgeLabel || '',
           object: this.edges[x].toNode.label || '_:blank'
         })
       }
@@ -599,7 +559,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 
     answerHandler () {
       // check whether answer is correct for current level
-      // change turtle output format so it matches the answer format
+      // change to n-triples output format so it matches the answer format
       this.turtleConvert()
       let result = ''
       let a = 0
@@ -625,11 +585,8 @@ FOAF Properties: topic, publications, PrimaryTopic
     },
 
     success () {
-      // this.levelCompletion.result = 'right'
       this.levelCompletion = { levelNo: this.level, result: 'right' }
-      // update level
       this.level++
-      // reassign
       // gen next graph
       this.graphGen(this.level)
       console.log('success')
@@ -673,7 +630,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       for (const node in this.nodes) {
         nodeJSONdata += JSON.stringify(this.nodes[node])
       }
-      // add a seperator
+      // add a seperator between nodes and edges
       nodeJSONdata += ','
       // parse edges
       for (const edge in this.edges) {
@@ -693,11 +650,11 @@ FOAF Properties: topic, publications, PrimaryTopic
       // check if file JSON
       // parse file to seperate nodes and edges
       // load into graph
-    },
-
-    emitLocTooltipHandler (loc, nodeId) {
-      this.nodes[nodeId].textLocInfo = loc
     }
+
+    // emitLocTooltipHandler (loc, nodeId) {
+    //   this.nodes[nodeId].textLocInfo = loc
+    // }
 
   }
 
@@ -751,19 +708,10 @@ body {
   color: white;
 }
 
-/* #padder {
-  padding: 4vh;
-} */
-
 #tagline {
   color: rgb(33, 46, 49);
   font-size: 1.2vh;
 }
-
-/* .topWrap main svg {
-  height: 100%;
-  width: 100%;
-} */
 
 #svgContain {
   background-image: url(../assets/grid2.gif);
@@ -779,12 +727,6 @@ body {
   margin-right: 1%;
   float: right;
 }
-
-/* #buttons {
-  float: right;
-  display: flex;
-  padding: 1%;
-} */
 
 #levelWrapper {
   font-size: 18px;

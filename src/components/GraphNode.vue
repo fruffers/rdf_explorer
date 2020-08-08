@@ -4,7 +4,7 @@
     ref='svgG'
     class='c-svg-g'
   >
-  <!--drawing an ellipse with binded values-->
+  <!--ellipse node-->
     <rect
       :width='centreX'
       :height='centreY'
@@ -18,7 +18,7 @@
       :indexval='indexNo'
       ref='subject'
     />
-
+  <!--rectangle node-->
     <rect
     class='rect'
     :width='rectX'
@@ -31,7 +31,7 @@
     id='unactive'
     style='fill: lightblue; stroke-width: 2px; stroke: black;'
     />
-
+    <!--input label-->
     <foreignObject
     ref='nodeLabel'
     :width='textW'
@@ -79,7 +79,6 @@ export default {
     // due to being computed this will automatically detect changes in any of the dependencies inside
     // so when the node is dragged and displacement is updated then this will fire again
     svgLocation () {
-      // only need x and y since this is moving the location
       const x = this.nodeData.x + this.nodeData.displacement.x
       const y = this.nodeData.y + this.nodeData.displacement.y
       return `translate(${x} ${y})`
@@ -100,8 +99,7 @@ export default {
       }
     },
 
-    // cx, cy etc. dimensions of ellipse
-    // centre values control where centre of node is
+    // cx, cy etc. dimensions of ellipse. Same as x and y for rect node
     centreX () {
       return this.supressObject(this.nodeData.w)
     },
@@ -196,8 +194,6 @@ export default {
         }
       })
       interactive.resizable({
-        // these edges are too far in so replace them with
-        // some handle elements later
         edges: { left: true, right: true, bottom: true, top: true },
         // listeners objects which are predefined in library
         listeners: {
@@ -208,7 +204,6 @@ export default {
           interact.modifiers.restrictSize(
             {
               min: { width: 50, height: this.minHeight() }
-              // max: { width: 500, height: 25 }
             }
           )
         ]
@@ -233,17 +228,13 @@ export default {
       const newWidth = event.rect.width
       const newHeight = event.rect.height
 
-      // change nodeData and nodeData displacement through
-      // an emit
-
-      // translate the shape location after resize
       // apply displacement
       x += event.deltaRect.left
       y += event.deltaRect.top
 
+      // change nodeData and nodeData displacement through emit to GraphContainer parent
       this.$emit('resize-node', nodeId, newWidth, newHeight, x, y)
       // this.sendLocationInfo()
-      // apply translation delta from deltarect
     },
 
     resizeMoveEnd (event) {
@@ -253,13 +244,13 @@ export default {
     onElementMove (event) {
       // calculating displacement during drag of mouse and node
 
+      // page x and y coordinates of starting event
+      const { x0, y0 } = event
       // destructuring statement
       // if event = {x0:"somex",y0="somey",h0="someh",u0="someu"}
       // then the statement below will only pick out and assign x0 and y0 to
-      // seperate constiables
+      // seperate variables
 
-      // page x and y coordinates of starting event
-      const { x0, y0 } = event
       // end of mouse move
       const { x, y } = event.page
 
@@ -278,7 +269,7 @@ export default {
     },
 
     selectNode (event) {
-      // emit select event and pass the selected node
+      // pass the selected node
       this.$emit('select-node', event)
     },
 
