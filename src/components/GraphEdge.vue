@@ -26,6 +26,7 @@
     <foreignObject :x='Math.sqrt(endX * startX) / 1.1' :y='Math.sqrt(endY * startY)' :width='140' :height='25'>
       <div xmlns="http://www.w3.org/1999/xhtml">
         <input
+        class='inputBox'
         :value='edgeLabel'
         @input='edgeLabelEmit'>
       </div>

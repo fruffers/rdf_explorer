@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import rdfTranslator from 'rdf-translator'
+// import rdfTranslator from 'rdf-translator'
+import jquery from 'jquery'
 export default {
   name: 'converterPalette',
   props: {
@@ -28,13 +29,23 @@ export default {
       this.convertRDFXML(this.triples)
     },
     convertRDFXML (input) {
-      // convert n-triples to xml/rdf
-      const xml = rdfTranslator(input, 'n-triples', 'xml', function (err, data) {
-        if (err) { return console.error(err) }
-        console.log(data)
-        this.rdfxml = data
+      // use API http://rdf-translator.appspot.com/
+      jquery.ajax({
+        type: 'POST',
+        url: 'http://rdf-translator.appspot.com/convert/nt/xml/content',
+        data: 'content=<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .',
+        success: function successHandler (data) {
+          var reader = new FileReader()
+          const output = reader.readAsText(data)
+          console.log(output)
+        }
+
       })
-      this.rdfxml = xml
+    },
+    readFileAsString (file) {
+      var reader = new FileReader()
+      const output = reader.readAsText(file)
+      console.log(output)
     }
   }
 

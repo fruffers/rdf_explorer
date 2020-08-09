@@ -69,4 +69,8 @@ h3 {
 h1 {
   font-family: 'Montserrat', sans-serif;
 }
+
+.inputBox {
+  font-size: 80%;
+}
 </style>

@@ -40,6 +40,7 @@
     :y='textY'>
       <div xmlns="http://www.w3.org/1999/xhtml">
       <input
+      class='inputBox'
       :value='label'
       @input='labelEmit'>
       </div>
@@ -129,7 +130,7 @@ export default {
 
     textY () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.h / 3
+        return this.nodeData.h / 4
       } else {
         return this.nodeData.h / 4
       }
@@ -145,7 +146,7 @@ export default {
 
     textH () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.h / 3
+        return this.nodeData.h / 2
       } else {
         return this.nodeData.h / 2
       }

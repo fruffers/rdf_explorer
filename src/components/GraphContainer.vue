@@ -52,8 +52,8 @@
         id='svgContain'
         xmlns='http://www.w3.org/2000/svg'
         xmlns:xlink='http://www.w3.org/1999/xlink'
-        width="1000px"
-        height="1000px"
+        width="100%"
+        height="1000vh"
       >
         <graph-node
           class="node"
@@ -368,7 +368,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 250, h: 75, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+      const newnode = { id: this.idCount++, x: 100, y: 100, w: 177, h: 55, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
@@ -606,11 +606,11 @@ FOAF Properties: topic, publications, PrimaryTopic
       // gen graph depending on level
       if (level === 0) {
         this.nodes.push(
-          { id: 0, x: 200, y: 200, w: 250, h: 75, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 1, x: 450, y: 400, w: 150, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 2, x: 100, y: 400, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 3, x: 400, y: 90, w: 150, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 4, x: 50, y: 70, w: 150, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+          { id: 0, x: 200, y: 200, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 1, x: 450, y: 400, w: 100, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 2, x: 100, y: 400, w: 120, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 400, y: 90, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 50, y: 70, w: 50, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
         )
         this.edges.push(
           { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
@@ -650,11 +650,11 @@ FOAF Properties: topic, publications, PrimaryTopic
       // check if file JSON
       // parse file to seperate nodes and edges
       // load into graph
-    }
+    },
 
-    // emitLocTooltipHandler (loc, nodeId) {
-    //   this.nodes[nodeId].textLocInfo = loc
-    // }
+    emitLocTooltipHandler (loc, nodeId) {
+      // this.nodes[nodeId].textLocInfo = loc
+    }
 
   }
 
@@ -670,7 +670,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box1 {
   display: flexbox;
   /* background-color: red; */
-  width: 30%;
+  width: 20%;
 }
 .box2 {
   display: flexbox;
@@ -680,7 +680,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box3 {
   display: flexbox;
   /* background-color: blue; */
-  width: 20%;
+  width: 10%;
 }
 body {
   margin: 0;
@@ -716,8 +716,8 @@ body {
 #svgContain {
   background-image: url(../assets/grid2.gif);
   background-color: white;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   border-radius: 10px;
 }
 
