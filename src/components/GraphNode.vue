@@ -138,9 +138,9 @@ export default {
 
     textW () {
       if (this.nodeData.type === 'subject') {
-        return this.nodeData.w / 1.6
+        return this.nodeData.w / 1.8
       } else {
-        return this.nodeData.w / 1.4
+        return this.nodeData.w / 1.8
       }
     },
 
