@@ -534,43 +534,63 @@ FOAF Properties: topic, publications, PrimaryTopic
 
       let a = 0
       let b = 0
+      // uri trackers
+      let subject = false
+      let predicate = false
+      let object = false
       for (a in this.edges) {
+        // check if last triple lacked uris
+
         b = 0
+        subject = false
+        predicate = false
+        object = false
+
         // check if there's a prefix in the node
         for (b in this.prefixes) {
           if (this.edges[a].fromNode.label.includes(this.prefixes[b].name)) {
-          // strip prefix out of node
-            const suffix = this.edges[a].fromNode.label.replace(this.prefixes[b].name, '')
-            // push uri version of node
-            triple += `<${this.prefixes[b].uri}${suffix}> `
-          } else {
-            triple += `<${this.edges[a].fromNode.label}> `
+            subject = true
           }
           if (this.edges[a].edgeLabel.includes(this.prefixes[b].name)) {
-          // strip prefix out of node
-            const suffix = this.edges[a].edgeLabel.replace(this.prefixes[b].name, '')
-            // push uri version of node
-            triple += `<${this.prefixes[b].uri}${suffix}> `
-          } else {
-            triple += `<${this.edges[a].edgeLabel}> `
+            predicate = true
           }
           if (this.edges[a].toNode.label.includes(this.prefixes[b].name)) {
-          // strip prefix out of node
-            const suffix = this.edges[a].toNode.label.replace(this.prefixes[b].name, '')
-            // push uri version of node
-            triple += `<${this.prefixes[b].uri}${suffix}> `
-          } else {
-            if (this.edges[a].toNode.label.includes('"')) {
-              triple += `${this.edges[a].toNode.label} . `
-            } else {
-              triple += `<${this.edges[a].toNode.label}> . `
-            }
+            object = true
           }
-          // push the composed triple into the ntriple graph representation
-          catchTriples += triple
-          break
+        }
+        if (subject === false) {
+          triple += `<${this.edges[a].fromNode.label}> `
+        } else if (subject === true) {
+          // strip prefix out of node
+          const suffix = this.edges[a].fromNode.label.replace(this.prefixes[b].name, '')
+          // push uri version of node
+          triple += `<${this.prefixes[b].uri}${suffix}> `
+        }
+        if (predicate === false) {
+          triple += `<${this.edges[a].edgeLabel}> `
+        } else if (predicate === true) {
+          // strip prefix out of node
+          const suffix = this.edges[a].edgeLabel.replace(this.prefixes[b].name, '')
+          // push uri version of node
+          triple += `<${this.prefixes[b].uri}${suffix}> `
+        }
+        if (object === false) {
+          if (this.edges[a].toNode.label.includes('"')) {
+            // literal
+            triple += `${this.edges[a].toNode.label} . `
+          } else {
+            // fully defined uri
+            triple += `<${this.edges[a].toNode.label}> . `
+          }
+        } else if (object === true) {
+          // strip prefix out of node
+          const suffix = this.edges[a].toNode.label.replace(this.prefixes[b].name, '')
+          // push uri version of node
+          triple += `<${this.prefixes[b].uri}${suffix}> `
         }
       }
+
+      catchTriples = triple
 
       this.triples = catchTriples
       // console.log(catchTriples)
