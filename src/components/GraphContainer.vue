@@ -53,7 +53,7 @@
         xmlns='http://www.w3.org/2000/svg'
         xmlns:xlink='http://www.w3.org/1999/xlink'
         width="100%"
-        height="1000vh"
+        height="500vh"
       >
         <graph-node
           class="node"
@@ -103,13 +103,13 @@
   <div class='box3'>
 
     <converter-choices
-    @fetch-triples='turtleConvert'
+    @fetch-triples='ntriplesConvert'
     :triples='triples'
     />
 
-    <turtle-convert
+    <ntriples-convert
     :triples='triples'
-    @turtle-convert='turtleConvert'
+    @ntriples-convert='ntriplesConvert'
     />
 
     <prefix-pal
@@ -131,7 +131,7 @@ import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
 import prefixPal from './PrefixPalette'
-import turtleConvert from './TurtleConverter'
+import ntriplesConvert from './NTriplesConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
@@ -145,7 +145,7 @@ export default {
     GraphEdge,
     buttonPal,
     prefixPal,
-    turtleConvert,
+    ntriplesConvert,
     goalPal,
     feedbackPal,
     levelButtons,
@@ -299,7 +299,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       }
     ],
     drawEdgeFrom: [],
-    triples: [],
+    triples: '',
     ontoTerms: [],
     graphFile: '',
     graphExportName: 'graph.json',
@@ -523,44 +523,63 @@ FOAF Properties: topic, publications, PrimaryTopic
     determinePrefixes () {
     },
 
-    turtleConvert () {
-      const catchTriples = []
-      // parse graph data as n-triples
-      let x = 0
-      for (x in this.edges) {
-        catchTriples.push({
-          subject: this.edges[x].fromNode.label || '_:blank', // the boolean tracks whether it is prefixed or not
-          predicate: this.edges[x].edgeLabel || '',
-          object: this.edges[x].toNode.label || '_:blank'
-        })
-      }
+    ntriplesConvert () {
+      // convert graph to ntriples format
+      var catchTriples = ''
+      var triple = ''
+
+      // convert prefixes to full uri and append rest of node label
+      // surround with <>
+      // leave literals as they are
 
       let a = 0
       let b = 0
-      let c = 0
-      for (a in catchTriples) {
-        for (b in catchTriples[a]) {
-          const origin = catchTriples[a][b]
-          const uriForm = `<${catchTriples[a][b]}>`
-          for (c in this.prefixes) {
-            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"') || catchTriples[a][b].includes('<>')) {
-              catchTriples[a][b] = origin
-              break
+      for (a in this.edges) {
+        b = 0
+        // check if there's a prefix in the node
+        for (b in this.prefixes) {
+          if (this.edges[a].fromNode.label.includes(this.prefixes[b].name)) {
+          // strip prefix out of node
+            const suffix = this.edges[a].fromNode.label.replace(this.prefixes[b].name, '')
+            // push uri version of node
+            triple += `<${this.prefixes[b].uri}${suffix}> `
+          } else {
+            triple += `<${this.edges[a].fromNode.label}> `
+          }
+          if (this.edges[a].edgeLabel.includes(this.prefixes[b].name)) {
+          // strip prefix out of node
+            const suffix = this.edges[a].edgeLabel.replace(this.prefixes[b].name, '')
+            // push uri version of node
+            triple += `<${this.prefixes[b].uri}${suffix}> `
+          } else {
+            triple += `<${this.edges[a].edgeLabel}> `
+          }
+          if (this.edges[a].toNode.label.includes(this.prefixes[b].name)) {
+          // strip prefix out of node
+            const suffix = this.edges[a].toNode.label.replace(this.prefixes[b].name, '')
+            // push uri version of node
+            triple += `<${this.prefixes[b].uri}${suffix}> `
+          } else {
+            if (this.edges[a].toNode.label.includes('"')) {
+              triple += `${this.edges[a].toNode.label} . `
             } else {
-              catchTriples[a][b] = uriForm
+              triple += `<${this.edges[a].toNode.label}> . `
             }
           }
+          // push the composed triple into the ntriple graph representation
+          catchTriples += triple
+          break
         }
       }
 
-      // filter to take out the boolean trackers
       this.triples = catchTriples
+      // console.log(catchTriples)
     },
 
     answerHandler () {
       // check whether answer is correct for current level
       // change to n-triples output format so it matches the answer format
-      this.turtleConvert()
+      this.ntriplesConvert()
       let result = ''
       let a = 0
       for (a; a < this.triples.length; a++) {
@@ -716,8 +735,6 @@ body {
 #svgContain {
   background-image: url(../assets/grid2.gif);
   background-color: white;
-  /* width: 100%;
-  height: 100%; */
   border-radius: 10px;
 }
 

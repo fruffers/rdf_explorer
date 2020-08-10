@@ -4,49 +4,50 @@
         @click='fetchNtriples'
         >
         Convert to RDF XML</button>
-        <div id='rdfxmlWrap'>
-            {{rdfxml}}
+        <div id='conversionWrap'>
+            {{conversion}}
         </div>
     </div>
 </template>
 
 <script>
-// import rdfTranslator from 'rdf-translator'
 import jquery from 'jquery'
+
 export default {
   name: 'converterPalette',
   props: {
-    triples: Array
+    triples: String
   },
-  data () {
-    return {
-      rdfxml: 'test'
-    }
-  },
+  data: () => ({
+    conversion: ''
+  }),
   methods: {
     fetchNtriples () {
       this.$emit('fetch-triples')
-      this.convertRDFXML(this.triples)
+      this.convertTypes(this.triples)
     },
-    convertRDFXML (input) {
+    convertTypes (input, convertType) {
+      // convert N-triples to other syntaxes
+
       // use API http://rdf-translator.appspot.com/
+      var self = this
+      // make sure to have global this identifiable inside internal function
+
+      // send to API post
       jquery.ajax({
         type: 'POST',
-        url: 'http://rdf-translator.appspot.com/convert/nt/xml/content',
-        data: 'content=<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .',
-        success: function successHandler (data) {
-          var reader = new FileReader()
-          const output = reader.readAsText(data)
-          console.log(output)
+        url: `http://rdf-translator.appspot.com/convert/nt/${convertType}/content`,
+        data: input,
+        dataType: 'text',
+        success: function (file) {
+          self.updateText(file, convertType)
         }
-
       })
     },
-    readFileAsString (file) {
-      var reader = new FileReader()
-      const output = reader.readAsText(file)
-      console.log(output)
+    updateText (data, convertType) {
+      this.conversion = data
     }
+
   }
 
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "fs": "0.0.1-security",
     "interactjs": "^1.9.19",
     "jquery": "^3.5.1",
     "rdf": "^4.1.0",
