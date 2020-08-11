@@ -6,10 +6,10 @@
         URI
         <input class='input' id='uri'/>
         <button id='enter' @click='emitPrefix'>add</button>
-        <ul id='prefixList' v-for='prefix in prefixes' :key= 'prefix.index'>
-            <li>{{prefix.name}}   {{prefix.uri}}</li>
+        <div id='prefixList' v-for='prefix in prefixes' :key= 'prefix.index'>
+            <p>{{prefix.name}}   {{prefix.uri}}</p>
             <br/>
-        </ul>
+        </div>
     </div>
 </template>
 
@@ -47,5 +47,7 @@ export default {
 
   li {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
 </style>

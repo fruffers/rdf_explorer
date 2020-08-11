@@ -21,6 +21,7 @@ body {
   color: #2c3e50;
   display: inline-grid;
   overflow-wrap:break-word;
+  overflow-x: hidden
 }
 
 #nav {
@@ -49,9 +50,9 @@ button {
     margin: 0.5%;
     color: #001c39;
     background-color: whitesmoke;
-    border: 4px solid #21A0C7;
+    border: 3px solid #21A0C7;
     text-transform: uppercase;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 button {

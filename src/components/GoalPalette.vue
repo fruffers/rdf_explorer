@@ -35,8 +35,8 @@ export default {
         transition: 0.6s;
     }
     #goal {
-        background-color: #21A0C7;
-        color: white;
+        background-color: rgb(167, 221, 199);
+        color: black;
         padding: 10%;
         font-size: 120%;
         border-radius: 10px;

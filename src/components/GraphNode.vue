@@ -298,6 +298,6 @@ export default {
 }
 
 .ellipse {
-  fill: #99c;
+  fill: rgb(167, 221, 199);
 }
 </style>

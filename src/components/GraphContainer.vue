@@ -3,7 +3,7 @@
         <div id='nav'>
         <div id='navWrapper'>
           <a href='https://www.epimorphics.com/'>
-            <img id='logo' src='../assets/epi1.png'/>
+            <img id='logo' src='../assets/epilogo.png'/>
           </a>
           <div id='navInner'>
             RDF Explorer
@@ -11,6 +11,8 @@
           </div>
         </div>
     </div>
+
+    <div id='progressHolder'></div>
 
   <div class='topWrap'>
   <div class='box1'>
@@ -208,7 +210,7 @@ export default {
      9. Resize nodes by hovering over them and 
         dragging out once an arrow handle appears.`,
     level: 0,
-    levelCompletion: { levelNo: 0, result: 'wrong' },
+    levelCompletion: { levelNo: 1, result: 'wrong' },
     levels: [
       {
         no: 0,
@@ -441,7 +443,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 
       if (event.target.id === 'unactive') {
         event.target.id = 'active'
-        event.target.style.stroke = 'cyan'
+        event.target.style.stroke = 'tomato'
         event.target.style.strokeWidth = '4'
 
         // select multiple nodes by giving them an active property
@@ -594,7 +596,6 @@ FOAF Properties: topic, publications, PrimaryTopic
       catchTriples = triple
 
       this.triples = catchTriples
-      // console.log(catchTriples)
     },
 
     answerHandler () {
@@ -736,6 +737,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 <style>
 .topWrap {
   display: flex;
+  padding: 1%;
   width: 100%;
   height: 100%;
 }
@@ -743,16 +745,20 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: red; */
   width: 20%;
+  margin-top: 110px;
 }
 .box2 {
   display: flexbox;
   /* background-color: green; */
-  width: 90%;
+  width: 70%;
+  padding: 1%;
 }
 .box3 {
   display: flexbox;
   /* background-color: blue; */
-  width: 20%;
+  width: 10%;
+  padding-right: 2%;
+  margin-top: 110px;
 }
 body {
   margin: 0;
@@ -760,7 +766,8 @@ body {
 }
 
 #navWrapper {
-  height: 2vh;
+  height: 1vh;
+  padding: 3%;
   margin: 0;
   background-color: #21A0C7;
   color: white;
@@ -788,12 +795,14 @@ body {
 #svgContain {
   background-image: url(../assets/grid2.gif);
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
+  margin-top: 2%;
+  /* outline: 10px solid #21A0C7; */
 }
 
 #logo {
   padding-top: 0;
-  width: 5%;
+  width: 15vh;
   margin-right: 1%;
   float: right;
 }
@@ -815,5 +824,11 @@ p {
   margin: 0;
   padding: 0;
   word-wrap: break-word;
+}
+#box2Buttons {
+  margin-bottom: 3%;
+}
+#progressHolder {
+  height: 20px;
 }
 </style>

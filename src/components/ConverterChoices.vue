@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div v-for='(ctype, index) in conversionTypes' :key='index'>
+      <div id='buttonHold' v-for='(ctype, index) in conversionTypes' :key='index'>
           <button
           @click='fetchNtriples(ctype)'
           >
@@ -65,3 +65,12 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  #buttonHold {
+  text-align: left;
+  overflow-wrap:break-word;
+  padding: 10%;
+  padding-top: 0;
+  }
+</style>

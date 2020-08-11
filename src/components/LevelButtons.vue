@@ -25,9 +25,7 @@ export default {
 <style scoped>
     #wrapper {
       margin-bottom: 0;
-      padding-top: 5%;
       padding-bottom: 0;
-      margin-right: 30%;
     }
     #pal {
         margin-bottom: 0;
