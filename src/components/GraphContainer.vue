@@ -766,7 +766,7 @@ body {
 }
 
 #navWrapper {
-  height: 1vh;
+  height: 10vh;
   padding: 2%;
   margin: 0;
   background-color: #21A0C7;
@@ -802,7 +802,7 @@ body {
 
 #logo {
   padding-top: 0;
-  width: 10vh;
+  width: 15vh;
   margin-right: 1%;
   float: right;
 }
