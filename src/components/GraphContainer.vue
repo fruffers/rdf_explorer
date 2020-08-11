@@ -174,7 +174,7 @@ export default {
       { name: 'schema:', uri: 'https://schema.org/' }
     ],
 
-    conversionTypes: { xml: 'xml', jsonld: 'json-ld', n3: 'n3' },
+    conversionTypes: { xml: 'xml', jsonld: 'jsonld', n3: 'n3' },
 
     message: 'no action',
     idCount: 0,

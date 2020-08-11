@@ -6,7 +6,7 @@
           >
           Convert to {{ctype}}</button>
           <div id='conversionWrap'>
-              {{conversion}}
+              {{conversion[ctype]}}
           </div>
       </div>
     </div>
@@ -22,7 +22,7 @@ export default {
     conversionTypes: Object
   },
   data: () => ({
-    conversion: ''
+    conversion: { xml: '', jsonld: '', n3: '' }
   }),
   methods: {
     fetchNtriples (convertType) {
@@ -31,14 +31,15 @@ export default {
     },
     convertTypes (input, convertType) {
       // convert N-triples to other syntaxes
-      console.log('input' + input)
+      // use API http://rdf-translator.appspot.com/
+
+      if (convertType === 'jsonld') {
+        convertType = 'json-ld'
+      }
 
       // add 'content=' to let api recognise data
-      // input = '<https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" .\n <https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" .'
-
       input = 'content=' + input
 
-      // use API http://rdf-translator.appspot.com/
       var self = this
       // make sure to have global this identifiable inside internal function
 
@@ -54,7 +55,10 @@ export default {
       })
     },
     updateText (data, convertType) {
-      this.conversion = data
+      if (convertType === 'json-ld') {
+        convertType = 'jsonld'
+      }
+      this.conversion[convertType] = data
     }
 
   }
