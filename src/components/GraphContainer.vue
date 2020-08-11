@@ -105,6 +105,7 @@
     <converter-choices
     @fetch-triples='ntriplesConvert'
     :triples='triples'
+    :conversionTypes='conversionTypes'
     />
 
     <ntriples-convert
@@ -172,6 +173,8 @@ export default {
       { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
       { name: 'schema:', uri: 'https://schema.org/' }
     ],
+
+    conversionTypes: { xml: 'xml', jsonld: 'json-ld', n3: 'n3' },
 
     message: 'no action',
     idCount: 0,
@@ -577,10 +580,10 @@ FOAF Properties: topic, publications, PrimaryTopic
         if (object === false) {
           if (this.edges[a].toNode.label.includes('"')) {
             // literal
-            triple += `${this.edges[a].toNode.label} . `
+            triple += `${this.edges[a].toNode.label} .\n ` // needs linebreak
           } else {
             // fully defined uri
-            triple += `<${this.edges[a].toNode.label}> . `
+            triple += `<${this.edges[a].toNode.label}> .\n ` // needs linebreak
           }
         } else if (object === true) {
           // strip prefix out of node
@@ -719,7 +722,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box3 {
   display: flexbox;
   /* background-color: blue; */
-  width: 10%;
+  width: 20%;
 }
 body {
   margin: 0;
