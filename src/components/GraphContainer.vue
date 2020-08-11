@@ -776,7 +776,7 @@ body {
 #nav {
   margin: 0;
   padding: 0;
-  /* box-shadow: 0px 2px 0px 1px rgba(172, 172, 172, 0.8); */
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
 }
 
 #navInner {
@@ -797,6 +797,7 @@ body {
   background-color: white;
   border-radius: 5px;
   margin-top: 2%;
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
   /* border: 2px solid rgb(167, 221, 199); */
 }
 
@@ -808,7 +809,7 @@ body {
 }
 
 #levelWrapper {
-  font-size: 18px;
+  font-size: 20px;
   text-align: left;
   padding: 8%;
   padding-bottom: 0;

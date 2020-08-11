@@ -18,7 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: black;
   display: inline-grid;
   overflow-wrap:break-word;
   overflow-x: hidden
@@ -50,13 +50,14 @@ button {
     margin: 0.5%;
     color: #001c39;
     background-color: whitesmoke;
-    border: 3px solid #21A0C7;
+    border: 3px solid rgb(167, 221, 199);
     text-transform: uppercase;
     border-radius: 5px;
 }
 
 button {
   font-family: 'Hind Siliguri', sans-serif;
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
 }
 
 h2 {

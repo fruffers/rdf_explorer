@@ -1,6 +1,6 @@
 <template>
     <div id='wrapper'>
-        <div id='goal'> Goal: <slot></slot> </div>
+        <div id='goal'> <h1>Goal:</h1> <slot></slot> </div>
         <div id='btnWrap'>
             <button @click="emitAnswer" id='submit'>SUBMIT ANSWER</button>
         </div>
@@ -40,6 +40,7 @@ export default {
         padding: 10%;
         font-size: 120%;
         border-radius: 10px;
+        box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
     }
     #wrapper {
         padding: 5%;
