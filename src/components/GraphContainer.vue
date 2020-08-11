@@ -203,13 +203,10 @@ export default {
      7. Scroll down to the bottom. You can add 
         new prefixes and see existing ones.
         
-     8. Convert your graph to turtle at the page 
-        bottom.
+     8. Convert your graph to other formats with button clicks.
      
      9. Resize nodes by hovering over them and 
-        dragging out once an arrow handle appears. 
-        To resize equally use the diagonal 
-        corners/black arrows.`,
+        dragging out once an arrow handle appears.`,
     level: 0,
     levelCompletion: { levelNo: 0, result: 'wrong' },
     levels: [
@@ -306,6 +303,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     ontoTerms: [],
     graphFile: '',
     graphExportName: 'graph.json',
+    feedbackTriples: [],
     locInfo: {}
   }),
 
@@ -602,17 +600,17 @@ FOAF Properties: topic, publications, PrimaryTopic
     answerHandler () {
       // check whether answer is correct for current level
       // change to n-triples output format so it matches the answer format
-      this.ntriplesConvert()
+      this.feedbackConvert()
       let result = ''
       let a = 0
-      for (a; a < this.triples.length; a++) {
+      for (a; a < this.feedbackTriples.length; a++) {
         if (a !== 0) {
           result += '.' + ' '
         }
-        for (const prop in this.triples[a]) {
-          result += this.triples[a][prop] + ' '
+        for (const prop in this.feedbackTriples[a]) {
+          result += this.feedbackTriples[a][prop] + ' '
 
-          if (a === this.triples.length - 1 && prop === 'object') {
+          if (a === this.feedbackTriples.length - 1 && prop === 'object') {
             result += '. '
           }
         }
@@ -692,6 +690,38 @@ FOAF Properties: topic, publications, PrimaryTopic
       // check if file JSON
       // parse file to seperate nodes and edges
       // load into graph
+    },
+
+    feedbackConvert () {
+      const catchTriples = []
+      // parse graph data in simpler format so it can match a simply written answer
+      let x = 0
+      for (x in this.edges) {
+        catchTriples.push({
+          subject: this.edges[x].fromNode.label,
+          predicate: this.edges[x].edgeLabel,
+          object: this.edges[x].toNode.label
+        })
+      }
+      let a = 0
+      let b = 0
+      let c = 0
+      for (a in catchTriples) {
+        for (b in catchTriples[a]) {
+          const origin = catchTriples[a][b]
+          const uriForm = `<${catchTriples[a][b]}>`
+          for (c in this.prefixes) {
+            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"') || catchTriples[a][b].includes('<>')) {
+              catchTriples[a][b] = origin
+              break
+            } else {
+              catchTriples[a][b] = uriForm
+            }
+          }
+        }
+      }
+      // filter to take out the boolean trackers
+      this.feedbackTriples = catchTriples
     },
 
     emitLocTooltipHandler (loc, nodeId) {
