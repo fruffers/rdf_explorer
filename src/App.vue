@@ -57,7 +57,7 @@ button {
 
 button {
   font-family: 'Hind Siliguri', sans-serif;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.1);
 }
 
 h2 {

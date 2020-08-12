@@ -737,7 +737,6 @@ FOAF Properties: topic, publications, PrimaryTopic
 <style>
 .topWrap {
   display: flex;
-  padding: 1%;
   width: 100%;
   height: 100%;
 }
@@ -751,7 +750,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: green; */
   width: 70%;
-  padding: 1%;
+  padding: 0.1%;
 }
 .box3 {
   display: flexbox;
@@ -776,7 +775,7 @@ body {
 #nav {
   margin: 0;
   padding: 0;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3);
 }
 
 #navInner {
@@ -796,8 +795,8 @@ body {
   background-image: url(../assets/grid2.gif);
   background-color: white;
   border-radius: 5px;
-  margin-top: 2%;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.8);
+  margin-top: 3%;
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
   /* border: 2px solid rgb(167, 221, 199); */
 }
 
