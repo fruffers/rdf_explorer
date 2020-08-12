@@ -23,13 +23,13 @@
       :levels='levels'
       @levelPick='graphGen'
       />
-      <goal-pal @answer='answerHandler'><p v-html='this.levels[level].goal'></p></goal-pal>
+      <goal-pal @answer='answerHandler'><p v-html='this.levels[level-1].goal'></p></goal-pal>
       <div id='levelWrapper'>
         <feedback-pal
         :levelCompletion='levelCompletion'
         />
         <h1>Level: <a v-html='level'/></h1>
-        <p v-html='this.levels[level].text'/>
+        <p v-html='this.levels[level-1].text'/>
       </div>
 
   </div>
@@ -217,11 +217,11 @@ export default {
      
      9. Resize nodes by hovering over them and 
         dragging out once an arrow handle appears.`,
-    level: 0,
+    level: 1,
     levelCompletion: { levelNo: 1, result: 'wrong' },
     levels: [
       {
-        no: 0,
+        no: 1,
         light: progress1,
         text:
         `RDF stands for resource description framework. It is a syntax model for presenting data to describe resources. A resource
@@ -272,7 +272,7 @@ FOAF Properties: firstName, lastName, Nickname, birthday, age
         'foaf:Person foaf:interest dbpedia:Marine_biology . '
       },
       {
-        no: 1,
+        no: 2,
         light: progress2,
         text:
         `undefined
@@ -287,7 +287,7 @@ FOAF Properties: name, knows, focus/interest
         answer: ''
       },
       {
-        no: 2,
+        no: 3,
         light: progress3,
         text:
         `undefined
@@ -302,7 +302,7 @@ FOAF Properties: topic, publications, PrimaryTopic
         answer: ''
       },
       {
-        no: 3,
+        no: 4,
         light: progress4,
         text:
         `undefined
@@ -323,7 +323,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 
   computed: {
     levelLight () {
-      return this.levels[this.level].light
+      return this.levels[this.level - 1].light
     }
 
   },
@@ -458,7 +458,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 
       if (event.target.id === 'unactive') {
         event.target.id = 'active'
-        event.target.style.stroke = 'tomato'
+        event.target.style.stroke = 'blue'
         event.target.style.strokeWidth = '4'
 
         // select multiple nodes by giving them an active property
