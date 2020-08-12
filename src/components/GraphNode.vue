@@ -23,7 +23,7 @@
     class='rect'
     :width='rectX'
     :height='rectY'
-    rx='10'
+    rx='5'
     @click='selectNode'
     @dblclick='drawEdge'
     :indexval='indexNo'
@@ -39,6 +39,7 @@
     :x='textX'
     :y='textY'>
       <div xmlns="http://www.w3.org/1999/xhtml">
+      <!-- <img src='../assets/rectimg.png' :width='rectX' :height='rectY'/> -->
       <input
       class='inputBox'
       :value='label'

@@ -12,7 +12,9 @@
         </div>
     </div>
 
-    <div id='progressHolder'></div>
+    <div id='progressHolder'>
+      <img id='levelLight' :src='levelLight'/>
+    </div>
 
   <div class='topWrap'>
   <div class='box1'>
@@ -129,6 +131,12 @@
 <script>
 // smart node that handles all of the data and event handlers
 
+// images
+import progress1 from '../assets/progressbars/SVG/Progress-1.svg'
+import progress2 from '../assets/progressbars/SVG/Progress-2.svg'
+import progress3 from '../assets/progressbars/SVG/Progress-3.svg'
+import progress4 from '../assets/progressbars/SVG/Progress-4.svg'
+
 // components
 import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
@@ -214,6 +222,7 @@ export default {
     levels: [
       {
         no: 0,
+        light: progress1,
         text:
         `RDF stands for resource description framework. It is a syntax model for presenting data to describe resources. A resource
         is anything which can be identified. RDF is particularly concerned with resources found on the web. RDF describes a resource
@@ -264,6 +273,7 @@ FOAF Properties: firstName, lastName, Nickname, birthday, age
       },
       {
         no: 1,
+        light: progress2,
         text:
         `undefined
         `,
@@ -278,6 +288,7 @@ FOAF Properties: name, knows, focus/interest
       },
       {
         no: 2,
+        light: progress3,
         text:
         `undefined
         `,
@@ -292,6 +303,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       },
       {
         no: 3,
+        light: progress4,
         text:
         `undefined
         `,
@@ -310,6 +322,9 @@ FOAF Properties: topic, publications, PrimaryTopic
   }),
 
   computed: {
+    levelLight () {
+      return this.levels[this.level].light
+    }
 
   },
 
@@ -775,34 +790,33 @@ body {
 #nav {
   margin: 0;
   padding: 0;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3);
+  /* box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3); */
 }
 
 #navInner {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  font-size: 1.6vh;
+  font-size: 4vh;
   margin-left: 1%;
   color: white;
 }
 
 #tagline {
   color: rgb(33, 46, 49);
-  font-size: 1.2vh;
+  font-size: 1.5vh;
 }
 
 #svgContain {
   background-image: url(../assets/grid2.gif);
   background-color: white;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-top: 3%;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
   /* border: 2px solid rgb(167, 221, 199); */
 }
 
 #logo {
   padding-top: 0;
-  width: 15vh;
+  width: 30vh;
   margin-right: 1%;
   float: right;
 }
@@ -826,9 +840,9 @@ p {
   word-wrap: break-word;
 }
 #box2Buttons {
-  margin-bottom: 3%;
 }
 #progressHolder {
   height: 20px;
+  padding: 15%;
 }
 </style>

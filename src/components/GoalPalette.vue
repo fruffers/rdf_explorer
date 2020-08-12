@@ -35,11 +35,11 @@ export default {
         transition: 0.6s;
     }
     #goal {
-        background-color: rgb(167, 221, 199);
+        background-color: rgb(206, 236, 225);
         color: black;
         padding: 10%;
         font-size: 120%;
-        border-radius: 10px;
+        border-radius: 300px;
         box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
     }
     #wrapper {

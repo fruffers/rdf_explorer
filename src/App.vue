@@ -10,7 +10,7 @@
 body {
   display: inline-grid;
   overflow-wrap:break-word;
-  background-color: whitesmoke;
+  background-color: white;
 }
 #app {
   font-family: 'Hind Siliguri', sans-serif;
@@ -49,15 +49,15 @@ button {
     padding: 1%;
     margin: 0.5%;
     color: #001c39;
-    background-color: whitesmoke;
+    background-color: white;
     border: 3px solid rgb(167, 221, 199);
     text-transform: uppercase;
-    border-radius: 5px;
+    border-radius: 30px;
 }
 
 button {
   font-family: 'Hind Siliguri', sans-serif;
-  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.1);
+  box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.01);
 }
 
 h2 {
@@ -74,5 +74,6 @@ h1 {
 
 .inputBox {
   font-size: 80%;
+  font-family: 'Hind Siliguri', sans-serif;
 }
 </style>
