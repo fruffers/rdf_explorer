@@ -295,7 +295,7 @@ export default {
 }
 
 .rect {
-  fill: #67c7c6;
+  fill: #b1d8e7;
 }
 
 .ellipse {

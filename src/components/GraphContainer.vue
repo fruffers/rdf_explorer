@@ -660,7 +660,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       // delete current work
       this.clearCanvasHandler()
       // gen graph depending on level
-      if (level === 0) {
+      if (level === 1) {
         this.nodes.push(
           { id: 0, x: 370, y: 200, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 1, x: 10, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },

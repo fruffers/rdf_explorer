@@ -50,7 +50,7 @@ button {
     margin: 0.5%;
     color: #001c39;
     background-color: white;
-    border: 3px solid rgb(167, 221, 199);
+    border: 3px solid #b1d8e7;
     text-transform: uppercase;
     border-radius: 30px;
 }
