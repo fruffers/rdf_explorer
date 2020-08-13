@@ -808,7 +808,7 @@ body {
 
 #svgContain {
   background-image: url(../assets/grid6.png);
-  background-size:contain;
+  /* background-size:contain; */
   background-color: white;
   border-radius: 2px;
   margin-top: 3%;
