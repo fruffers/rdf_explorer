@@ -780,7 +780,7 @@ body {
 }
 
 #navWrapper {
-  height: 10vh;
+  height: 20vh;
   padding: 2%;
   margin: 0;
   background-color: #21A0C7;
@@ -807,7 +807,8 @@ body {
 }
 
 #svgContain {
-  background-image: url(../assets/grid2.gif);
+  background-image: url(../assets/grid6.png);
+  background-size:contain;
   background-color: white;
   border-radius: 2px;
   margin-top: 3%;
