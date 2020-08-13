@@ -36,7 +36,8 @@
 
   <div class='box2'>
 
-    <div id='box2Buttons'>
+    <div class='over'>
+
       <button-pal
       id= 'buttons'
       :exportURL='graphFile'
@@ -50,7 +51,6 @@
       @file-input='fileLoadHandler'
       >
       </button-pal>
-    </div>
       <!--container of all svg elements-->
       <svg
         id='svgContain'
@@ -101,6 +101,8 @@
         </node-tool-tip> -->
 
       </svg>
+
+      </div>
 
   </div>
 
@@ -767,6 +769,19 @@ FOAF Properties: topic, publications, PrimaryTopic
   width: 70%;
   padding: 0.1%;
 }
+#buttons {
+  position: absolute;
+  display: grid;
+  right: 13%;
+  margin-top: 10%;
+}
+/* .over {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+} */
 .box3 {
   display: flexbox;
   /* background-color: blue; */
@@ -846,4 +861,7 @@ p {
   height: 20px;
   padding: 15%;
 }
+.over {
+}
+
 </style>

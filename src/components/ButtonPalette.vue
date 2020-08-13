@@ -101,8 +101,6 @@ export default {
 <style scoped>
   #wrapper {
     padding: 0;
-    height: 1px;
-    width: 50%;
   }
   button:hover {
     cursor: pointer;
@@ -110,9 +108,11 @@ export default {
   }
   button {
       height: 1%;
-      float: right;
+      /* float: right; */
       color: #001c39;
       text-transform: uppercase;
+      padding-bottom: 50%;
+      padding-top: 0;
   }
   .collapseContent {
     padding: 5%;
