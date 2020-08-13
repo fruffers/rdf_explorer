@@ -8,7 +8,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap');
 body {
-  display: inline-grid;
   overflow-wrap:break-word;
   background-color: white;
 }
@@ -19,7 +18,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: black;
-  display: inline-grid;
   overflow-wrap:break-word;
   overflow-x: hidden
 }

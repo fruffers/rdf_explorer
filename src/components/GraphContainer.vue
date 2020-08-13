@@ -12,8 +12,14 @@
         </div>
     </div>
 
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#21A0C7" fill-opacity="1" d="M0,256L48,229.3C96,203,192,149,288,144C384,139,480,181,576,192C672,203,768,181,864,160C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg> -->
+
     <div id='progressHolder'>
       <img id='levelLight' :src='levelLight'/>
+    </div>
+    <div class='textHold'>
+      <h1>Level: <a v-html='level'/></h1>
+      <p v-html='this.levels[level-1].text'/>
     </div>
 
   <div class='topWrap'>
@@ -28,9 +34,23 @@
         <feedback-pal
         :levelCompletion='levelCompletion'
         />
-        <h1>Level: <a v-html='level'/></h1>
-        <p v-html='this.levels[level-1].text'/>
       </div>
+
+          <converter-choices
+    @fetch-triples='ntriplesConvert'
+    :triples='triples'
+    :conversionTypes='conversionTypes'
+    />
+
+    <ntriples-convert
+    :triples='triples'
+    @ntriples-convert='ntriplesConvert'
+    />
+
+    <prefix-pal
+    @store-prefix='storePrefix'
+    :prefixes='prefixes'
+    />
 
   </div>
 
@@ -103,26 +123,6 @@
       </svg>
 
       </div>
-
-  </div>
-
-  <div class='box3'>
-
-    <converter-choices
-    @fetch-triples='ntriplesConvert'
-    :triples='triples'
-    :conversionTypes='conversionTypes'
-    />
-
-    <ntriples-convert
-    :triples='triples'
-    @ntriples-convert='ntriplesConvert'
-    />
-
-    <prefix-pal
-    @store-prefix='storePrefix'
-    :prefixes='prefixes'
-    />
 
   </div>
 
@@ -388,12 +388,12 @@ FOAF Properties: topic, publications, PrimaryTopic
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 177, h: 55, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+      const newnode = { id: this.idCount++, x: 400, y: 100, w: 177, h: 55, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
     addObjectHandler () {
-      const newnode = { id: this.idCount++, x: 100, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+      const newnode = { id: this.idCount++, x: 400, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
 
@@ -618,21 +618,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     answerHandler () {
       // check whether answer is correct for current level
       // change to n-triples output format so it matches the answer format
-      this.feedbackConvert()
-      let result = ''
-      let a = 0
-      for (a; a < this.feedbackTriples.length; a++) {
-        if (a !== 0) {
-          result += '.' + ' '
-        }
-        for (const prop in this.feedbackTriples[a]) {
-          result += this.feedbackTriples[a][prop] + ' '
-
-          if (a === this.feedbackTriples.length - 1 && prop === 'object') {
-            result += '. '
-          }
-        }
-      }
+      const result = this.ntriplesConvert()
       if (result.includes(this.levels[this.level].answer)) {
         // correct
         this.success()
@@ -766,13 +752,13 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box2 {
   display: flexbox;
   /* background-color: green; */
-  width: 70%;
-  padding: 0.1%;
+  width: 80%;
+  padding-right: 0.5%;
 }
 #buttons {
   position: absolute;
   display: grid;
-  right: 13%;
+  right: 2%;
   margin-top: 10%;
 }
 /* .over {
@@ -806,6 +792,14 @@ body {
   margin: 0;
   padding: 0;
   /* box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3); */
+}
+
+.textHold {
+  text-align: left;
+  padding: 10%;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 3%;
 }
 
 #navInner {
@@ -855,13 +849,9 @@ p {
   padding: 0;
   word-wrap: break-word;
 }
-#box2Buttons {
-}
 #progressHolder {
   height: 20px;
   padding: 15%;
-}
-.over {
 }
 
 </style>
