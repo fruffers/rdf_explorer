@@ -21,14 +21,15 @@
       <h1>Level: <a v-html='level'/></h1>
       <p v-html='this.levels[level-1].text'/>
     </div>
+    <div id='levelButtons'>
+    <level-buttons
+      :levels='levels'
+      @levelPick='graphGen'
+    />
+    </div>
 
   <div class='topWrap'>
   <div class='box1'>
-
-      <level-buttons
-      :levels='levels'
-      @levelPick='graphGen'
-      />
       <goal-pal @answer='answerHandler'><p v-html='this.levels[level-1].goal'></p></goal-pal>
       <div id='levelWrapper'>
         <feedback-pal
@@ -36,7 +37,7 @@
         />
       </div>
 
-          <converter-choices
+    <converter-choices
     @fetch-triples='ntriplesConvert'
     :triples='triples'
     :conversionTypes='conversionTypes'
@@ -747,7 +748,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: red; */
   width: 20%;
-  margin-top: 110px;
+  margin-top: 30px;
 }
 .box2 {
   display: flexbox;
@@ -853,6 +854,9 @@ p {
 #progressHolder {
   height: 20px;
   padding: 15%;
+}
+#levelButtons {
+  margin-left: 70%;
 }
 
 </style>

@@ -39,7 +39,7 @@ export default {
         color: black;
         padding: 10%;
         font-size: 120%;
-        border-radius: 300px;
+        border-radius: 10px;
         box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
     }
     #wrapper {
