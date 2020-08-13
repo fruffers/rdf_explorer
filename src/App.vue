@@ -52,7 +52,7 @@ button {
     background-color: white;
     border: 3px solid #b1d8e7;
     text-transform: uppercase;
-    border-radius: 30px;
+    border-radius: 10px;
 }
 
 button {
