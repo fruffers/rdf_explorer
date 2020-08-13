@@ -800,6 +800,7 @@ body {
   padding-bottom: 0;
   padding-top: 0;
   padding-left: 3%;
+  padding-right: 1%;
 }
 
 #navInner {
@@ -831,14 +832,14 @@ body {
   float: right;
 }
 
-#levelWrapper {
+/* #levelWrapper {
   font-size: 20px;
   text-align: left;
   padding: 8%;
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
-}
+} */
 
 p {
   overflow-wrap:break-word;
