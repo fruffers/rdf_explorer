@@ -34,11 +34,13 @@
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>
             </a>
-            <p>Import file<input @change='fileInputEmit'
-            type='file'
-            value='Import JSON'
-            accept='.json, .txt'
-            ></p>
+            <a>Import file
+              <input id='inputBox' @change='fileInputEmit'
+                type='file'
+                value='Import JSON'
+                accept='.json, .txt'
+              >
+            </a>
           </div>
 
     </div>
@@ -118,5 +120,10 @@ export default {
     padding: 5%;
     display: none; /*swap between none and block to show content*/
     overflow: hidden;
+  }
+
+  .inputBox {
+    padding: 0;
+    margin: 0;
   }
 </style>

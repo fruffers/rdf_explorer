@@ -2,6 +2,7 @@
     <div id='wrapper'>
         <div id='goal'> <h1>Goal:</h1> <slot></slot> </div>
         <div id='btnWrap'>
+            <button>Need a hint?</button>
             <button @click="emitAnswer" id='submit'>SUBMIT ANSWER</button>
         </div>
 
@@ -39,7 +40,7 @@ export default {
         color: black;
         padding: 10%;
         font-size: 120%;
-        border-radius: 10px;
+        border-radius: 5px;
         box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
     }
     #wrapper {
