@@ -3,7 +3,7 @@
         <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
         <button ref="addObj" @click='addNodeObjectEmit'>Add literal</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
-        <button ref="clear" @click='clearCanvasEmit'>Clear canvas</button>
+        <button ref="clear" @click='clearCanvasEmit'>Clear</button>
         <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
         <button
           class='collapse'
@@ -107,9 +107,6 @@ export default {
 </script>
 
 <style scoped>
-  #wrapper {
-    padding: 0;
-  }
   button:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -120,7 +117,7 @@ export default {
       color: #001c39;
       text-transform: uppercase;
       padding-bottom: 50%;
-      padding-top: 0;
+      padding-top: 30%;
       text-align: center;
   }
   .collapseContent {
