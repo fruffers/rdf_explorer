@@ -824,7 +824,7 @@ body {
   /* background-size:contain; */
   background-color: white;
   border-radius: 2px;
-  margin-top: 3%;
+  margin-top: 3.2%;
   border: 2px solid rgb(167, 221, 199);
 }
 
