@@ -2,8 +2,8 @@
     <div id='wrapper'>
         <div id='goal'> <h1>Goal:</h1> <slot></slot> </div>
         <div id='btnWrap'>
-            <button id='submit'>Need a hint?</button>
-            <button @click="emitAnswer" id='submit'>SUBMIT ANSWER</button>
+            <button id='leftSubmit' class='submit'>Need a hint?</button>
+            <button @click="emitAnswer" class='submit'>SUBMIT ANSWER</button>
         </div>
 
     </div>
@@ -22,21 +22,23 @@ export default {
 
 <style scoped>
     #submit:hover {
-        background-color: white;
+        background-color: #b1d8e7;
         cursor: pointer;
         color: black;
         text-decoration: underline;
     }
-    #submit {
+    #leftSubmit {
+        margin-right: 18%;
+    }
+    .submit {
         margin-top: 5%;
         padding: 5%;
-        background-color: #79C5C4;
+        background-color: white;
         color: black;
         font-size: 120%;
         transition: 0.6s;
         display: inline-block;
         width: 40%;
-        margin-right: 8%;
     }
     #goal {
         background-color: #b1d8e7;
