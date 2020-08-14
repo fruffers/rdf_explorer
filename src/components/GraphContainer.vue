@@ -788,6 +788,7 @@ body {
   margin: 0;
   background-color: #21A0C7;
   color: white;
+  margin-bottom: 3%;
 }
 
 #nav {
@@ -824,7 +825,7 @@ body {
   /* background-size:contain; */
   background-color: white;
   border-radius: 2px;
-  margin-top: 3.2%;
+  margin-top: 2%;
   border: 2px solid rgb(167, 221, 199);
 }
 
@@ -854,12 +855,11 @@ p {
   word-wrap: break-word;
 }
 #progressHolder {
-  height: 20px;
-  padding: 9%;
+  padding: 5%;
+  padding-top: 0;
 }
 #levelButtons {
   margin-left: 70%;
-  height: 68px;
 }
 
 </style>

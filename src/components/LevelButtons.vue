@@ -23,17 +23,5 @@ export default {
 }
 </script>
 <style scoped>
-    #wrapper {
-      margin-top: 50px;
-      padding: 0;
-    }
-    #pal {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-    button {
-        display: inline-block;
-        padding: 1%;
-        margin-top: 10%;
-    }
+
 </style>

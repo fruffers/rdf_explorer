@@ -28,17 +28,16 @@ export default {
         text-decoration: underline;
     }
     #leftSubmit {
-        margin-right: 18%;
+        margin-right: 14%;
     }
     .submit {
         margin-top: 5%;
-        padding: 5%;
+        padding: 1%;
         background-color: white;
         color: black;
         font-size: 120%;
         transition: 0.6s;
         display: inline-block;
-        width: 40%;
     }
     #goal {
         background-color: #b1d8e7;
@@ -51,6 +50,7 @@ export default {
     }
     #wrapper {
         padding: 5%;
+        padding-top: 0;
     }
     /* #btnWrap {
         padding: 5%;
