@@ -4,6 +4,8 @@
     ref='svgG'
     class='c-svg-g'
   >
+  <!--gradient definitions-->
+
   <!--ellipse node-->
     <rect
       :width='centreX'
@@ -29,7 +31,8 @@
     :indexval='indexNo'
     ref='object'
     id='unactive'
-    style='fill: lightblue; stroke-width: 2px; stroke: black;'
+    fill='whitesmoke'
+    style='stroke-width: 2px; stroke: black;'
     />
     <!--input label-->
     <foreignObject
@@ -295,10 +298,10 @@ export default {
 }
 
 .rect {
-  fill: #b1d8e7;
+  fill:lemonchiffon;
 }
 
 .ellipse {
-  fill: rgb(167, 221, 199);
+  fill:moccasin;
 }
 </style>
