@@ -69,8 +69,14 @@ h3 {
 
 h1 {
   font-family: 'Montserrat', sans-serif;
+  display: inline;
+  font-size: 25px;
   margin: 0;
   padding: 0;
+}
+
+p {
+  display: inline;
 }
 
 .inputBox {

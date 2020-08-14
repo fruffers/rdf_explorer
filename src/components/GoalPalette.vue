@@ -1,8 +1,9 @@
 <template>
     <div id='wrapper'>
-        <div id='goal'> <h1>Goal:</h1> <slot></slot> </div>
+        <div id='goal'> <h1>Goal:</h1> <slot name="goalslot"></slot> </div>
+        <div ref='hint' id='hinthidden'> <h1>Hint:</h1> <slot name="hintslot"></slot> </div>
         <div id='btnWrap'>
-            <button id='leftSubmit' class='submit'>Need a hint?</button>
+            <button id='leftSubmit' @click='showHint' class='submit'>Need a hint?</button>
             <button @click="emitAnswer" class='submit'>SUBMIT ANSWER</button>
         </div>
 
@@ -15,6 +16,13 @@ export default {
   methods: {
     emitAnswer (event) {
       this.$emit('answer')
+    },
+    showHint (event) {
+      if (this.$refs.hint.id === 'hint') {
+        this.$refs.hint.id = 'hinthidden'
+      } else {
+        this.$refs.hint.id = 'hint'
+      }
     }
   }
 }
@@ -42,7 +50,28 @@ export default {
     #goal {
         background-color: #b1d8e7;
         color: black;
-        padding: 10%;
+        padding: 5%;
+        font-size: 120%;
+        border-radius: 2px;
+        text-align: left;
+        box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
+    }
+    #hinthidden {
+        background-color: #f38f1c;
+        margin-top: 2%;
+        color: black;
+        padding: 5%;
+        font-size: 120%;
+        border-radius: 2px;
+        text-align: left;
+        box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
+        display: none;
+    }
+    #hint {
+        background-color: #f38f1c;
+        margin-top: 2%;
+        color: black;
+        padding: 5%;
         font-size: 120%;
         border-radius: 2px;
         text-align: left;

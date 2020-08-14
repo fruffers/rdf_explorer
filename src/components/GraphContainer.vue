@@ -30,7 +30,14 @@
         <div id='progressHolder'>
       <img id='levelLight' :src='levelLight'/>
     </div>
-      <goal-pal @answer='answerHandler'><p v-html='this.levels[level-1].goal'></p></goal-pal>
+      <goal-pal @answer='answerHandler'>
+        <template v-slot:goalslot>
+        <p v-html='levels[level-1].goal'></p>
+        </template>
+        <template v-slot:hintslot>
+          <p v-html='levels[level-1].hint'></p>
+        </template>
+      </goal-pal>
       <div id='levelWrapper'>
         <feedback-pal
         :levelCompletion='levelCompletion'
@@ -259,20 +266,16 @@ export default {
         `,
         goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
-      </br>
-      </br>
-FOAF Classes: Person
-</br>
-</br>
-FOAF Properties: firstName, lastName, Nickname, birthday, age
-
-
         `,
-        answer: 'foaf:Person foaf:firstName "Bethany" . ' +
-        'foaf:Person foaf:birthday "07/08/2020" . ' +
-        'foaf:Person foaf:nickname "Beth" . ' +
-        'foaf:Person foaf:age "37" . ' +
-        'foaf:Person foaf:interest dbpedia:Marine_biology . '
+        hint: `
+        FOAF Classes: Person
+        </br>
+        </br>
+        FOAF Properties: firstName, lastName, Nickname, birthday, age
+        `,
+        answer: `
+        <https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" . <https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" . <https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" . <https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" . <https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology> 
+        `
       },
       {
         no: 2,
