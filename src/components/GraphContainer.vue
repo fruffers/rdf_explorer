@@ -859,6 +859,7 @@ p {
 }
 #levelButtons {
   margin-left: 70%;
+  height: 68px;
 }
 
 </style>

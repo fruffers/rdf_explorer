@@ -24,8 +24,8 @@ export default {
 </script>
 <style scoped>
     #wrapper {
-      margin-bottom: 0;
-      padding-bottom: 0;
+      margin-top: 50px;
+      padding: 0;
     }
     #pal {
         margin-bottom: 0;
