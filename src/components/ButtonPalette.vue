@@ -34,8 +34,9 @@
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>
             </a>
-            <a>Import file
-              <input id='inputBox' @change='fileInputEmit'
+            <a @click='fileLoader'>Import file</a>
+            <a>
+              <input ref='fileIn' id='fileInputBox' @change='fileInputEmit'
                 type='file'
                 value='Import JSON'
                 accept='.json, .txt'
@@ -57,6 +58,11 @@ export default {
   },
 
   methods: {
+    fileLoader (event) {
+      const el = this.$refs.fileIn
+      el.click()
+    },
+
     addNodeSubjectEmit () {
       this.$emit('add-subject')
     },
@@ -125,5 +131,9 @@ export default {
   .inputBox {
     padding: 0;
     margin: 0;
+  }
+
+  #fileInputBox {
+    display: none;
   }
 </style>
