@@ -34,5 +34,6 @@ export default {
     button {
         display: inline-block;
         padding: 1%;
+        margin-top: 10%;
     }
 </style>

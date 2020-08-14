@@ -51,6 +51,7 @@ button {
     border: 3px solid #b1d8e7;
     text-transform: uppercase;
     border-radius: 2px;
+    text-align: center;
 }
 
 button {
@@ -68,6 +69,8 @@ h3 {
 
 h1 {
   font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .inputBox {

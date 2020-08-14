@@ -121,6 +121,7 @@ export default {
       text-transform: uppercase;
       padding-bottom: 50%;
       padding-top: 0;
+      text-align: center;
   }
   .collapseContent {
     padding: 5%;

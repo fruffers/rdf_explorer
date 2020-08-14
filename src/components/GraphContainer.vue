@@ -14,10 +14,10 @@
 
     <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#21A0C7" fill-opacity="1" d="M0,256L48,229.3C96,203,192,149,288,144C384,139,480,181,576,192C672,203,768,181,864,160C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg> -->
 
-    <div class='textHold'>
+    <!-- <div class='textHold'>
       <h1>Level: <a v-html='level'/></h1>
       <p v-html='this.levels[level-1].text'/>
-    </div>
+    </div> -->
     <div id='levelButtons'>
     <level-buttons
       :levels='levels'
@@ -321,6 +321,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     graphFile: '',
     graphExportName: 'graph.json',
     feedbackTriples: [],
+    completedLevels: [],
     locInfo: {}
   }),
 
@@ -748,7 +749,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: red; */
   width: 20%;
-  margin-top: 30px;
+  margin-top: -57px;
 }
 .box2 {
   display: flexbox;
@@ -782,7 +783,7 @@ body {
 }
 
 #navWrapper {
-  height: 20vh;
+  height: 5vh;
   padding: 2%;
   margin: 0;
   background-color: #21A0C7;
@@ -824,7 +825,7 @@ body {
   background-color: white;
   border-radius: 2px;
   margin-top: 3%;
-  /* border: 2px solid rgb(167, 221, 199); */
+  border: 2px solid rgb(167, 221, 199);
 }
 
 #logo {

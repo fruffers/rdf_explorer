@@ -298,10 +298,10 @@ export default {
 }
 
 .rect {
-  fill:lemonchiffon;
+  fill:whitesmoke;
 }
 
 .ellipse {
-  fill:moccasin;
+  fill:lightcyan;
 }
 </style>
