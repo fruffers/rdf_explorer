@@ -23,7 +23,7 @@
     class='rect'
     :width='rectX'
     :height='rectY'
-    rx='5'
+    rx='2'
     @click='selectNode'
     @dblclick='drawEdge'
     :indexval='indexNo'
