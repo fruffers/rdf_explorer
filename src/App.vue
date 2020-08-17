@@ -50,7 +50,7 @@ button {
     background-color: white;
     /* border: 3px solid #b1d8e7; */
     /* box-shadow: 0px 2px 10px 1px rgb(0, 0, 0); */
-    border: 1px solid black;
+    border: 1px solid grey;
     text-transform: uppercase;
     border-radius: 1px;
     text-align: center;
@@ -59,6 +59,7 @@ button {
 button {
   font-family: 'Hind Siliguri', sans-serif;
   box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.01);
+  border-radius: 3px;
 }
 
 h2 {
@@ -84,6 +85,7 @@ p {
 .inputBox {
   font-size: 80%;
   font-family: 'Hind Siliguri', sans-serif;
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 3px;
 }
 </style>

@@ -49,13 +49,13 @@ export default {
         display: inline-block;
     }
     #goal {
-        background-color: whitesmoke;
+        background-color: rgb(185, 221, 228);
         color: black;
         padding: 5%;
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 1px solid black;
+        border-radius: 3px;
         /* border: 3px solid #b1d8e7; */
     }
     #hinthidden {
@@ -69,7 +69,7 @@ export default {
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 1px solid black;
+        border-radius: 3px;
     }
     #wrapper {
         padding: 5%;

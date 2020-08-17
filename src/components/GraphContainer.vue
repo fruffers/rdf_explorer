@@ -755,7 +755,6 @@ body {
   color: white;
   margin-bottom: 1%;
   /* border: 3px solid #b1d8e7; */
-  box-shadow: 1px 1px 1px 0px rgb(0, 0, 0);
 }
 
 #nav {
@@ -793,7 +792,7 @@ body {
   background-color: white;
   border-radius: 1px;
   margin-top: 2%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 #logo {
@@ -826,7 +825,7 @@ p {
   padding-top: 0;
 }
 .bodyWrap {
-    padding: 4%;
+    padding: 1%;
     padding-right: 1%;
     padding-top: 0;
 }
