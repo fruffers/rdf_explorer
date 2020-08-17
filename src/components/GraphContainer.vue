@@ -784,7 +784,8 @@ body {
   margin: 0;
   background-color: #21A0C7;
   color: white;
-  margin-bottom: 3%;
+  margin-bottom: 1%;
+  border: 3px solid #b1d8e7;
 }
 
 #nav {
@@ -822,7 +823,7 @@ body {
   background-color: white;
   border-radius: 2px;
   margin-top: 2%;
-  border: 2px solid rgb(167, 221, 199);
+  border: 3px solid #b1d8e7;
 }
 
 #logo {
