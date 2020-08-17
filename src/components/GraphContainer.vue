@@ -828,6 +828,7 @@ p {
 .bodyWrap {
     padding: 4%;
     padding-right: 1%;
+    padding-top: 0;
 }
 
 </style>
