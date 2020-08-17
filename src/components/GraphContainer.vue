@@ -25,6 +25,7 @@
       <img id='levelLight' :src='levelLight'/>
     <level-buttons
       :levels='levels'
+      :completedLevels='completedLevels'
       @levelPick='graphGen'
     />
     </div>
@@ -237,9 +238,11 @@ export default {
         </br>
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
-        answer: `
-        <https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" . <https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" . <https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" . <https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" . <https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology> 
-        `
+        answer: `<https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology>`
       },
       {
         no: 2,
@@ -288,7 +291,7 @@ FOAF Properties: topic, publications, PrimaryTopic
     graphFile: '',
     graphExportName: 'graph.json',
     feedbackTriples: [],
-    completedLevels: [],
+    completedLevels: [1],
     locInfo: {}
   }),
 
@@ -566,10 +569,10 @@ FOAF Properties: topic, publications, PrimaryTopic
         if (object === false) {
           if (this.edges[a].toNode.label.includes('"')) {
             // literal
-            triple += `${this.edges[a].toNode.label} .\n ` // needs linebreak
+            triple += `${this.edges[a].toNode.label} .\n` // needs linebreak
           } else {
             // fully defined uri
-            triple += `<${this.edges[a].toNode.label}> .\n ` // needs linebreak
+            triple += `<${this.edges[a].toNode.label}> .\n` // needs linebreak
           }
         } else if (object === true) {
           // strip prefix out of node
@@ -589,7 +592,6 @@ FOAF Properties: topic, publications, PrimaryTopic
       // change to n-triples output format so it matches the answer format
       this.ntriplesConvert()
       const result = this.triples
-      console.log('answer?' + result)
       if (result.includes(this.levels[this.level - 1].answer)) {
         // correct
         this.success()
@@ -601,6 +603,8 @@ FOAF Properties: topic, publications, PrimaryTopic
 
     success () {
       this.levelCompletion = { levelNo: this.level, result: 'right' }
+      // this.completedLevels.concat(this.level)
+      this.completedLevels.push(this.level + 1)
       this.level++
       // gen next graph
       this.graphGen(this.level)

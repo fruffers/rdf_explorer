@@ -194,20 +194,20 @@ export default {
         modifiers: [
           interact.modifiers.restrictSize(
             {
-              min: { width: 50, height: this.minHeight() }
+              min: { width: 50, height: 50 }
             }
           )
         ]
       })
     },
 
-    minHeight () {
-      if (this.nodeData.type === 'subject') {
-        return 70
-      } else {
-        return 50
-      }
-    },
+    // minHeight () {
+    //   if (this.nodeData.type === 'subject') {
+    //     return 70
+    //   } else {
+    //     return 50
+    //   }
+    // },
 
     resizeMove (event) {
       const nodeId = this.nodeData.id
