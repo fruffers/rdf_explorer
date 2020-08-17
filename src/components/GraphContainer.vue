@@ -228,36 +228,7 @@ export default {
         no: 1,
         light: progress1,
         text:
-        `RDF stands for resource description framework. It is a syntax model for presenting data to describe resources. A resource
-        is anything which can be identified. RDF is particularly concerned with resources found on the web. RDF describes a resource
-        and its relationship to other resources used a triple format of subject, predicate, object. 
-        URIs are used as unique identifiers to point to a document on the web that describes the exact resource. The resource cannot
-        be identified with simply a string 'John Doe' because there might be multiple John Does'.
-        <br/>
-        <br/>
-        Subject: the identifier (URI) resource being described.
-        <br/>
-        <br/>
-        Predicate: the relationship between the subject and object resources. This will usually be taken from a vocabulary which is a document set of predefined relationship types.
-        <br/>
-        <br/>
-        Object: a resource URI or literal (string) related to the subject.
-        A vocabulary is a set of properties and classes used to describe relationships between
-        resources.
-        <br/>
-        <br/>
-        RDF uses prefixes such as 
-        db:lion
-        The prefix is 'db:'
-        The prefix is associated with a URI. Using the prefix means that the entire URI does
-        not have to be repeated throughout the document if its used on several occasions, it
-        is replaced with the prefix. And the added part is a suffix of the URI. Such as
-        http://dbpedia.org/about/lion
-
-        <br/>
-        <br/>
-        RDF documents can be written in several different formats which include TURTLE, RDF/XML, N-triples, N3, JSON-LD.
-        `,
+        '',
         goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
         `,
@@ -619,7 +590,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       this.ntriplesConvert()
       const result = this.triples
       console.log('answer?' + result)
-      if (result.includes(this.levels[this.level].answer)) {
+      if (result.includes(this.levels[this.level - 1].answer)) {
         // correct
         this.success()
       } else {
