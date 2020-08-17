@@ -55,17 +55,10 @@ export default {
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 3px solid #b1d8e7;
+        border: 2px solid black;
+        /* border: 3px solid #b1d8e7; */
     }
     #hinthidden {
-        background-color: #f38f1c;
-        margin-top: 2%;
-        color: black;
-        padding: 5%;
-        font-size: 120%;
-        border-radius: 1px;
-        text-align: left;
-        box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
         display: none;
     }
     #hint {
@@ -76,7 +69,7 @@ export default {
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 3px solid #b1d8e7;
+        border: 2px solid black;
     }
     #wrapper {
         padding: 5%;

@@ -48,7 +48,9 @@ button {
     margin: 0.5%;
     color: #001c39;
     background-color: white;
-    border: 3px solid #b1d8e7;
+    /* border: 3px solid #b1d8e7; */
+    /* box-shadow: 0px 2px 10px 1px rgb(0, 0, 0); */
+    border: 2px solid black;
     text-transform: uppercase;
     border-radius: 2px;
     text-align: center;
@@ -82,5 +84,6 @@ p {
 .inputBox {
   font-size: 80%;
   font-family: 'Hind Siliguri', sans-serif;
+  border: 1px solid black;
 }
 </style>

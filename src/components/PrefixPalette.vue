@@ -2,9 +2,9 @@
     <div id='wrapper'>
         <h3>Add prefixes</h3>
         name
-        <input class='input' id='name'/>
+        <input class='inputBox' id='name'/>
         URI
-        <input class='input' id='uri'/>
+        <input class='inputBox' id='uri'/>
         <button id='enter' @click='emitPrefix'>add</button>
         <div id='prefixList' v-for='prefix in prefixes' :key= 'prefix.index'>
             <p>{{prefix.name}}   {{prefix.uri}}</p>

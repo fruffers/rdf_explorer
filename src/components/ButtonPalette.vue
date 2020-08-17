@@ -13,6 +13,7 @@
         </button>
           <div class='collapseContent'>
             <p><a>Save locally</a></p>
+            <br/>
             <p>
               <a
               @click='exportGraphEmit'
@@ -30,6 +31,7 @@
         </button>
           <div class='collapseContent'>
             <p><a>Load locally</a></p>
+            <br/>
             <a
             v-for='(importa,index) in imports' :key='index'>
               <a href='importa.link'>{{importa.name}}</a>

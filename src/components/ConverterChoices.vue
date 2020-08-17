@@ -107,5 +107,6 @@ export default {
   #outputarea {
     width: 90%;
     height: 100vh;
+    border: 2px solid black;
   }
 </style>

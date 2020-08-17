@@ -18,18 +18,16 @@
       <h1>Level: <a v-html='level'/></h1>
       <p v-html='this.levels[level-1].text'/>
     </div> -->
-    <div id='levelButtons'>
+  <div class='topWrap'>
+  <div class='box1'>
+        <div id='progressHolder'>
+      <img id='levelLight' :src='levelLight'/>
     <level-buttons
       :levels='levels'
       @levelPick='graphGen'
     />
     </div>
 
-  <div class='topWrap'>
-  <div class='box1'>
-        <div id='progressHolder'>
-      <img id='levelLight' :src='levelLight'/>
-    </div>
       <goal-pal @answer='answerHandler'>
         <template v-slot:goalslot>
         <p v-html='levels[level-1].goal'></p>
@@ -663,7 +661,6 @@ FOAF Properties: topic, publications, PrimaryTopic
       }
 
       this.idCount = this.nodes.length
-      console.log(this.level)
     },
 
     exportGraphHandler () {
@@ -745,7 +742,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: red; */
   width: 15%;
-  margin-top: -35px;
+  margin-top: 30px;
 }
 .box2 {
   display: flexbox;
@@ -785,7 +782,8 @@ body {
   background-color: #21A0C7;
   color: white;
   margin-bottom: 1%;
-  border: 3px solid #b1d8e7;
+  /* border: 3px solid #b1d8e7; */
+  box-shadow: 1px 1px 1px 1px rgb(0, 0, 0);
 }
 
 #nav {
@@ -818,12 +816,12 @@ body {
 }
 
 #svgContain {
-  background-image: url(../assets/grid6.png);
+  background-image: url(../assets/grid1.gif);
   /* background-size:contain; */
   background-color: white;
   border-radius: 2px;
   margin-top: 2%;
-  border: 3px solid #b1d8e7;
+  border: 2px solid black;
 }
 
 #logo {
