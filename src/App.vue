@@ -19,7 +19,7 @@ body {
   text-align: center;
   color: black;
   overflow-wrap:break-word;
-  overflow-x: hidden
+  overflow-x: hidden;
 }
 
 #nav {

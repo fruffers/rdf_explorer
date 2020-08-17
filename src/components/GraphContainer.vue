@@ -18,6 +18,7 @@
       <h1>Level: <a v-html='level'/></h1>
       <p v-html='this.levels[level-1].text'/>
     </div> -->
+  <div class='bodyWrap'>
   <div class='topWrap'>
   <div class='box1'>
         <div id='progressHolder'>
@@ -128,6 +129,7 @@
 
   </div>
 
+</div>
 </div>
 </div>
 </template>
@@ -741,7 +743,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box1 {
   display: flexbox;
   /* background-color: red; */
-  width: 15%;
+  width: 30%;
   margin-top: 30px;
 }
 .box2 {
@@ -753,7 +755,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 #buttons {
   position: absolute;
   display: grid;
-  right: 2%;
+  right: 5%;
   margin-top: 10%;
 }
 /* .over {
@@ -853,8 +855,8 @@ p {
   padding: 5%;
   padding-top: 0;
 }
-#levelButtons {
-  margin-left: 85%;
+.bodyWrap {
+    padding: 4%;
 }
 
 </style>

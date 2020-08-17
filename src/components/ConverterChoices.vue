@@ -7,7 +7,7 @@
           {{ctype}}</button>
       </div>
       <a id='wrapper'>
-        <button @click='emitConvert'>Ntriples</button>
+        <button id='nbutton' @click='emitConvert'>Ntriples</button>
       </a>
       <textarea id='outputarea' v-model= 'conversion[currentType]' readonly>
       </textarea>
@@ -100,6 +100,7 @@ export default {
   display: inline-block;
   overflow-wrap:break-word;
   padding-top: 0;
+  padding: 1%;
   }
   button {
     width: 80px;
@@ -108,5 +109,8 @@ export default {
     width: 90%;
     height: 100vh;
     border: 2px solid black;
+  }
+  #nbutton {
+    font-size: 70%;
   }
 </style>
