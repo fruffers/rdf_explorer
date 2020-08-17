@@ -745,7 +745,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   display: flexbox;
   /* background-color: red; */
   width: 15%;
-  margin-top: -15px;
+  margin-top: -35px;
 }
 .box2 {
   display: flexbox;
