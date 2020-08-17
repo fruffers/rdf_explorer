@@ -50,9 +50,9 @@ button {
     background-color: white;
     /* border: 3px solid #b1d8e7; */
     /* box-shadow: 0px 2px 10px 1px rgb(0, 0, 0); */
-    border: 2px solid black;
+    border: 1px solid black;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 1px;
     text-align: center;
 }
 

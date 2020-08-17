@@ -55,7 +55,7 @@ export default {
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 2px solid black;
+        border: 1px solid black;
         /* border: 3px solid #b1d8e7; */
     }
     #hinthidden {
@@ -69,7 +69,7 @@ export default {
         font-size: 120%;
         border-radius: 1px;
         text-align: left;
-        border: 2px solid black;
+        border: 1px solid black;
     }
     #wrapper {
         padding: 5%;

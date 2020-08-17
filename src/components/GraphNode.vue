@@ -12,7 +12,7 @@
       :height='centreY'
       rx='500'
       class='ellipse'
-      stroke-width= '2'
+      stroke-width= '1px'
       stroke= 'black'
       @click='selectNode'
       @dblclick='drawEdge'
@@ -32,7 +32,7 @@
     ref='object'
     id='unactive'
     fill='whitesmoke'
-    style='stroke-width: 2px; stroke: black;'
+    style='stroke-width: 1px; stroke: black;'
     />
     <!--input label-->
     <foreignObject

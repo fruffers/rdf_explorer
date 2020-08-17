@@ -108,7 +108,7 @@ export default {
   #outputarea {
     width: 90%;
     height: 100vh;
-    border: 2px solid black;
+    border: 1px solid black;
   }
   #nbutton {
     font-size: 70%;

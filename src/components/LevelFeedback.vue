@@ -43,7 +43,7 @@ export default {
         padding: 5%;
         border-radius: 1px;
         margin-right: 5%;
-        border: 2px solid black;
+        border: 1px solid black;
     }
     #failure {
         background-color: palevioletred;

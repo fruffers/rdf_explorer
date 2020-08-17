@@ -466,7 +466,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       } else if (event.target.id === 'active') {
         event.target.id = 'unactive'
         event.target.style.stroke = 'black'
-        event.target.style.strokeWidth = '2'
+        event.target.style.strokeWidth = '1'
 
         this.nodes[index].active = 'f'
       }
@@ -755,7 +755,7 @@ body {
   color: white;
   margin-bottom: 1%;
   /* border: 3px solid #b1d8e7; */
-  box-shadow: 1px 1px 1px 1px rgb(0, 0, 0);
+  box-shadow: 1px 1px 1px 0px rgb(0, 0, 0);
 }
 
 #nav {
@@ -791,9 +791,9 @@ body {
   background-image: url(../assets/grid1.gif);
   /* background-size:contain; */
   background-color: white;
-  border-radius: 2px;
+  border-radius: 1px;
   margin-top: 2%;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 #logo {
