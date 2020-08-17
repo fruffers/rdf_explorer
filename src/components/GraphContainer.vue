@@ -767,7 +767,7 @@ body {
   background-color: white;
   border-radius: 1px;
   margin-top: 2%;
-  /* border: 1px solid black; */
+  border: 1px solid rgb(199, 199, 199);
 }
 
 #logo {
