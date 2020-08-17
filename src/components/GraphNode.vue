@@ -41,13 +41,11 @@
     :height='textH'
     :x='textX'
     :y='textY'>
-      <div xmlns="http://www.w3.org/1999/xhtml">
-      <!-- <img src='../assets/rectimg.png' :width='rectX' :height='rectY'/> -->
+
       <input
       class='inputBox'
       :value='label'
       @input='labelEmit'>
-      </div>
     </foreignObject>
 
   </g>
@@ -133,27 +131,15 @@ export default {
     },
 
     textY () {
-      if (this.nodeData.type === 'subject') {
-        return this.nodeData.h / 4
-      } else {
-        return this.nodeData.h / 4
-      }
+      return this.nodeData.h / 4
     },
 
     textW () {
-      if (this.nodeData.type === 'subject') {
-        return this.nodeData.w / 1.8
-      } else {
-        return this.nodeData.w / 1.8
-      }
+      return this.nodeData.w / 1.8
     },
 
     textH () {
-      if (this.nodeData.type === 'subject') {
-        return this.nodeData.h / 2
-      } else {
-        return this.nodeData.h / 2
-      }
+      return this.nodeData.h / 2
     }
   },
 

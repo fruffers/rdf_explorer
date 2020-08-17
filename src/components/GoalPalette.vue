@@ -36,25 +36,25 @@ export default {
         text-decoration: underline;
     }
     #leftSubmit {
-        margin-right: 14%;
+        margin-right: 18%;
     }
     .submit {
         margin-top: 5%;
         padding: 1%;
         background-color: white;
         color: black;
-        font-size: 120%;
+        width: 40%;
+        font-size: 100%;
         transition: 0.6s;
         display: inline-block;
     }
     #goal {
-        background-color: #b1d8e7;
+        background-color: #b1bbe7;
         color: black;
         padding: 5%;
         font-size: 120%;
-        border-radius: 2px;
+        border-radius: 1px;
         text-align: left;
-        box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
     }
     #hinthidden {
         background-color: #f38f1c;
@@ -62,7 +62,7 @@ export default {
         color: black;
         padding: 5%;
         font-size: 120%;
-        border-radius: 2px;
+        border-radius: 1px;
         text-align: left;
         box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
         display: none;
@@ -73,7 +73,7 @@ export default {
         color: black;
         padding: 5%;
         font-size: 120%;
-        border-radius: 2px;
+        border-radius: 1px;
         text-align: left;
         box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.2);
     }
@@ -81,7 +81,4 @@ export default {
         padding: 5%;
         padding-top: 0;
     }
-    /* #btnWrap {
-        padding: 5%;
-    } */
 </style>

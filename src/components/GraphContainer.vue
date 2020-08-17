@@ -46,13 +46,9 @@
 
     <converter-choices
     @fetch-triples='ntriplesConvert'
+    @ntriples-convert='ntriplesConvert'
     :triples='triples'
     :conversionTypes='conversionTypes'
-    />
-
-    <ntriples-convert
-    :triples='triples'
-    @ntriples-convert='ntriplesConvert'
     />
 
     <prefix-pal
@@ -152,7 +148,6 @@ import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
 import buttonPal from './ButtonPalette'
 import prefixPal from './PrefixPalette'
-import ntriplesConvert from './NTriplesConverter'
 import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
@@ -166,7 +161,6 @@ export default {
     GraphEdge,
     buttonPal,
     prefixPal,
-    ntriplesConvert,
     goalPal,
     feedbackPal,
     levelButtons,
@@ -269,7 +263,6 @@ export default {
         `,
         hint: `
         FOAF Classes: Person
-        </br>
         </br>
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
@@ -751,13 +744,13 @@ FOAF Properties: topic, publications, PrimaryTopic
 .box1 {
   display: flexbox;
   /* background-color: red; */
-  width: 20%;
-  margin-top: -57px;
+  width: 15%;
+  margin-top: -15px;
 }
 .box2 {
   display: flexbox;
   /* background-color: green; */
-  width: 80%;
+  width: 90%;
   padding-right: 0.5%;
 }
 #buttons {
@@ -862,7 +855,7 @@ p {
   padding-top: 0;
 }
 #levelButtons {
-  margin-left: 70%;
+  margin-left: 85%;
 }
 
 </style>

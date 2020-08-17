@@ -1,14 +1,16 @@
 <template>
     <div>
-      <div id='buttonHold' v-for='(ctype, index) in conversionTypes' :key='index'>
+      <div class='buttonHold' v-for='(ctype, index) in conversionTypes' :key='index'>
           <button
           @click='fetchNtriples(ctype)'
           >
-          Convert to {{ctype}}</button>
-          <div id='conversionWrap'>
-              {{conversion[ctype]}}
-          </div>
+          {{ctype}}</button>
       </div>
+      <a id='wrapper'>
+        <button @click='emitConvert'>Ntriples</button>
+      </a>
+      <textarea id='outputarea' v-model= 'conversion[currentType]' readonly>
+      </textarea>
     </div>
 </template>
 
@@ -22,7 +24,9 @@ export default {
     conversionTypes: Object
   },
   data: () => ({
-    conversion: { xml: '', jsonld: '', n3: '' }
+    conversion: { xml: '', jsonld: '', n3: '', triples: '' },
+    currentType: '',
+    ntripHTML: ''
   }),
   methods: {
     fetchNtriples (convertType) {
@@ -58,19 +62,50 @@ export default {
       if (convertType === 'json-ld') {
         convertType = 'jsonld'
       }
+      this.currentType = convertType
       this.conversion[convertType] = data
-    }
+    },
 
+    emitConvert (event) {
+      this.$emit('ntriples-convert')
+      this.currentType = 'triples'
+      this.conversion.triples = this.triples
+      // convert triples to html
+      // let a = 0
+      // let pushValue = ''
+      // let completeHTML = ''
+      // for (a in this.triples) {
+      //   // replace <. with &lt and &gt
+      //   if (this.triples[a] === '<') {
+      //     pushValue = '&lt'
+      //   } else if (this.triples[a] === '>') {
+      //     pushValue = '&gt'
+      //   } else if (this.triples[a] === ' . ') {
+      //     pushValue = '.</br>'
+      //   } else {
+      //     pushValue = this.triples[a]
+      //   }
+      //   completeHTML += pushValue
+      // }
+      // this.ntripHTML = completeHTML
+    }
   }
 
 }
 </script>
 
 <style scoped>
-  #buttonHold {
+  .buttonHold {
   text-align: left;
+  display: inline-block;
   overflow-wrap:break-word;
-  padding: 10%;
   padding-top: 0;
+  }
+  button {
+    width: 80px;
+  }
+  #outputarea {
+    width: 90%;
+    height: 100vh;
   }
 </style>
