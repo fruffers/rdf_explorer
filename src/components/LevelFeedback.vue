@@ -15,11 +15,11 @@ export default {
       color: '',
       text: '',
       feedback: [
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' }
+        { right: 'That\'s correct', wrong: 'Oops! Try again!' },
+        { right: 'Well done! Now try converting the graph.', wrong: 'Oops! Try again!' },
+        { right: 'Well done! Now try converting the graph.', wrong: 'Oops! Try again!' },
+        { right: 'Well done! Now try converting the graph.', wrong: 'Oops! Try again!' },
+        { right: 'Well done! Now try converting the graph.', wrong: 'Oops! Try again!' }
       ]
     }
   },
