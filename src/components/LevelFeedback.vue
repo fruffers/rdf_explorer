@@ -15,6 +15,10 @@ export default {
       color: '',
       text: '',
       feedback: [
+        { right: 'That\'s correct', wrong: 'That is not correct.' },
+        { right: 'That\'s correct', wrong: 'That is not correct.' },
+        { right: 'That\'s correct', wrong: 'That is not correct.' },
+        { right: 'That\'s correct', wrong: 'That is not correct.' },
         { right: 'That\'s correct', wrong: 'That is not correct.' }
       ]
     }
@@ -36,12 +40,16 @@ export default {
 <style scoped>
     #success {
         background-color: palegreen;
-        padding: 10%;
-        border-radius: 10px;
+        padding: 5%;
+        border-radius: 1px;
+        margin-right: 5%;
+        border: 2px solid black;
     }
     #failure {
         background-color: palevioletred;
-        padding: 10%;
-        border-radius: 10px;
+        padding: 5%;
+        border-radius: 1px;
+        margin-right: 5%;
+        border: 2px solid black;
     }
 </style>

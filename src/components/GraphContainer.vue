@@ -616,7 +616,9 @@ FOAF Properties: topic, publications, PrimaryTopic
     answerHandler () {
       // check whether answer is correct for current level
       // change to n-triples output format so it matches the answer format
-      const result = this.ntriplesConvert()
+      this.ntriplesConvert()
+      const result = this.triples
+      console.log('answer?' + result)
       if (result.includes(this.levels[this.level].answer)) {
         // correct
         this.success()
@@ -693,38 +695,6 @@ FOAF Properties: topic, publications, PrimaryTopic
       // load into graph
     },
 
-    feedbackConvert () {
-      const catchTriples = []
-      // parse graph data in simpler format so it can match a simply written answer
-      let x = 0
-      for (x in this.edges) {
-        catchTriples.push({
-          subject: this.edges[x].fromNode.label,
-          predicate: this.edges[x].edgeLabel,
-          object: this.edges[x].toNode.label
-        })
-      }
-      let a = 0
-      let b = 0
-      let c = 0
-      for (a in catchTriples) {
-        for (b in catchTriples[a]) {
-          const origin = catchTriples[a][b]
-          const uriForm = `<${catchTriples[a][b]}>`
-          for (c in this.prefixes) {
-            if (catchTriples[a][b].includes(this.prefixes[c].name) || catchTriples[a][b].includes('"') || catchTriples[a][b].includes('<>')) {
-              catchTriples[a][b] = origin
-              break
-            } else {
-              catchTriples[a][b] = uriForm
-            }
-          }
-        }
-      }
-      // filter to take out the boolean trackers
-      this.feedbackTriples = catchTriples
-    },
-
     emitLocTooltipHandler (loc, nodeId) {
       // this.nodes[nodeId].textLocInfo = loc
     }
@@ -755,7 +725,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 #buttons {
   position: absolute;
   display: grid;
-  right: 5%;
+  right: 2%;
   margin-top: 10%;
 }
 /* .over {
@@ -857,6 +827,7 @@ p {
 }
 .bodyWrap {
     padding: 4%;
+    padding-right: 1%;
 }
 
 </style>
