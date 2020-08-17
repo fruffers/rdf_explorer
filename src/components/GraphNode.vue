@@ -284,7 +284,7 @@ export default {
 }
 
 .rect {
-  fill:peachpuff;
+  fill:whitesmoke;
 }
 
 .ellipse {

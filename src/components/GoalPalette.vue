@@ -49,7 +49,7 @@ export default {
         display: inline-block;
     }
     #goal {
-        background-color: #b1bbe7;
+        background-color: whitesmoke;
         color: black;
         padding: 5%;
         font-size: 120%;
