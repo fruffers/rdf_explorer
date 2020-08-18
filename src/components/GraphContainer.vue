@@ -232,7 +232,7 @@ export default {
         light: progress1,
         text:
         '',
-        goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
+        goal: `37 year old Bethany Gunn 'Beth' born in 07/08/2020 has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
         `,
         hint: `
