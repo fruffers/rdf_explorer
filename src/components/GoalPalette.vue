@@ -1,7 +1,8 @@
 <template>
     <div id='wrapper'>
         <div id='goal'> <h1>Goal:</h1> <slot name="goalslot"></slot> </div>
-        <div ref='hint' id='hinthidden'> <h1>Hint:</h1> <slot name="hintslot"></slot> </div>
+        <div ref='hint' id='hinthidden'><a @click='showHint'>X</a> <h1>Hint:</h1> <slot name="hintslot"></slot>
+        </div>
         <div id='btnWrap'>
             <button id='leftSubmit' @click='showHint' class='submit'>Need a hint?</button>
             <button @click="emitAnswer" class='submit'>SUBMIT ANSWER</button>

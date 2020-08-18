@@ -139,10 +139,10 @@
 // smart node that handles all of the data and event handlers
 
 // images
-import progress1 from '../assets/progressbars/SVG/Progress-1.svg'
-import progress2 from '../assets/progressbars/SVG/Progress-2.svg'
-import progress3 from '../assets/progressbars/SVG/Progress-3.svg'
-import progress4 from '../assets/progressbars/SVG/Progress-4.svg'
+import progress1 from '../assets/progressbars/PNG/Progress-1.png'
+import progress2 from '../assets/progressbars/PNG/Progress-2.png'
+import progress3 from '../assets/progressbars/PNG/Progress-3.png'
+import progress4 from '../assets/progressbars/PNG/Progress-4.png'
 
 // components
 import GraphNode from './GraphNode'
@@ -703,13 +703,6 @@ FOAF Properties: topic, publications, PrimaryTopic
   right: 3%;
   margin-top: 10%;
 }
-/* .over {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-} */
 .box3 {
   display: flexbox;
   /* background-color: blue; */
@@ -803,6 +796,9 @@ p {
     padding: 2%;
     padding-right: 2%;
     padding-top: 0;
+}
+#levelLight {
+  width: 100%;
 }
 
 </style>
