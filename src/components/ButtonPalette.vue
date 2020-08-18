@@ -1,10 +1,10 @@
 <template>
     <div id='wrapper'>
+        <button id='instructions' ref="instruct" @click='showInstructionsEmit'>Instructions</button>
         <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
         <button ref="addObj" @click='addNodeObjectEmit'>Add literal</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear</button>
-        <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
         <button
           class='collapse'
           ref='saveGraph'
@@ -135,5 +135,8 @@ export default {
 
   #fileInputBox {
     display: none;
+  }
+  #instructions {
+    background-color: whitesmoke;
   }
 </style>

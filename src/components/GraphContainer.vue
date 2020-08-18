@@ -30,7 +30,9 @@
     />
     </div>
 
-      <goal-pal @answer='answerHandler'>
+      <goal-pal @answer='answerHandler'
+      @graph-gen='graphGen(level)'
+      >
         <template v-slot:goalslot>
         <p v-html='levels[level-1].goal'></p>
         </template>
@@ -308,7 +310,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 
   mounted () {
     // gen default graph on page load
-    this.graphGen(this.level)
+    // this.graphGen(this.level)
     this.idCount = this.nodes.length
   },
 
@@ -607,7 +609,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       this.completedLevels.push(this.level + 1)
       this.level++
       // gen next graph
-      this.graphGen(this.level)
+      // this.graphGen(this.level)
       console.log('success')
     },
 

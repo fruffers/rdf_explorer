@@ -1,6 +1,8 @@
 <template>
     <div id='wrapper'>
-        <div id='goal'> <h1>Goal:</h1> <slot name="goalslot"></slot> </div>
+        <div id='goal'> <h1>Goal:</h1> <slot name="goalslot"></slot>
+        <button @click='emitGraphGen'>Click to get started</button>
+        </div>
         <div ref='hint' id='hinthidden'><a @click='showHint'>X</a> <h1>Hint:</h1> <slot name="hintslot"></slot>
         </div>
         <div id='btnWrap'>
@@ -24,6 +26,9 @@ export default {
       } else {
         this.$refs.hint.id = 'hint'
       }
+    },
+    emitGraphGen () {
+      this.$emit('graph-gen')
     }
   }
 }
