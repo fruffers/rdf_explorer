@@ -440,7 +440,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       } else if (event.target.id === 'active') {
         event.target.id = 'unactive'
         event.target.style.stroke = 'black'
-        event.target.style.strokeWidth = '1'
+        event.target.style.strokeWidth = '1.5'
 
         this.nodes[index].active = 'f'
       }
@@ -700,7 +700,7 @@ FOAF Properties: topic, publications, PrimaryTopic
 #buttons {
   position: absolute;
   display: grid;
-  right: 2%;
+  right: 3%;
   margin-top: 10%;
 }
 /* .over {
@@ -767,7 +767,7 @@ body {
   background-color: white;
   border-radius: 1px;
   margin-top: 2%;
-  border: 1px solid rgb(199, 199, 199);
+  border: 1px solid rgb(221, 221, 221);
 }
 
 #logo {
@@ -800,8 +800,8 @@ p {
   padding-top: 0;
 }
 .bodyWrap {
-    padding: 1%;
-    padding-right: 1%;
+    padding: 2%;
+    padding-right: 2%;
     padding-top: 0;
 }
 
