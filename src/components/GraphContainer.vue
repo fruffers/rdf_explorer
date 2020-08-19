@@ -311,6 +311,7 @@ FOAF Properties: topic, publications, PrimaryTopic
   mounted () {
     // gen default graph on page load
     // this.graphGen(this.level)
+    window.confirm('Welcome to RDF explorer' + this.instructions)
     this.idCount = this.nodes.length
   },
 
