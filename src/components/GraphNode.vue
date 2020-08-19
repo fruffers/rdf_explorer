@@ -43,7 +43,7 @@
     :y='textY'>
 
       <input
-      class='inputBox'
+      class='inputIn'
       :value='label'
       @input='labelEmit'>
     </foreignObject>
@@ -289,5 +289,10 @@ export default {
 
 .ellipse {
   fill:lightcyan;
+}
+.inputIn {
+  width: 7000px;
+  font-size: 80%;
+  font-family: 'Hind Siliguri', sans-serif;
 }
 </style>
