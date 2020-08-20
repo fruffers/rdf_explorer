@@ -25,6 +25,7 @@
       <img id='levelLight' :src='levelLight'/>
     <level-buttons
       :levels='levels'
+      :completedLevels='completedLevels'
       @levelPick='graphGen'
     />
     </div>
@@ -136,13 +137,11 @@
 
 <script>
 // smart node that handles all of the data and event handlers
-
 // images
 import progress1 from '../assets/progressbars/SVG/Progress-1.svg'
 import progress2 from '../assets/progressbars/SVG/Progress-2.svg'
 import progress3 from '../assets/progressbars/SVG/Progress-3.svg'
 import progress4 from '../assets/progressbars/SVG/Progress-4.svg'
-
 // components
 import GraphNode from './GraphNode'
 import GraphEdge from './GraphEdge'
@@ -153,7 +152,6 @@ import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
 import converterChoices from './ConverterChoices'
 // import nodeToolTip from './NodeToolTip'
-
 export default {
   name: 'graph-container',
   components: {
@@ -167,17 +165,13 @@ export default {
     converterChoices
     // nodeToolTip
   },
-
   data: () => ({
     // array of node objects
     // id must match the index
     nodes: [
     ],
-
     edges: [
-
     ], // fill with {fromNode and toNodes} objects
-
     prefixes: [
       { name: 'rdf:', uri: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' },
       { name: 'rdfs:', uri: 'http://www.w3.org/2000/01/rdf-schema#' },
@@ -187,9 +181,7 @@ export default {
       { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
       { name: 'schema:', uri: 'https://schema.org/' }
     ],
-
     conversionTypes: { xml: 'xml', jsonld: 'jsonld', n3: 'n3' },
-
     message: 'no action',
     idCount: 0,
     dragDisplacement: {
@@ -200,16 +192,12 @@ export default {
     `
      1. Select nodes by clicking on them (they will
         be given a cyan outline).
-
      2. Deselect nodes by clicking on them again.
-
      3. Multiple selected nodes can be deleted by 
         pressing 'bin nodes'.
-
      4. Double click a node, then double click 
         another node, to draw an edge between 
         them.
-
      5. Drag nodes around to rearrange them.
      
      6. Delete edges by double clicking on them.
@@ -228,36 +216,7 @@ export default {
         no: 1,
         light: progress1,
         text:
-        `RDF stands for resource description framework. It is a syntax model for presenting data to describe resources. A resource
-        is anything which can be identified. RDF is particularly concerned with resources found on the web. RDF describes a resource
-        and its relationship to other resources used a triple format of subject, predicate, object. 
-        URIs are used as unique identifiers to point to a document on the web that describes the exact resource. The resource cannot
-        be identified with simply a string 'John Doe' because there might be multiple John Does'.
-        <br/>
-        <br/>
-        Subject: the identifier (URI) resource being described.
-        <br/>
-        <br/>
-        Predicate: the relationship between the subject and object resources. This will usually be taken from a vocabulary which is a document set of predefined relationship types.
-        <br/>
-        <br/>
-        Object: a resource URI or literal (string) related to the subject.
-        A vocabulary is a set of properties and classes used to describe relationships between
-        resources.
-        <br/>
-        <br/>
-        RDF uses prefixes such as 
-        db:lion
-        The prefix is 'db:'
-        The prefix is associated with a URI. Using the prefix means that the entire URI does
-        not have to be repeated throughout the document if its used on several occasions, it
-        is replaced with the prefix. And the added part is a suffix of the URI. Such as
-        http://dbpedia.org/about/lion
-
-        <br/>
-        <br/>
-        RDF documents can be written in several different formats which include TURTLE, RDF/XML, N-triples, N3, JSON-LD.
-        `,
+        '',
         goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
         `,
@@ -266,9 +225,11 @@ export default {
         </br>
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
-        answer: `
-        <https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" . <https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" . <https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" . <https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" . <https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology> 
-        `
+        answer: `<https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology>`
       },
       {
         no: 2,
@@ -281,7 +242,6 @@ export default {
       </br>
 FOAF Classes: Person, Organization
 FOAF Properties: name, knows, focus/interest
-
         `,
         answer: ''
       },
@@ -296,7 +256,6 @@ FOAF Properties: name, knows, focus/interest
       </br>
 FOAF Classes: Person, Document
 FOAF Properties: topic, publications, PrimaryTopic
-
         `,
         answer: ''
       },
@@ -317,62 +276,48 @@ FOAF Properties: topic, publications, PrimaryTopic
     graphFile: '',
     graphExportName: 'graph.json',
     feedbackTriples: [],
-    completedLevels: [],
+    completedLevels: [1],
     locInfo: {}
   }),
-
   computed: {
     levelLight () {
       return this.levels[this.level - 1].light
     }
-
   },
-
   watch: {
-
   },
-
   mounted () {
     // gen default graph on page load
     this.graphGen(this.level)
     this.idCount = this.nodes.length
   },
-
   methods: {
-
     resetDisplacement () {
       this.displacement = {
         x: 0,
         y: 0
       }
     },
-
     onMove ({ x, y, id }) {
       const node = this.nodes[id]
-
       if (node) {
         this.updateNodePosition(Object.assign({}, node, { displacement: { x, y } }))
       }
     },
-
     onMoveEnd ({ id }) {
       const node = this.nodes[id]
-
       if (node) {
         const x = node.x + node.displacement.x
         const y = node.y + node.displacement.y
-
         this.updateNodePosition(
           Object.assign({}, node, { x, y, displacement: { x: 0, y: 0 } })
         )
       }
     },
-
     updateNodePosition (node) {
       this.$set(this.nodes, node.id, node) // set node to have displacement on x and y
       this.updateAffectedEdges(node)
     },
-
     updateAffectedEdges (node) {
       for (const edge of this.edges) {
         if (edge.fromNode.id === node.id) {
@@ -382,44 +327,36 @@ FOAF Properties: topic, publications, PrimaryTopic
         }
       }
     },
-
     addSubjectHandler () {
     // make a new node
     // increment the idCount while making a new node so no duplicate ids
       const newnode = { id: this.idCount++, x: 400, y: 100, w: 177, h: 55, label: '', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
-
     addObjectHandler () {
       const newnode = { id: this.idCount++, x: 400, y: 100, w: 150, h: 50, label: '', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
       this.nodes.push(newnode)
     },
-
     deleteNodeHandler () {
       const activeNodes = this.nodes.filter(function (node) {
         return node.active === 't'
       })
-
       // deletes all nodes with active 't'
       const result = this.nodes.filter(function (node) {
         return node.active === 'f'
       })
-
       // need to delete attached edges before the indexes change after nodes reassignment
       this.deleteAttachedEdges(activeNodes)
-
       // recompute ids to match new node indexes
       this.idCompute(activeNodes)
       // reassign nodes array to only nodes with 'f'
       this.nodes = result
     },
-
     clearCanvasHandler () {
       this.nodes = []
       this.edges = []
       this.idCount = 0
     },
-
     deleteAttachedEdges (deletedNodes) {
       // delete edges attached to deleted nodes
       let x = 0
@@ -431,14 +368,11 @@ FOAF Properties: topic, publications, PrimaryTopic
           }
         }
       }
-
       const newEdges = this.edges.filter(function (edge) {
         return edge.delete === false
       })
-
       this.edges = newEdges
     },
-
     idCompute (removedNodes) {
       let a = 0
       let b = 0
@@ -452,26 +386,21 @@ FOAF Properties: topic, publications, PrimaryTopic
       // edit idCount to reflect new num of nodes
       this.idCount = this.nodes.length - removedNodes.length
     },
-
     selectNodeHandler (event) {
       const index = event.target.getAttribute('indexval')
-
       if (event.target.id === 'unactive') {
         event.target.id = 'active'
         event.target.style.stroke = 'blue'
         event.target.style.strokeWidth = '4'
-
         // select multiple nodes by giving them an active property
         this.nodes[index].active = 't'
       } else if (event.target.id === 'active') {
         event.target.id = 'unactive'
         event.target.style.stroke = 'black'
         event.target.style.strokeWidth = '1'
-
         this.nodes[index].active = 'f'
       }
     },
-
     drawEdgeHandler (node, stage) {
       // if tracker (drawEdgeFrom) is empty
       if (Object.keys(this.drawEdgeFrom).length === 0) {
@@ -479,7 +408,6 @@ FOAF Properties: topic, publications, PrimaryTopic
       } else if (node !== this.drawEdgeFrom) {
         // set up new edge to push
         const newEdge = { fromNode: this.drawEdgeFrom, toNode: node, edgeLabel: '', delete: false }
-
         // check if edge already exists
         let x = 0
         for (x in this.edges) {
@@ -489,67 +417,53 @@ FOAF Properties: topic, publications, PrimaryTopic
         }
         // draw an edge to this new node
         this.edges.push(newEdge)
-
         // empty the store to get a new fromNode
         this.drawEdgeFrom = {}
       }
     },
-
     whiteSpaceTrimmer (input) {
       // remove '' whitespace at start of input labels
       return input.replace(/^\s+|\s+$/gm, '')
     },
-
     labelInputHandler (nodeIndex, newVal) {
       newVal = this.whiteSpaceTrimmer(newVal)
       this.nodes[nodeIndex].label = newVal
     },
-
     edgeLabelHandler (index, newVal) {
       newVal = this.whiteSpaceTrimmer(newVal)
       this.edges[index].edgeLabel = newVal
     },
-
     instructAlertHandler () {
       confirm(this.instructions)
     },
-
     removeEdgeHandler (deleteIndex) {
       // return edges without specified index
       const oldEdges = this.edges
       const newEdges = oldEdges.filter(function (edge, index) {
         return index !== deleteIndex
       })
-
       this.edges = newEdges
     },
-
     resizeNodeHandler (nodeId, newWidth, newHeight, x, y) {
       const node = this.nodes[nodeId]
       const newNode = Object.assign(node, { w: newWidth, h: newHeight, x: x, y: y })
-
       this.$set(this.nodes, node.id, newNode) // set node to have displacement on x and y
       this.updateAffectedEdges(Object.assign({}, node, { w: newWidth, h: newHeight, x: x, y: y }))
     },
-
     storePrefix (name, uri) {
       // add new prefix
       const newPrefix = { name: name, uri: uri }
       this.prefixes.push(newPrefix)
     },
-
     determinePrefixes () {
     },
-
     ntriplesConvert () {
       // convert graph to ntriples format
       var catchTriples = ''
       var triple = ''
-
       // convert prefixes to full uri and append rest of node label
       // surround with <>
       // leave literals as they are
-
       let a = 0
       let b = 0
       // uri trackers
@@ -558,12 +472,10 @@ FOAF Properties: topic, publications, PrimaryTopic
       let object = false
       for (a in this.edges) {
         // check if last triple lacked uris
-
         b = 0
         subject = false
         predicate = false
         object = false
-
         // check if there's a prefix in the node
         for (b in this.prefixes) {
           if (this.edges[a].fromNode.label.includes(this.prefixes[b].name)) {
@@ -595,10 +507,10 @@ FOAF Properties: topic, publications, PrimaryTopic
         if (object === false) {
           if (this.edges[a].toNode.label.includes('"')) {
             // literal
-            triple += `${this.edges[a].toNode.label} .\n ` // needs linebreak
+            triple += `${this.edges[a].toNode.label} .\n` // needs linebreak
           } else {
             // fully defined uri
-            triple += `<${this.edges[a].toNode.label}> .\n ` // needs linebreak
+            triple += `<${this.edges[a].toNode.label}> .\n` // needs linebreak
           }
         } else if (object === true) {
           // strip prefix out of node
@@ -607,19 +519,15 @@ FOAF Properties: topic, publications, PrimaryTopic
           triple += `<${this.prefixes[b].uri}${suffix}> `
         }
       }
-
       catchTriples = triple
-
       this.triples = catchTriples
     },
-
     answerHandler () {
       // check whether answer is correct for current level
       // change to n-triples output format so it matches the answer format
       this.ntriplesConvert()
       const result = this.triples
-      console.log('answer?' + result)
-      if (result.includes(this.levels[this.level].answer)) {
+      if (result.includes(this.levels[this.level - 1].answer)) {
         // correct
         this.success()
       } else {
@@ -627,21 +535,20 @@ FOAF Properties: topic, publications, PrimaryTopic
         this.failure()
       }
     },
-
     success () {
       this.levelCompletion = { levelNo: this.level, result: 'right' }
+      // this.completedLevels.concat(this.level)
+      this.completedLevels.push(this.level + 1)
       this.level++
       // gen next graph
       this.graphGen(this.level)
       console.log('success')
     },
-
     failure () {
       // regen graph
       this.levelCompletion = { levelNo: this.level, result: 'wrong' }
       console.log('failure')
     },
-
     graphGen (level) {
       level = parseInt(level, 10)
       this.level = level
@@ -663,10 +570,8 @@ FOAF Properties: topic, publications, PrimaryTopic
           { fromNode: this.nodes[0], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:age' }
         )
       }
-
       this.idCount = this.nodes.length
     },
-
     exportGraphHandler () {
       let nodeJSONdata = ''
       // parse the nodes into json
@@ -679,11 +584,9 @@ FOAF Properties: topic, publications, PrimaryTopic
       for (const edge in this.edges) {
         nodeJSONdata += JSON.stringify(this.edges[edge])
       }
-
       // bind new file URI
       this.graphFile = 'data:text/json;charset=utf-8,' + encodeURIComponent(nodeJSONdata)
     },
-
     fileLoadHandler (file) {
       const inputFile = file[0]
       console.log(inputFile)
@@ -694,13 +597,10 @@ FOAF Properties: topic, publications, PrimaryTopic
       // parse file to seperate nodes and edges
       // load into graph
     },
-
     emitLocTooltipHandler (loc, nodeId) {
       // this.nodes[nodeId].textLocInfo = loc
     }
-
   }
-
 }
 </script>
 
@@ -746,7 +646,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 #navWrapper {
   height: 5vh;
   padding: 2%;
@@ -756,13 +655,11 @@ body {
   margin-bottom: 1%;
   /* border: 3px solid #b1d8e7; */
 }
-
 #nav {
   margin: 0;
   padding: 0;
   /* box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3); */
 }
-
 .textHold {
   text-align: left;
   padding: 10%;
@@ -772,7 +669,6 @@ body {
   padding-right: 1%;
   margin-top: 10%;
 }
-
 #navInner {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
@@ -780,12 +676,10 @@ body {
   margin-left: 1%;
   color: white;
 }
-
 #tagline {
   color: rgb(33, 46, 49);
   font-size: 1.5vh;
 }
-
 #svgContain {
   background-image: url(../assets/grid1.gif);
   /* background-size:contain; */
@@ -794,14 +688,12 @@ body {
   margin-top: 2%;
   /* border: 1px solid black; */
 }
-
 #logo {
   padding-top: 0;
   width: 30vh;
   margin-right: 1%;
   float: right;
 }
-
 /* #levelWrapper {
   font-size: 20px;
   text-align: left;
@@ -810,11 +702,9 @@ body {
   margin-top: 0;
   margin-bottom: 0;
 } */
-
 p {
   overflow-wrap:break-word;
 }
-
 #masterWrap {
   margin: 0;
   padding: 0;
@@ -829,5 +719,4 @@ p {
     padding-right: 1%;
     padding-top: 0;
 }
-
 </style>

@@ -43,7 +43,7 @@
     :y='textY'>
 
       <input
-      class='inputBox'
+      class='inputIn'
       :value='label'
       @input='labelEmit'>
     </foreignObject>
@@ -194,19 +194,11 @@ export default {
         modifiers: [
           interact.modifiers.restrictSize(
             {
-              min: { width: 50, height: this.minHeight() }
+              min: { width: 50, height: 50 }
             }
           )
         ]
       })
-    },
-
-    minHeight () {
-      if (this.nodeData.type === 'subject') {
-        return 70
-      } else {
-        return 50
-      }
     },
 
     resizeMove (event) {
@@ -289,5 +281,10 @@ export default {
 
 .ellipse {
   fill:lightcyan;
+}
+.inputIn {
+  width: 7000px;
+  font-size: 80%;
+  font-family: 'Hind Siliguri'
 }
 </style>

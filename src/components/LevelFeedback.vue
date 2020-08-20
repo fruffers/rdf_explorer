@@ -15,11 +15,11 @@ export default {
       color: '',
       text: '',
       feedback: [
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' },
-        { right: 'That\'s correct', wrong: 'That is not correct.' }
+        { right: 'Well done!', wrong: 'Oops! Try again.' },
+        { right: 'Well done!', wrong: 'Oops! Try again.' },
+        { right: 'Well done!', wrong: 'Oops! Try again.' },
+        { right: 'Well done!', wrong: 'Oops! Try again.' },
+        { right: 'Well done!', wrong: 'Oops! Try again.' }
       ]
     }
   },
@@ -41,15 +41,13 @@ export default {
     #success {
         background-color: palegreen;
         padding: 5%;
-        border-radius: 1px;
+        border-radius: 2px;
         margin-right: 5%;
-        border: 1px solid black;
     }
     #failure {
         background-color: palevioletred;
         padding: 5%;
-        border-radius: 1px;
+        border-radius: 2px;
         margin-right: 5%;
-        border: 2px solid black;
     }
 </style>

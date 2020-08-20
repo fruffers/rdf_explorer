@@ -1,10 +1,10 @@
 <template>
     <div id='wrapper'>
-        <button ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
-        <button ref="addObj" @click='addNodeObjectEmit'>Add literal</button>
+        <button id='instruct' ref="instruct" @click='showInstructionsEmit'>Instructions</button>
+        <button id='subj' ref="addSubj" @click='addNodeSubjectEmit'>Add subject</button>
+        <button id='lit' ref="addObj" @click='addNodeObjectEmit'>Add literal</button>
         <button ref="delete" @click='deleteNodeEmit'>Bin nodes</button>
         <button ref="clear" @click='clearCanvasEmit'>Clear</button>
-        <button ref="instruct" @click='showInstructionsEmit'>Instructions</button>
         <button
           class='collapse'
           ref='saveGraph'
@@ -135,5 +135,20 @@ export default {
 
   #fileInputBox {
     display: none;
+  }
+  #instruct {
+    background-color: rgb(47, 169, 175);
+  }
+  #subj {
+    border-radius: 40px;
+    background-color: cyan;
+  }
+  #lit {
+    background-color: whitesmoke;
+    border-radius: 2px;
+  }
+  button {
+    background-color: #c1f6ff;
+    border-radius: 5px;
   }
 </style>
