@@ -7,7 +7,7 @@
           </a>
           <div id='navInner'>
             RDF Explorer
-            <span id='tagline'>Learn about the RDF with interactive knowledge graphs</span>
+            <span id='tagline'>Learn about the RDF using interactive knowledge graphs</span>
           </div>
         </div>
     </div>
@@ -215,7 +215,7 @@ export default {
      
      7. Resize nodes by hovering over them and dragging out once an arrow handle appears.
         
-     8. Convert your graph to other formats with button clicks.
+     8. Convert your graph to other formats with button clicks. Click a few times if it doesn't convert straight away.
      
      9. On the left hand side scroll down to add new prefixes.`,
     level: 1,
@@ -663,7 +663,7 @@ body {
   height: 5vh;
   padding: 2%;
   margin: 0;
-  background-color: #21A0C7;
+  background-color: #447f91;
   color: white;
   margin-bottom: 1%;
   /* border: 3px solid #b1d8e7; */
