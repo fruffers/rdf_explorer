@@ -50,7 +50,7 @@ export default {
       // post to API
       jquery.ajax({
         type: 'POST',
-        url: `http://rdf-translator.appspot.com/convert/nt/${convertType}/content`,
+        url: `https://rdf-translator.appspot.com/convert/nt/${convertType}/content`,
         data: input,
         dataType: 'text',
         success: function (file) {
