@@ -54,7 +54,7 @@ export default {
         display: inline-block;
     }
     #goal {
-        background-color: rgb(185, 221, 228);
+        background-color: rgb(136, 181, 190);
         color: black;
         padding: 5%;
         font-size: 120%;

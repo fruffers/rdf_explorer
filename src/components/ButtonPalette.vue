@@ -136,19 +136,19 @@ export default {
     display: none;
   }
   #instruct {
-    background-color: rgb(47, 169, 175);
+    background-color: rgb(124, 187, 190);
   }
   #subj {
     border-radius: 40px;
     padding-bottom: 90%;
-    background-color: cyan;
+    background-color: rgb(125, 255, 255);
   }
   #lit {
     background-color: whitesmoke;
     border-radius: 2px;
   }
   button {
-    background-color: #c1f6ff;
-    border-radius: 5px;
+    background-color: #eecfcf;
+    border-radius: 2px;
   }
 </style>
