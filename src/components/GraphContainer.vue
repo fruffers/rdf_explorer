@@ -218,7 +218,7 @@ export default {
         light: progress1,
         text:
         '',
-        goal: `Bethany Gunn "Beth" age 32 born in 1998-08-07 has an interest in the topic marine biology. Add this to the graph
+        goal: `Bethany Gunn "Beth" age 32 born in 1988-08-07 has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
         `,
         hint: `
@@ -226,11 +226,12 @@ export default {
         </br>
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
-        answer: `<https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "1998-08-07" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:age> "32" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology>`
+        answer: `<http://bethexample.com/Beth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/name> "Bethany" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/birthday> "1988-08-07" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/nickname> "Beth" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/age> "37" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/interest> <http://dbpedia.org/page/Marine_biology> . `
       },
       {
         no: 2,
@@ -554,7 +555,7 @@ FOAF Properties: topic, publications, PrimaryTopic
           { id: 0, x: 400, y: 300, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 1, x: 500, y: 100, w: 177, h: 55, label: 'bethspace:Beth', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 2, x: 60, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 3, x: 90, y: 320, w: 150, h: 50, label: '"1998-08-07"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 90, y: 320, w: 150, h: 50, label: '"1988-08-07"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 4, x: 200, y: 20, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
           { id: 5, x: 50, y: 70, w: 60, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
         )
