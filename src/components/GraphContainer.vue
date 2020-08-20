@@ -179,7 +179,8 @@ export default {
       { name: 'dct:', uri: 'http://purl.org/dc/terms/' },
       { name: 'wo:', uri: 'http://purl.org/ontology/wo/about/' },
       { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
-      { name: 'schema:', uri: 'https://schema.org/' }
+      { name: 'schema:', uri: 'https://schema.org/' },
+      { name: 'bethspace:', uri: 'http://bethexample.com/' }
     ],
     conversionTypes: { xml: 'xml', jsonld: 'jsonld', n3: 'n3' },
     message: 'no action',
@@ -217,7 +218,7 @@ export default {
         light: progress1,
         text:
         '',
-        goal: `Bethany Gunn has an interest in the topic marine biology. Add this to the graph
+        goal: `Bethany Gunn "Beth" age 32 born in 1998-08-07 has an interest in the topic marine biology. Add this to the graph
         using the foaf ontology and dbpedia.
         `,
         hint: `
@@ -226,9 +227,9 @@ export default {
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
         answer: `<https://schema.org/foaf:Person> <https://schema.org/foaf:firstName> "Bethany" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "07/08/2020" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:birthday> "1998-08-07" .
 <https://schema.org/foaf:Person> <https://schema.org/foaf:nickname> "Beth" .
-<https://schema.org/foaf:Person> <https://schema.org/foaf:age> "37" .
+<https://schema.org/foaf:Person> <https://schema.org/foaf:age> "32" .
 <https://schema.org/foaf:Person> <https://schema.org/foaf:interest> <https://schema.org/dbpedia:Marine_biology>`
       },
       {
@@ -456,6 +457,7 @@ FOAF Properties: topic, publications, PrimaryTopic
       this.prefixes.push(newPrefix)
     },
     determinePrefixes () {
+
     },
     ntriplesConvert () {
       // convert graph to ntriples format
@@ -467,59 +469,51 @@ FOAF Properties: topic, publications, PrimaryTopic
       let a = 0
       let b = 0
       // uri trackers
-      let subject = false
-      let predicate = false
-      let object = false
+      let subject = ''
+      let predicate = ''
+      let object = ''
+      let prefixName = ''
+      let suffix = ''
+      // const result = `<${this.prefixes[b].uri}${suffix}> `
+
       for (a in this.edges) {
-        // check if last triple lacked uris
-        b = 0
-        subject = false
-        predicate = false
-        object = false
-        // check if there's a prefix in the node
+        // reset triple components
+        subject = ''
+        predicate = ''
+        object = ''
         for (b in this.prefixes) {
-          if (this.edges[a].fromNode.label.includes(this.prefixes[b].name)) {
-            subject = true
+          prefixName = this.prefixes[b].name
+          if (this.edges[a].fromNode.label.includes(prefixName)) {
+            suffix = this.edges[a].fromNode.label.replace(prefixName, '')
+            // push uri version of node
+            subject = `<${this.prefixes[b].uri}${suffix}> `
           }
-          if (this.edges[a].edgeLabel.includes(this.prefixes[b].name)) {
-            predicate = true
+          if (this.edges[a].edgeLabel.includes(prefixName)) {
+            suffix = this.edges[a].edgeLabel.replace(prefixName, '')
+            // push uri version of node
+            predicate = `<${this.prefixes[b].uri}${suffix}> `
           }
-          if (this.edges[a].toNode.label.includes(this.prefixes[b].name)) {
-            object = true
+          if (this.edges[a].toNode.label.includes(prefixName)) {
+            // strip prefix out of node
+            suffix = this.edges[a].toNode.label.replace(prefixName, '')
+            // push uri version of node
+            object = `<${this.prefixes[b].uri}${suffix}> . \n `
           }
         }
-        if (subject === false) {
-          triple += `<${this.edges[a].fromNode.label}> `
-        } else if (subject === true) {
-          // strip prefix out of node
-          const suffix = this.edges[a].fromNode.label.replace(this.prefixes[b].name, '')
-          // push uri version of node
-          triple += `<${this.prefixes[b].uri}${suffix}> `
+        if (subject === '') {
+          // full uri given by user
+          subject = `<${this.edges[a].fromNode.label}> `
         }
-        if (predicate === false) {
-          triple += `<${this.edges[a].edgeLabel}> `
-        } else if (predicate === true) {
-          // strip prefix out of node
-          const suffix = this.edges[a].edgeLabel.replace(this.prefixes[b].name, '')
-          // push uri version of node
-          triple += `<${this.prefixes[b].uri}${suffix}> `
+        if (predicate === '') {
+          predicate = `<${this.edges[a].edgeLabel}> `
         }
-        if (object === false) {
-          if (this.edges[a].toNode.label.includes('"')) {
-            // literal
-            triple += `${this.edges[a].toNode.label} .\n` // needs linebreak
-          } else {
-            // fully defined uri
-            triple += `<${this.edges[a].toNode.label}> .\n` // needs linebreak
-          }
-        } else if (object === true) {
-          // strip prefix out of node
-          const suffix = this.edges[a].toNode.label.replace(this.prefixes[b].name, '')
-          // push uri version of node
-          triple += `<${this.prefixes[b].uri}${suffix}> `
+        if (object === '') {
+          object = `${this.edges[a].toNode.label} .\n `
         }
+
+        triple = subject + predicate + object
+        catchTriples += triple
       }
-      catchTriples = triple
       this.triples = catchTriples
     },
     answerHandler () {
@@ -557,17 +551,19 @@ FOAF Properties: topic, publications, PrimaryTopic
       // gen graph depending on level
       if (level === 1) {
         this.nodes.push(
-          { id: 0, x: 370, y: 200, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 1, x: 10, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 2, x: 20, y: 320, w: 150, h: 50, label: '"07/08/2020"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 3, x: 200, y: 20, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
-          { id: 4, x: 50, y: 70, w: 60, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+          { id: 0, x: 400, y: 300, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 1, x: 500, y: 100, w: 177, h: 55, label: 'bethspace:Beth', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 2, x: 60, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 90, y: 320, w: 150, h: 50, label: '"1998-08-07"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 200, y: 20, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 5, x: 50, y: 70, w: 60, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} }
         )
         this.edges.push(
-          { fromNode: this.nodes[0], toNode: this.nodes[1], delete: false, edgeLabel: 'foaf:firstName' },
-          { fromNode: this.nodes[0], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:birthday' },
-          { fromNode: this.nodes[0], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:nickname' },
-          { fromNode: this.nodes[0], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:age' }
+          { fromNode: this.nodes[1], toNode: this.nodes[0], delete: false, edgeLabel: 'rdf:type' },
+          { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:name' },
+          { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:birthday' },
+          { fromNode: this.nodes[1], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:nickname' },
+          { fromNode: this.nodes[1], toNode: this.nodes[5], delete: false, edgeLabel: 'foaf:age' }
         )
       }
       this.idCount = this.nodes.length
@@ -686,7 +682,7 @@ body {
   background-color: white;
   border-radius: 1px;
   margin-top: 2%;
-  /* border: 1px solid black; */
+  border: 1px solid rgb(224, 224, 224);
 }
 #logo {
   padding-top: 0;

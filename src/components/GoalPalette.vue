@@ -4,7 +4,7 @@
         <div ref='hint' id='hinthidden'> <h1>Hint:</h1> <slot name="hintslot"></slot> </div>
         <div id='btnWrap'>
             <button id='leftSubmit' @click='showHint' class='submit'>Need a hint?</button>
-            <button @click="emitAnswer" class='submit'>SUBMIT ANSWER</button>
+            <button @click="emitAnswer" class='submit'>Submit answer</button>
         </div>
 
     </div>

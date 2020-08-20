@@ -117,9 +117,8 @@ export default {
       height: 1%;
       /* float: right; */
       color: #001c39;
-      text-transform: uppercase;
       padding-bottom: 50%;
-      padding-top: 30%;
+      padding-top: 20%;
       text-align: center;
   }
   .collapseContent {
@@ -141,6 +140,7 @@ export default {
   }
   #subj {
     border-radius: 40px;
+    padding-bottom: 90%;
     background-color: cyan;
   }
   #lit {
