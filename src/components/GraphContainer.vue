@@ -201,23 +201,23 @@ export default {
     },
     instructions:
     `
-     1. Draw an edge between nodes by double clicking on one node then another node which you want the arrow to point to.
+     1. Add nodes by clicking on 'add subject' and 'add literal'.
 
-     2. Select and deselect nodes by clicking on them. They will be given a blue outline.
+     2. Draw an edge between nodes by double clicking on one node then another node which you want the arrow to point to.
 
-     3. Multiple selected nodes and their edges can be deleted by pressing 'bin nodes'.
+     3. Select and deselect nodes by clicking on them. They will be given a blue outline.
 
-     4. Double click a node, then double click another node, to draw an edge between them.
+     4. Multiple selected nodes and their edges can be deleted by pressing 'bin nodes'.
 
      5. Drag nodes around to rearrange them.
      
      6. Delete edges by double clicking on them.
      
-     7. Scroll down to the bottom. You can add new prefixes and see existing ones.
+     7. Resize nodes by hovering over them and dragging out once an arrow handle appears.
         
      8. Convert your graph to other formats with button clicks.
      
-     9. Resize nodes by hovering over them and dragging out once an arrow handle appears.`,
+     9. On the left hand side scroll down to add new prefixes.`,
     level: 1,
     levelCompletion: { levelNo: 1, result: 'wrong' },
     levels: [
