@@ -89,4 +89,48 @@ p {
   border: 1px solid grey;
   border-radius: 3px;
 }
+
+.popupBacksplash {
+  background: rgba(0,0,0,0.4);
+  display: none;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+}
+
+.popupBackground {
+  background-color: #fff;
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 551px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 60%;
+  left: 30%;
+  top: 90px;
+  position: fixed;
+  white-space:pre-wrap;
+  text-align: left;
+  padding: 50px 5%;
+  z-index: 10000;
+}
+
+.popupCloseButton {
+  background-color: #fff;
+  border: 2px solid #999;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 300%;
+  line-height: 35px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  z-index: 10000;
+}
 </style>

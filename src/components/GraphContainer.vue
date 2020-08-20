@@ -12,6 +12,11 @@
         </div>
     </div>
 
+    <instructions-popup
+    @popup-emit='instructAlertHandler'
+    >
+    {{this.instructions}}</instructions-popup>
+
     <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#21A0C7" fill-opacity="1" d="M0,256L48,229.3C96,203,192,149,288,144C384,139,480,181,576,192C672,203,768,181,864,160C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg> -->
 
     <!-- <div class='textHold'>
@@ -153,6 +158,7 @@ import goalPal from './GoalPalette'
 import feedbackPal from './LevelFeedback'
 import levelButtons from './LevelButtons'
 import converterChoices from './ConverterChoices'
+import instructionsPopup from './InstructionsPopup'
 // import nodeToolTip from './NodeToolTip'
 export default {
   name: 'graph-container',
@@ -164,7 +170,8 @@ export default {
     goalPal,
     feedbackPal,
     levelButtons,
-    converterChoices
+    converterChoices,
+    instructionsPopup
     // nodeToolTip
   },
   data: () => ({
@@ -194,25 +201,23 @@ export default {
     },
     instructions:
     `
-     1. Select nodes by clicking on them (they will
-        be given a cyan outline).
-     2. Deselect nodes by clicking on them again.
-     3. Multiple selected nodes can be deleted by 
-        pressing 'bin nodes'.
-     4. Double click a node, then double click 
-        another node, to draw an edge between 
-        them.
+     1. Draw an edge between nodes by double clicking on one node then another node which you want the arrow to point to.
+
+     2. Select and deselect nodes by clicking on them. They will be given a blue outline.
+
+     3. Multiple selected nodes and their edges can be deleted by pressing 'bin nodes'.
+
+     4. Double click a node, then double click another node, to draw an edge between them.
+
      5. Drag nodes around to rearrange them.
      
      6. Delete edges by double clicking on them.
      
-     7. Scroll down to the bottom. You can add 
-        new prefixes and see existing ones.
+     7. Scroll down to the bottom. You can add new prefixes and see existing ones.
         
      8. Convert your graph to other formats with button clicks.
      
-     9. Resize nodes by hovering over them and 
-        dragging out once an arrow handle appears.`,
+     9. Resize nodes by hovering over them and dragging out once an arrow handle appears.`,
     level: 1,
     levelCompletion: { levelNo: 1, result: 'wrong' },
     levels: [
@@ -439,7 +444,15 @@ FOAF Properties: topic, publications, PrimaryTopic
       this.edges[index].edgeLabel = newVal
     },
     instructAlertHandler () {
-      confirm(this.instructions)
+      // confirm(this.instructions)
+      // make instructions popup visible
+      const showPopup = document.getElementsByClassName('popupBacksplash')[0].style.display
+      if (showPopup === 'none') {
+        document.getElementsByClassName('popupBacksplash')[0].style.display = 'block'
+      } else {
+        document.getElementsByClassName('popupBacksplash')[0].style.display = 'none'
+      }
+      // document.getElementsByClassName('popupBacksplash')[0].style.display = 'block'
     },
     removeEdgeHandler (deleteIndex) {
       // return edges without specified index
