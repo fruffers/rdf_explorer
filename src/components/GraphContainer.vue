@@ -191,7 +191,9 @@ export default {
       { name: 'schema:', uri: 'https://schema.org/' },
       { name: 'bethspace:', uri: 'http://bethexample.com/' },
       { name: 'amybook:', uri: 'https://amyhomepagenotreally.uk/' },
-      { name: 'cg:', uri: 'http://creaturegarden.fizz/' }
+      { name: 'cg:', uri: 'http://creaturegarden.fizz/' },
+      { name: 'jackpage:', uri: 'https://jackhomepage.me/' },
+      { name: 'sciencenet:', uri: 'https://sciencepublications.net/published/' }
     ],
     conversionTypes: { xml: 'xml', jsonld: 'jsonld', n3: 'n3' },
     message: 'no action',
@@ -272,13 +274,30 @@ Prefixes: dbpedia:, cg:, amybook:, bethspace:
         text:
         `undefined
         `,
-        goal: `Beth, Amy and Jack have been working on publishing a piece of their own research, based on the growth rate of succulents. 
+        goal: `Beth, Amy and Jack have been working on publishing a piece of their own research known by '802', based on the growth rate of succulents. 
       </br>
       </br>
 FOAF Classes: Person, Document
-FOAF Properties: topic, publications, PrimaryTopic
+FOAF Properties: topic, publications, knows
+Prefixes: sciencenet:, jackpage:, bethspace:, amybook:, rdf:
         `,
-        answer: ''
+        answer: `<http://bethexample.com/Beth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/name> "Bethany" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/birthday> "1988-08-07" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/nickname> "Beth" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/age> "37" .
+ <http://creaturegarden.fizz/Creaturegarden> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/member> <http://creaturegarden.fizz/Creaturegarden> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/interest> <http://dbpedia.org/page/Photography> . 
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/interest> <http://dbpedia.org/page/Editing> . 
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/member> <http://creaturegarden.fizz/Creaturegarden> . 
+ <http://xmlns.com/foaf/0.1/Document> <http://xmlns.com/foaf/0.1/topic> "Growth rate of succulents" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/knows> jackspace:Jack .
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/knows> jackspace:Jack .
+ <https://sciencepublications.net/published/802> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Document> . 
+ <jackspace:Jack> <http://xmlns.com/foaf/0.1/publications> <https://sciencepublications.net/published/802> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/publications> <https://sciencepublications.net/published/802> . 
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/publications> <https://sciencepublications.net/published/802> . `
       },
       {
         no: 4,
@@ -614,6 +633,36 @@ FOAF Properties: topic, publications, PrimaryTopic
           { fromNode: this.nodes[1], toNode: this.nodes[5], delete: false, edgeLabel: 'foaf:age' },
           { fromNode: this.nodes[7], toNode: this.nodes[6], delete: false, edgeLabel: 'rdf:type' },
           { fromNode: this.nodes[1], toNode: this.nodes[7], delete: false, edgeLabel: 'foaf:member' }
+        )
+      }
+      if (level === 3) {
+        this.nodes.push(
+          { id: 0, x: 400, y: 300, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 1, x: 500, y: 100, w: 177, h: 55, label: 'bethspace:Beth', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 2, x: 60, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 90, y: 320, w: 150, h: 50, label: '"1988-08-07"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 200, y: 20, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 5, x: 50, y: 70, w: 60, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 6, x: 800, y: 500, w: 200, h: 55, label: 'foaf:Organization', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 7, x: 800, y: 200, w: 200, h: 55, label: 'cg:Creaturegarden', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 8, x: 1000, y: 250, w: 200, h: 55, label: 'dbpedia:Editing', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 9, x: 500, y: 250, w: 300, h: 55, label: 'dbpedia:Photography', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 10, x: 1000, y: 50, w: 200, h: 55, label: 'amybook:Amy', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 11, x: 300, y: 700, w: 400, h: 50, label: '"Growth rate of succulents"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 12, x: 900, y: 700, w: 200, h: 55, label: 'foaf:Document', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+        )
+        this.edges.push(
+          { fromNode: this.nodes[1], toNode: this.nodes[0], delete: false, edgeLabel: 'rdf:type' },
+          { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:name' },
+          { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:birthday' },
+          { fromNode: this.nodes[1], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:nickname' },
+          { fromNode: this.nodes[1], toNode: this.nodes[5], delete: false, edgeLabel: 'foaf:age' },
+          { fromNode: this.nodes[7], toNode: this.nodes[6], delete: false, edgeLabel: 'rdf:type' },
+          { fromNode: this.nodes[1], toNode: this.nodes[7], delete: false, edgeLabel: 'foaf:member' },
+          { fromNode: this.nodes[1], toNode: this.nodes[9], delete: false, edgeLabel: 'foaf:interest' },
+          { fromNode: this.nodes[10], toNode: this.nodes[8], delete: false, edgeLabel: 'foaf:interest' },
+          { fromNode: this.nodes[10], toNode: this.nodes[7], delete: false, edgeLabel: 'foaf:member' },
+          { fromNode: this.nodes[12], toNode: this.nodes[11], delete: false, edgeLabel: 'foaf:topic' }
         )
       }
 
