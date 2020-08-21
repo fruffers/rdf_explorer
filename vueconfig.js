@@ -1,3 +1,5 @@
 module.exports = {
-  publicPath: '/rdf_explorer/'
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/rdf_explorer/'
+    : '/'
 }
