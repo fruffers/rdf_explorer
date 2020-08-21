@@ -8,6 +8,7 @@
       markerWidth='6'
       markerHeight='6'
       orient='auto-start-reverse'
+      fill='grey'
     >
       <path d="M 0 0 L 10 5 L 0 10 z" />
     </marker>
@@ -277,6 +278,6 @@ export default {
 
 <style>
 .c-graph-edge {
-  stroke: black;
+  stroke: grey;
 }
 </style>

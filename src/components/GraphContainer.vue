@@ -7,7 +7,7 @@
           </a>
           <div id='navInner'>
             RDF Explorer
-            <span id='tagline'>Learn about the RDF using interactive knowledge graphs</span>
+            <span id='tagline'>Interactive knowledge graphs</span>
           </div>
         </div>
     </div>
@@ -406,8 +406,8 @@ FOAF Properties: topic, publications, PrimaryTopic
         this.nodes[index].active = 't'
       } else if (event.target.id === 'active') {
         event.target.id = 'unactive'
-        event.target.style.stroke = 'black'
-        event.target.style.strokeWidth = '1'
+        event.target.style.stroke = 'grey'
+        event.target.style.strokeWidth = '2'
         this.nodes[index].active = 'f'
       }
     },
@@ -663,15 +663,15 @@ body {
   height: 5vh;
   padding: 2%;
   margin: 0;
+  margin-bottom: -10px;
   background-color: #447f91;
   color: white;
-  margin-bottom: 1%;
   /* border: 3px solid #b1d8e7; */
 }
 #nav {
   margin: 0;
   padding: 0;
-  /* box-shadow: 0px 2px 5px 1px rgba(172, 172, 172, 0.3); */
+  /* box-shadow: 0px 1px 1px 1px rgb(119, 119, 161); */
 }
 .textHold {
   text-align: left;
@@ -685,13 +685,15 @@ body {
 #navInner {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  font-size: 4vh;
+  font-size: 6vh;
   margin-left: 1%;
   color: white;
+  text-shadow: 4px 1px rgb(90, 90, 90);
 }
 #tagline {
   color: rgb(33, 46, 49);
   font-size: 1.5vh;
+  text-shadow: none;
 }
 #svgContain {
   background-image: url(../assets/grid1.gif);
@@ -703,8 +705,7 @@ body {
 }
 #logo {
   padding-top: 0;
-  width: 30vh;
-  margin-right: 1%;
+  width: 20vh;
   float: right;
 }
 /* #levelWrapper {
