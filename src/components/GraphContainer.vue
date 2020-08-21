@@ -190,7 +190,8 @@ export default {
       { name: 'dbpedia:', uri: 'http://dbpedia.org/page/' },
       { name: 'schema:', uri: 'https://schema.org/' },
       { name: 'bethspace:', uri: 'http://bethexample.com/' },
-      { name: 'amybook:', uri: 'https://amyhomepagenotreally.uk/' }
+      { name: 'amybook:', uri: 'https://amyhomepagenotreally.uk/' },
+      { name: 'cg:', uri: 'http://creaturegarden.fizz/' }
     ],
     conversionTypes: { xml: 'xml', jsonld: 'jsonld', n3: 'n3' },
     message: 'no action',
@@ -231,7 +232,6 @@ export default {
         `,
         hint: `
         FOAF Classes: Person
-        </br>
         FOAF Properties: firstName, lastName, Nickname, birthday, age
         `,
         answer: `<http://bethexample.com/Beth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> . 
@@ -251,9 +251,20 @@ export default {
       </br>
       </br>
 FOAF Classes: Person, Organization
-FOAF Properties: name, knows, focus/interest
+FOAF Properties: name, knows, member, interest
+Prefixes: dbpedia:, cg:, amybook:, bethspace:
         `,
-        answer: ''
+        answer: `<http://bethexample.com/Beth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/name> "Bethany" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/birthday> "1988-08-07" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/nickname> "Beth" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/age> "37" .
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/knows> <https://amyhomepagenotreally.uk/Amy> . 
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/member> <http://creaturegarden.fizz/Creaturegarden> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/member> <http://creaturegarden.fizz/Creaturegarden> . 
+ <http://creaturegarden.fizz/Creaturegarden> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Organization> . 
+ <http://bethexample.com/Beth> <http://xmlns.com/foaf/0.1/interest> <http://dbpedia.org/page/Photographer> . 
+ <https://amyhomepagenotreally.uk/Amy> <http://xmlns.com/foaf/0.1/interest> <http://dbpedia.org/page/Editing> . `
       },
       {
         no: 3,
@@ -583,6 +594,29 @@ FOAF Properties: topic, publications, PrimaryTopic
           { fromNode: this.nodes[1], toNode: this.nodes[5], delete: false, edgeLabel: 'foaf:age' }
         )
       }
+      if (level === 2) {
+        this.nodes.push(
+          { id: 0, x: 400, y: 300, w: 177, h: 55, label: 'foaf:Person', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 1, x: 500, y: 100, w: 177, h: 55, label: 'bethspace:Beth', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 2, x: 60, y: 190, w: 130, h: 50, label: '"Bethany"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 3, x: 90, y: 320, w: 150, h: 50, label: '"1988-08-07"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 4, x: 200, y: 20, w: 110, h: 50, label: '"Beth"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 5, x: 50, y: 70, w: 60, h: 50, label: '"37"', active: 'f', toNodes: [], type: 'object', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 6, x: 800, y: 500, w: 200, h: 55, label: 'foaf:Organization', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 7, x: 800, y: 200, w: 200, h: 55, label: 'cg:Creaturegarden', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} },
+          { id: 7, x: 1000, y: 250, w: 200, h: 55, label: 'dbpedia:Editing', active: 'f', toNodes: [], type: 'subject', displacement: { x: 0, y: 0 }, textLocInfo: {} }
+        )
+        this.edges.push(
+          { fromNode: this.nodes[1], toNode: this.nodes[0], delete: false, edgeLabel: 'rdf:type' },
+          { fromNode: this.nodes[1], toNode: this.nodes[2], delete: false, edgeLabel: 'foaf:name' },
+          { fromNode: this.nodes[1], toNode: this.nodes[3], delete: false, edgeLabel: 'foaf:birthday' },
+          { fromNode: this.nodes[1], toNode: this.nodes[4], delete: false, edgeLabel: 'foaf:nickname' },
+          { fromNode: this.nodes[1], toNode: this.nodes[5], delete: false, edgeLabel: 'foaf:age' },
+          { fromNode: this.nodes[7], toNode: this.nodes[6], delete: false, edgeLabel: 'rdf:type' },
+          { fromNode: this.nodes[1], toNode: this.nodes[7], delete: false, edgeLabel: 'foaf:member' }
+        )
+      }
+
       this.idCount = this.nodes.length
     },
     exportGraphHandler () {
